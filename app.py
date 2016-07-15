@@ -2,6 +2,7 @@
 import random
 import string
 import os
+import config
 
 from flask import *
 app = Flask(__name__)
@@ -68,7 +69,7 @@ def init_room(room):
 
 
 def is_room_full(room):
-    return len(session['room:' + room + ':player']) >= 4
+    return len(session['room:' + room + ':player']) >= config.MAX_PLAYER_NUMBER
 
 
 def player_join_room(room, player):
@@ -81,8 +82,10 @@ def player_join_room(room, player):
 def ready():
     room = request.args.get('room')
     player = session['player_token:' + request.args.get('player')]
+    if session['room:' + room + ':player:' + player + ':status']:
+        return "Already ready."
     session['room:' + room + ':player:' + player + ':status'] = True
-    if len(session['room:' + room + ':player']) > 1 and is_all_player_ready(room):
+    if is_game_ready_to_start(room):
         game_start(room)
     return jsonify([{i: session['room:' + room + ':player:' + i + ':status']}
                     for i in session['room:' + room + ':player']])
@@ -92,6 +95,10 @@ def ready():
 def display_all():
     print(session)
     return "OK"
+
+
+def is_game_ready_to_start(room):
+    return len(session['room:' + room + ':player']) >= config.MIN_PLAYER_NUMBER and is_all_player_ready(room)
 
 
 def is_all_player_ready(room):
@@ -122,17 +129,27 @@ def show_room(room):
 def draw():
     room = request.args.get('room')
     player = session['player_token:' + request.args.get('player')]
-    player_add_one_card(room, player, draw_one_card_from_deck(room))
-    return 'draw'
+    if not is_game_ready_to_start(room):
+        return "Game not start yet."
+    card = draw_one_card_from_deck(room)
+    player_add_one_card(room, player, card)
+    session['null'] = ""
+    return redirect(url_for('show', room=room, player=request.args.get('player')))
 
 
 def draw_one_card_from_deck(room):
+    if is_deck_empty(room):
+        game_end(room)
     index = random.randint(0, len(session['room:' + room + ':deck']) - 1)
     return session['room:' + room + ':deck'].pop(index)
 
 
 def player_add_one_card(room, player, card):
     session['room:' + room + ':player:' + player + ':hand'].append(card)
+
+
+def is_deck_empty(room):
+    return len(session['room:' + room + ':deck']) == 0
 
 
 @app.route('/fold')
@@ -142,7 +159,7 @@ def fold():
     if not is_player_fold_or_use_card_valid(room, player):
         return 'Invalid card!'
     card_fold_or_use(room, player, request.args.get('card'))
-    return redirect(url_for(show, room=room, player=request.args.get('player')))
+    return redirect(url_for('show', room=room, player=request.args.get('player')))
 
 
 @app.route('/use')
@@ -153,7 +170,7 @@ def use():
         return 'Invalid card!'
     # todo: card using engine to handle!
     card_fold_or_use(room, player, request.args.get('card'))
-    return redirect(url_for(show, room=room, player=request.args.get('player')))
+    return redirect(url_for('show', room=room, player=request.args.get('player')))
 
 
 def is_player_fold_or_use_card_valid(room, player):
@@ -163,7 +180,7 @@ def is_player_fold_or_use_card_valid(room, player):
 
 
 def card_fold_or_use(room, player, card):
-    request.args.get('card') in session['room:' + room + ':player:' + player + ':hand'].remove(card)
+    session['room:' + room + ':player:' + player + ':hand'].remove(card)
     session['room:' + room + ':fold_deck'].append(card)
 
 
