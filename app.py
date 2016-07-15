@@ -22,10 +22,6 @@ card_type = {
 deck_template = ['侍卫', '侍卫', '侍卫', '侍卫', '侍卫', '牧师', '牧师', '男爵',
                  '男爵', '侍女', '侍女', '王子', '王子', '国王', '女伯爵', '公主']
 
-fold_deck = []
-
-players = {}
-
 public_endpoint = ['home', 'join']
 
 progress_endpoint = ['ready', 'draw', 'fold', 'use', 'show']
@@ -37,7 +33,7 @@ def before_request():
         return "Not authorized!"
     if request.endpoint in progress_endpoint and request.args.get('room') == '':
         return "Room not exists!"
-    if request.endpoint in progress_endpoint and not session['player_token:' + request.args.get('player')]:
+    if request.endpoint in progress_endpoint and not session.get('player_token:' + request.args.get('player')):
         return "Invalid token!"
     if not session.get('room'):
         session['room'] = []
