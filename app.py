@@ -69,7 +69,7 @@ def init_room(room):
 
 
 def is_room_full(room):
-    return len(session['room:' + room + ':player']) >= config.MAX_PLAYER_NUMBER
+    return len(session['room:' + room + ':player']) >= 4
 
 
 def player_join_room(room, player):
@@ -98,7 +98,7 @@ def display_all():
 
 
 def is_game_ready_to_start(room):
-    return len(session['room:' + room + ':player']) >= config.MIN_PLAYER_NUMBER and is_all_player_ready(room)
+    return len(session['room:' + room + ':player']) >= 2 and is_all_player_ready(room)
 
 
 def is_all_player_ready(room):
@@ -122,7 +122,10 @@ def game_end(room):
 
 @app.route('/room/<room>')
 def show_room(room):
-    return session['room:' + room + ':player']
+    print(session['room'])
+    if room not in session['room']:
+        return "Room not exists."
+    return jsonify(session['room:' + room + ':player'])
 
 
 @app.route('/draw')
