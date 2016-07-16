@@ -137,6 +137,7 @@ def game_start(room):
         s['room:' + room + ':player:' + i + ':out'] = False  # initialize out status at beginning of game
         s['room:' + room + ':player:' + i + ':fold_deck'] = []
         s['room:' + room + ':player:' + i + ':turn'] = priority
+        s['room:' + room + ':player:' + i + ':maid'] = False
         priority -= 1
     s['room:' + room + ':deck'] = deck_template
     s['room:' + room + ':fold_deck'] = []
