@@ -36,7 +36,7 @@ deck_template = ['Guard', 'Guard', 'Guard', 'Guard', 'Guard', 'Priest', 'Priest'
 
 public_endpoint = ['home', 'join']
 
-progress_endpoint = ['ready', 'draw', 'fold', 'use', 'show']
+progress_endpoint = ['ready', 'readystatus', 'draw', 'fold', 'use', 'show', 'result']
 
 s = {}
 
@@ -349,4 +349,4 @@ def home():
     return "Welcome to love letter!"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=8000)
