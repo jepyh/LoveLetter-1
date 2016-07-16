@@ -140,18 +140,30 @@ io.on('connection', function (socket) {
     client.get(player_token(token), function (err, reply) {
       socket.player = reply;
       console.log('Player ' + socket.player + ' join in room ' + room);
-      socket.to(socket.room).emit("notification", socket.player + ' has joined in room just now.');
+      socket.to(socket.room).emit("notification", "join", socket.players);
     });
   });
 
-  // play leave room
-  socket.on('disconnect', function(){
+  // player leave room
+  socket.on('disconnect', function() {
     console.log('Player ' + socket.player + ' disconnected');
-    socket.to(socket.room).emit("notification", socket.player + ' has left just now.');
+    socket.to(socket.room).emit("notification", "disconnect", socket.player);
+  });
+
+  // player ready for game
+  socket.on('ready', function() {
+    console.log('Player ' + socket.player + ' disconnected');
+    socket.to(socket.room).emit("notification", "ready", socket.player);
+    is_game_should_be_started(function (result) {
+      if (result) {
+        game_start()
+      }
+    })
   });
 
   // player draw card
   function player_draw_card(player, card, target) {
+    // valid player is the right one and the card is such player's
     socket.to(socket.room).emit("player_draw", player, card, target);
   }
 
@@ -160,7 +172,8 @@ io.on('connection', function (socket) {
     socket.to(socket.room).emit("player_use", player, card, target, extend);
   }
   socket.on("player_use", function (player, card, target, extend) {
-    // valid player is the right one
+    // valid player is the right one and the card is such player's
+    socket.to(socket.room).emit("player_draw", player, card, target);
   });
 
   // player fold card
@@ -185,10 +198,19 @@ io.on('connection', function (socket) {
   }
 
   // game start
+  function game_start() {
+    // init deck and player's hand
+  }
+
   socket.to(socket.room).emit("game_start");
 
   // game end
   socket.to(socket.room).emit("game_end");
+
+  function is_game_should_be_started(callback) {
+    // player.count > 2 and all players.is_ready = true
+    callback(false)
+  }
 
   // next step
   function next() {
