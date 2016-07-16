@@ -4,6 +4,9 @@
 <script src="socket.io.js"></script>
 <script>
     var socket = io();
-    socket.emit("join", "123");
+    socket.emit("join", "WNyWL8j2LUJ6", "123");
+    socket.on("notification", function (message) {
+        console.log(message)
+    });
 </script>
 </html>
