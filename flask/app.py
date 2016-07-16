@@ -344,7 +344,7 @@ def card_fold_or_use(room, player, card):
 def show():
     room = request.args.get('room')
     player = s['player_token:' + request.args.get('player')]
-    data = {"player": player, "cards": s['room:' + room + ':player:' + player + ':hand'], "fold":[{i: s['room:' + room + ':player:' + player + ':fold_deck']}
+    data = {"player": player, "cards": s['room:' + room + ':player:' + player + ':hand'], "fold":[{"player": i, "fold": s['room:' + room + ':player:' + player + ':fold_deck']}
                     for i in s['room:' + room + ':player']]}
     return jsonify(data)
 
@@ -353,7 +353,7 @@ def result():
     room = request.args.get('room')
     player = s['player_token:' + request.args.get('player')]
     chosenPlayer = s['player_token:' + request.args.get('chosenPlayer')]
-    data = {"player": player, "cards": s['room:' + room + ':player:' + player + ':hand'], "fold": [{i: s['room:' + room + ':player:' + player + ':fold_deck']}
+    data = {"player": player, "cards": s['room:' + room + ':player:' + player + ':hand'], "fold": [{"player": i, "fold": s['room:' + room + ':player:' + player + ':fold_deck']}
                     for i in s['room:' + room + ':player']], chosenPlayer: s['room:' + room + ':player:' + chosenPlayer + ':hand']}
     return jsonify(data)
 
