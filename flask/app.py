@@ -132,15 +132,17 @@ def is_all_player_ready(room):
 
 def game_start(room):
     priority = len(s['room:' + room + ':player'])
+    s['room:' + room + ':deck'] = deck_template
+    s['room:' + room + ':fold_deck'] = []
     for i in s['room:' + room + ':player']:
         s['room:' + room + ':player:' + i + ':hand'] = []
         s['room:' + room + ':player:' + i + ':out'] = False  # initialize out status at beginning of game
         s['room:' + room + ':player:' + i + ':fold_deck'] = []
         s['room:' + room + ':player:' + i + ':turn'] = priority
         s['room:' + room + ':player:' + i + ':maid'] = False
+        card = draw_one_card_from_deck(room)
+        player_add_one_card(room, i, card)
         priority -= 1
-    s['room:' + room + ':deck'] = deck_template
-    s['room:' + room + ':fold_deck'] = []
 
 
 def game_end(room):
