@@ -36,7 +36,7 @@ deck_template = ['Guard', 'Guard', 'Guard', 'Guard', 'Guard', 'Priest', 'Priest'
 
 public_endpoint = ['home', 'join']
 
-progress_endpoint = ['ready', 'readystatus', 'draw', 'fold', 'use', 'show', 'result']
+progress_endpoint = ['ready', 'draw', 'fold', 'use', 'show', 'result']
 
 s = {}
 
