@@ -6,7 +6,11 @@
     var socket = io();
     socket.emit("join", "WNyWL8j2LUJ6", "123");
     socket.on("notification", function (message) {
-        console.log(message)
+        console.log(message);
     });
+    socket.on("join", function (player) {
+        console.log(player + "join in just now.");
+    });
+    socket.on("")
 </script>
 </html>

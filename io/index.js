@@ -5,7 +5,7 @@ var express = require('express'),
     io = require('socket.io')(http),
     config = require('./config'),
     client = require('redis').createClient({
-      'host': '192.168.99.100'
+      'host': '172.17.0.1'
     });
 
 app.use(express.static(path.join(__dirname)));
@@ -148,6 +148,7 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function() {
     console.log('Player ' + socket.player + ' disconnected');
     socket.to(socket.room).emit("notification", "disconnect", socket.player);
+    // if room.state = busy, then game should be ended.
   });
 
   // player ready for game

@@ -36,7 +36,7 @@ deck_template = ['Guard', 'Guard', 'Guard', 'Guard', 'Guard', 'Priest', 'Priest'
 
 public_endpoint = ['home', 'join']
 
-progress_endpoint = ['ready', 'readystatus', 'draw', 'fold', 'use', 'show', 'result']
+progress_endpoint = ['ready', 'draw', 'fold', 'use', 'show', 'result']
 
 s = {}
 
@@ -65,7 +65,7 @@ def join(room, player):
     if room not in s['room']:
         init_room(room)
     if player in s['room:' + room + ':player']:
-        return {"errorMessage": "Duplicate player!", "code": "403"}
+        return "Duplicate player!"
     init_player(player_token, player)
     if not is_room_full(room):
         player_join_room(room, player)
@@ -120,7 +120,7 @@ def display_all():
 
 
 def is_game_ready_to_start(room):
-    return len(s['room:' + room + ':player']) >= 2 and is_all_player_ready(room)
+    return len(s['room:' + room + ':player']) == 2 and is_all_player_ready(room)
 
 
 def is_all_player_ready(room):
@@ -131,12 +131,18 @@ def is_all_player_ready(room):
 
 
 def game_start(room):
+    priority = len(s['room:' + room + ':player'])
+    s['room:' + room + ':deck'] = deck_template
+    s['room:' + room + ':fold_deck'] = []
     for i in s['room:' + room + ':player']:
         s['room:' + room + ':player:' + i + ':hand'] = []
         s['room:' + room + ':player:' + i + ':out'] = False  # initialize out status at beginning of game
-        s['room:' + room + ':player:' + player + ':fold_deck'] = []
-    s['room:' + room + ':deck'] = deck_template
-    s['room:' + room + ':fold_deck'] = []
+        s['room:' + room + ':player:' + i + ':fold_deck'] = []
+        s['room:' + room + ':player:' + i + ':turn'] = priority
+        s['room:' + room + ':player:' + i + ':maid'] = False
+        card = draw_one_card_from_deck(room)
+        player_add_one_card(room, i, card)
+        priority -= 1
 
 
 def game_end(room):
@@ -152,12 +158,21 @@ def show_room(room):
     return jsonify(s['room:' + room + ':player'])
 
 
+# Only work for two players
 @app.route('/draw', methods=['POST', 'GET'])
 def draw():
     room = request.args.get('room')
     player = s['player_token:' + request.args.get('player')]
     if not is_game_ready_to_start(room):
         return "Game not start yet."
+    if s['room:' + room + ':player:' + player + ':turn'] == 1:
+        s['room:' + room + ':player:' + player + ':turn'] = len(s['room:' + room + ':player'])
+        for i in s['room:' + room + ':player']:
+            if i == player:
+                continue
+            s['room:' + room + ':player:' + i + ':turn'] -= 1
+    else:
+        return "This is not your turn"
     card = draw_one_card_from_deck(room)
     player_add_one_card(room, player, card)
     s['null'] = ""
@@ -331,7 +346,7 @@ def card_fold_or_use(room, player, card):
 def show():
     room = request.args.get('room')
     player = s['player_token:' + request.args.get('player')]
-    data = {player : s['room:' + room + ':player:' + player + ':hand'], "fold":[{i: s['room:' + room + ':player:' + player + ':fold_deck']}
+    data = {"player": player, "cards": s['room:' + room + ':player:' + player + ':hand'], "fold":[{"player": i, "fold": s['room:' + room + ':player:' + player + ':fold_deck']}
                     for i in s['room:' + room + ':player']]}
     return jsonify(data)
 
@@ -340,7 +355,7 @@ def result():
     room = request.args.get('room')
     player = s['player_token:' + request.args.get('player')]
     chosenPlayer = s['player_token:' + request.args.get('chosenPlayer')]
-    data = {player : s['room:' + room + ':player:' + player + ':hand'], "fold": [{i: s['room:' + room + ':player:' + player + ':fold_deck']}
+    data = {"player": player, "cards": s['room:' + room + ':player:' + player + ':hand'], "fold": [{"player": i, "fold": s['room:' + room + ':player:' + player + ':fold_deck']}
                     for i in s['room:' + room + ':player']], chosenPlayer: s['room:' + room + ':player:' + chosenPlayer + ':hand']}
     return jsonify(data)
 
