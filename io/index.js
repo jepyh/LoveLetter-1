@@ -165,6 +165,7 @@ io.on('connection', function (socket) {
   function player_draw_card(player, card, target) {
     // valid player is the right one and the card is such player's
     socket.to(socket.room).emit("player_draw", player, card, target);
+    socket.to(player).emit("draw", card);
   }
 
   // player use card
@@ -195,6 +196,30 @@ io.on('connection', function (socket) {
   function card_engine_priest() {
     socket.to(socket.room).emit("card_engine_priest", player, card);
     socket.to(player).emit("card_engine_priest", player, card);
+  }
+  // 3. baron
+  function card_engine_baron() {
+    
+  }
+  // 4. handmaid
+  function card_engine_handmaid() {
+
+  }
+  // 5. prince
+  function card_engine_prince() {
+
+  }
+  // 6. king
+  function card_engine_king() {
+
+  }
+  // 7. countess
+  function card_engine_countess() {
+
+  }
+  // 8. princess
+  function card_engine_princess() {
+
   }
 
   // game start
