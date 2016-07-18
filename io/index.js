@@ -129,6 +129,14 @@ app.get('/test', function (req, res) {
 
 io.on('connection', function (socket) {
 
+  var socket_room = function () {
+    return "room:" + socket.room;
+  };
+
+  var socket_player = function () {
+    return "player:" + socket.player;
+  };
+
   // emit range
   // room: players in room
   // player: self
