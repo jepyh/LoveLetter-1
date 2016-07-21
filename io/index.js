@@ -37,7 +37,7 @@ var room_deck = function (room) {
   return 'love-letter:room:' + room + ':deck'
 };
 
-const card_type = {
+const CARD_TYPE = {
   '侍卫': '说出一个非侍卫牌名称并选择一名玩家，若此玩家拥有此牌则被淘汰',
   '牧师': '查看另一名玩家的手牌',
   '男爵': '你和另一名玩家比较手牌点数，点数较小的玩家将被淘汰。',
@@ -48,19 +48,19 @@ const card_type = {
   '公主': '若你将公主牌打出或弃置，你将被淘汰。'
 };
 
-const deck_template = ['侍卫', '侍卫', '侍卫', '侍卫', '侍卫', '牧师', '牧师', '男爵',
+const DECK_TEMPLATE = ['侍卫', '侍卫', '侍卫', '侍卫', '侍卫', '牧师', '牧师', '男爵',
   '男爵', '侍女', '侍女', '王子', '王子', '国王', '女伯爵', '公主'];
 
-const result_template = {
+const RESULT_TEMPLATE = {
   "result": 0,
   "message": "success",
   "data": null
 };
 
 var result = function (result, message, data) {
-  var r = result_template;
-  r.result = result;
-  r.message = message;
+  var r = RESULT_TEMPLATE;
+  r.result = result == null ? 0 : result;
+  r.message = message == null ? "success" : message;
   r.data = data;
   return r;
 };
@@ -81,7 +81,10 @@ app.get('/rooms', function (req, res) {
   })
 });
 
-// create or join in a room
+/**
+ * @deprecated
+ * create or join in a room
+ */
 app.post('/rooms', function (req, res) {
   client.get(player_token(req.query['token']), function (err, player) {
     if (!player) {
@@ -90,31 +93,49 @@ app.post('/rooms', function (req, res) {
   });
 });
 
-// get player list
+/**
+ * get list of players
+ */
 app.get('/players', function (req, res) {
   client.smembers(player_list(), function (err, replies) {
-    res.send(result(0, "success", replies));
+    res.send(result(null, null, replies));
   })
 });
 
-const init_player = {
+/**
+ * @const
+ * @type {{score: number, games: number, is_online: boolean}}
+ */
+const INIT_PLAYER = {
   'score': 0,
   'games': 0,
   'is_online': true
 };
 
-// add a player
+const ROOM_STATUS = {
+  IDLE: 1,
+  BUSY: 2,
+  COUNTDOWN: 3
+};
+
+const COUNT_DOWN_STARTER = 10;
+
+/**
+ * add a player
+ * @return token
+ */
 app.post('/players', function (req, res) {
   var player = req.query['player_name']
   client.get(player, function (err, reply) {
     if (!reply) {
+      var token = random_str(12);
       client.multi()
-          .set(player_token(random_str(12)), player)
+          .set(player_token(token), player)
           .sadd(player_list(), player)
-          .hmset(player_info(player), init_player)
+          .hmset(player_info(player), INIT_PLAYER)
           .exec(function (err, reply) {
             if (!err) {
-              res.send(result(0, "success", null));
+              res.send(result(null, null, token));
             } else {
               res.send(result(-1, "fail", null));
             }
@@ -123,6 +144,10 @@ app.post('/players', function (req, res) {
   });
 });
 
+/**
+ * test page
+ * for browser client
+ */
 app.get('/test', function (req, res) {
   res.sendFile(path.join(__dirname, 'test.html'));
 });
@@ -138,31 +163,61 @@ io.on('connection', function (socket) {
   };
 
   // emit range
-  // room: players in room
-  // player: self
-  socket.join(socket.room);
-  socket.join(socket.player);
+  // 1. room: players in room
+  // 2. player: self
+  socket.join(socket_room);
 
   // new player join room
   socket.on('join', function (token, room) {
     client.get(player_token(token), function (err, reply) {
       socket.player = reply;
-      console.log('Player ' + socket.player + ' join in room ' + room);
-      socket.to(socket.room).emit("notification", "join", socket.players);
+      // if room is idle, player join in the room
+      // or player will just watch game
+      room_init(function () {
+        is_room_in_idle(function (r) {
+          if (r) {
+            socket.join(socket_player);
+            console.log('Player ' + socket.player + ' join in room ' + room);
+            socket.to(socket_room).emit("notification", "join", socket.players);
+          }
+        });
+      });
     });
   });
+
+  // init room if not exists
+  function room_init(callback) {
+    client.get(room_status(socket.room), function (err, reply) {
+      if (!reply) {
+        callback()
+      }
+    });
+  }
+
+  function is_room_in_idle(callback) {
+    client.get(room_status(socket.room), function (err, reply) {
+      if (reply == ROOM_STATUS.IDLE) {
+        callback(true)
+      } else if (reply == ROOM_STATUS.COUNTDOWN) {
+        count_down_break();
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
+  }
 
   // player leave room
   socket.on('disconnect', function() {
     console.log('Player ' + socket.player + ' disconnected');
-    socket.to(socket.room).emit("notification", "disconnect", socket.player);
+    socket.to(socket_room).emit("notification", "disconnect", socket.player);
     // if room.state = busy, then game should be ended.
   });
 
   // player ready for game
   socket.on('ready', function() {
     console.log('Player ' + socket.player + ' disconnected');
-    socket.to(socket.room).emit("notification", "ready", socket.player);
+    socket.to(socket_room).emit("notification", "ready", socket.player);
     is_game_should_be_started(function (result) {
       if (result) {
         game_start()
@@ -173,37 +228,50 @@ io.on('connection', function (socket) {
   // player draw card
   function player_draw_card(player, card, target) {
     // valid player is the right one and the card is such player's
-    socket.to(socket.room).emit("player_draw", player, card, target);
+    socket.to(socket_room).emit("player_draw", player, card, target);
     socket.to(player).emit("draw", card);
+  }
+
+  function count_down(count) {
+    // count == 0, game start
+    if (count == 0) {
+      game_start()
+    } else {
+      setTimeout(count_down(count-1), 1);
+    }
+  }
+
+  function count_down_break() {
+
   }
 
   // player use card
   function player_use_card(player, card, target, extend) {
-    socket.to(socket.room).emit("player_use", player, card, target, extend);
+    socket.to(socket_room).emit("player_use", player, card, target, extend);
   }
   socket.on("player_use", function (player, card, target, extend) {
     // valid player is the right one and the card is such player's
-    socket.to(socket.room).emit("player_draw", player, card, target);
+    socket.to(socket_room).emit("player_draw", player, card, target);
   });
 
   // player fold card
   function player_fold_card(player, card) {
-    socket.to(socket.room).emit("player_fold", player, card);
+    socket.to(socket_room).emit("player_fold", player, card);
   }
 
   // player out
   function player_out() {
-    socket.to(socket.room).emit("player_out", player);
+    socket.to(socket_room).emit("player_out", player);
   }
 
   // card engine
   // 1. bodyguard
   function card_engine_bodyguard() {
-    socket.to(socket.room).emit("card_engine_bodyguard", player)
+    socket.to(socket_room).emit("card_engine_bodyguard", player)
   }
   // 2. periest
   function card_engine_priest() {
-    socket.to(socket.room).emit("card_engine_priest", player, card);
+    socket.to(socket_room).emit("card_engine_priest", player, card);
     socket.to(player).emit("card_engine_priest", player, card);
   }
   // 3. baron
@@ -233,13 +301,14 @@ io.on('connection', function (socket) {
 
   // game start
   function game_start() {
+    socket.to(socket_room).emit("game_start");
     // init deck and player's hand
   }
 
-  socket.to(socket.room).emit("game_start");
-
   // game end
-  socket.to(socket.room).emit("game_end");
+  function game_end() {
+    socket.to(socket_room).emit("game_end");
+  }
 
   function is_game_should_be_started(callback) {
     // player.count > 2 and all players.is_ready = true
