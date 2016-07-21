@@ -318,6 +318,18 @@ io.on('connection', function (socket) {
   // game end
   function game_end() {
     socket.to(socket_room).emit("game_end");
+    is_game_should_be_ended(function (result) {
+      if (result) {
+        // game is ended normally, close accounts.
+      } else {
+        // game is broken, nothing will happen.
+      }
+    })
+  }
+
+  function close_all_accounts() {
+    // 1. all players add 1 count.
+    // 2. winner add 1 win.
   }
 
   function is_game_should_be_started(callback) {
