@@ -48,8 +48,11 @@ const CARD_TYPE = {
   '公主': '若你将公主牌打出或弃置，你将被淘汰。'
 };
 
-const DECK_TEMPLATE = ['侍卫', '侍卫', '侍卫', '侍卫', '侍卫', '牧师', '牧师', '男爵',
-  '男爵', '侍女', '侍女', '王子', '王子', '国王', '女伯爵', '公主'];
+const DECK_TEMPLATE = {
+  'deck': ['侍卫', '侍卫', '侍卫', '侍卫', '侍卫', '牧师', '牧师', '男爵',
+    '男爵', '侍女', '侍女', '王子', '王子', '国王', '女伯爵', '公主'],
+  'fold': []
+};
 
 const RESULT_TEMPLATE = {
   "result": 0,
@@ -154,20 +157,20 @@ app.get('/test', function (req, res) {
 
 io.on('connection', function (socket) {
 
+  // emit range
+  // 1. room: players in room
+  // 2. player: self
   var socket_room = function () {
     return "room:" + socket.room;
   };
-
   var socket_player = function () {
     return "player:" + socket.player;
   };
 
-  // emit range
-  // 1. room: players in room
-  // 2. player: self
+  // join the room to receive all the public message.
   socket.join(socket_room);
 
-  // new player join room
+  // new player join in the room
   socket.on('join', function (token, room) {
     client.get(player_token(token), function (err, reply) {
       socket.player = reply;
@@ -189,7 +192,13 @@ io.on('connection', function (socket) {
   function room_init(callback) {
     client.get(room_status(socket.room), function (err, reply) {
       if (!reply) {
-        callback()
+        client.multi()
+            .set(room_status(socket.room), ROOM_STATUS.IDLE)
+            .hmset(room_deck(socket.room), DECK_TEMPLATE)
+            .sadd(room_player_list(socket.room), socket.player)
+            .exce(function (err, result) {
+              callback()
+            });
       }
     });
   }
@@ -211,7 +220,8 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function() {
     console.log('Player ' + socket.player + ' disconnected');
     socket.to(socket_room).emit("notification", "disconnect", socket.player);
-    // if room.state = busy, then game should be ended.
+    // if room.state = busy and player is in the players_list,
+    // then game should be ended.
   });
 
   // player ready for game
