@@ -32,7 +32,6 @@ var room_player_list = function (room) {
 var room_status = function (room) {
   return 'love-letter:room:' + room + ':status'
 };
-// deck and fold_deck
 var room_deck = function (room) {
   return 'love-letter:room:' + room + ':deck'
 };
@@ -109,7 +108,7 @@ app.get('/players', function (req, res) {
  * @const
  * @type {{score: number, games: number, is_online: boolean}}
  */
-const INIT_PLAYER = {
+const INIT_PLAYER_INFO = {
   'score': 0,
   'games': 0,
   'is_online': true
@@ -121,7 +120,24 @@ const ROOM_STATUS = {
   COUNTDOWN: 3
 };
 
+const PLAYER_STATUS = {
+  WATCHING: 1,
+  PLAYING_NORMAL: 2,
+  PLAYING_INVINCIBLE: 3,
+  OUT: 4,
+  NOT_READY: 5,
+  READY: 6
+};
+
+const INIT_PLAYER_IN_ROOM = {
+  'hand': [],
+  'no': 0,
+  'status': PLAYER_STATUS.WATCHING
+};
+
 const COUNT_DOWN_STARTER = 10;
+
+var GAME_START_COUNT_DOWN_BREAK_FLAG = false
 
 /**
  * add a player
@@ -135,7 +151,7 @@ app.post('/players', function (req, res) {
       client.multi()
           .set(player_token(token), player)
           .sadd(player_list(), player)
-          .hmset(player_info(player), INIT_PLAYER)
+          .hmset(player_info(player), INIT_PLAYER_INFO)
           .exec(function (err, reply) {
             if (!err) {
               res.send(result(null, null, token));
@@ -174,19 +190,65 @@ io.on('connection', function (socket) {
   socket.on('join', function (token, room) {
     client.get(player_token(token), function (err, reply) {
       socket.player = reply;
-      // if room is idle, player join in the room
-      // or player will just watch game
       room_init(function () {
+        // if room is idle, player sit down,
+        // or player will just watch game.
         is_room_in_idle(function (r) {
+          console.log('Player ' + socket.player + ' join in room ' + room);
           if (r) {
+            player_sit_down_in_room();
             socket.join(socket_player);
-            console.log('Player ' + socket.player + ' join in room ' + room);
-            socket.to(socket_room).emit("notification", "join", socket.players);
+            socket.to(socket_room).emit("join", socket.player);
+          } else {
+            player_watch_in_room();
           }
         });
       });
     });
   });
+
+  function room_valid_seat_number(callback) {
+    var no = 0;
+    client.get(room_player_list(socket.room), function (err, replies) {
+      replies.forEach(function (elem) {
+        if (elem['no'] != 0) {
+          no = no + 1;
+        }
+      });
+      if (no < 4) {
+        callback(no);
+      } else {
+        callback(false);
+      }
+    });
+  }
+
+  function player_sit_down_in_room(no) {
+    var player = INIT_PLAYER_IN_ROOM;
+    player['no'] = no;
+    player['name'] = socket.player;
+    player['status'] = PLAYER_STATUS.NOT_READY;
+    client.sadd(room_player_list(socket.room), player);
+    socket.to(socket_room()).emit("sit", socket.player, no);
+  }
+  
+  function player_watch_in_room() {
+    var player = INIT_PLAYER_IN_ROOM;
+    player['name'] = socket.player;
+    client.sadd(room_player_list(socket.room), player);
+    socket.to(socket_room()).emit("watch", socket.player);
+  }
+
+  function get_player_with_name(name, callback) {
+    client.get(room_player_list(), function (players) {
+      players.forEach(function (player) {
+        if (player['name'] == name) {
+          callback(false, player);
+        }
+      });
+      callback(true);
+    });
+  }
 
   // init room if not exists
   function room_init(callback) {
@@ -208,7 +270,7 @@ io.on('connection', function (socket) {
       if (reply == ROOM_STATUS.IDLE) {
         callback(true)
       } else if (reply == ROOM_STATUS.COUNTDOWN) {
-        count_down_break();
+        game_start_count_down_break();
         callback(true);
       } else {
         callback(false);
@@ -222,18 +284,44 @@ io.on('connection', function (socket) {
     socket.to(socket_room).emit("notification", "disconnect", socket.player);
     // if room.state = busy and player is in the players_list,
     // then game should be ended.
+    client.get(room_status(socket.room), function (err, reply) {
+      if (!err) {
+        get_player_with_name(socket.player, function (err, player) {
+          if (!err) {
+            if (is_player_is_playing(player)) {
+              game_end()
+            }
+          }
+        });
+      }
+    });
   });
+  
+  function is_player_is_playing(player) {
+    return player['status'] == PLAYER_STATUS.PLAYING_NORMAL ||
+        player['status'] == PLAYER_STATUS.PLAYING_INVINCIBLE ||
+        player['status'] == PLAYER_STATUS.OUT
+  }
 
   // player ready for game
   socket.on('ready', function() {
     console.log('Player ' + socket.player + ' disconnected');
     socket.to(socket_room).emit("notification", "ready", socket.player);
+    // if all other players is ready,
+    // only 1 player still not ready,
+    // then give the player 10 seconds,
+    // or leave him out of room by force.
     is_game_should_be_started(function (result) {
       if (result) {
-        game_start()
+        game_start_count_down_start();
       }
     })
   });
+
+  function game_start_count_down_start() {
+    game_start_count_down(10);
+    socket.emit(socket_room(), "countdown");
+  }
 
   // player draw card
   function player_draw_card(player, card, target) {
@@ -242,23 +330,30 @@ io.on('connection', function (socket) {
     socket.to(player).emit("draw", card);
   }
 
-  function count_down(count) {
+  function game_start_count_down(count) {
+    // if count is broken, then stop it.
+    if (GAME_START_COUNT_DOWN_BREAK_FLAG) {
+      clearTimeout(game_start_count_down(count));
+      GAME_START_COUNT_DOWN_BREAK_FLAG = false;
+      return;
+    }
     // count == 0, game start
     if (count == 0) {
       game_start()
     } else {
-      setTimeout(count_down(count-1), 1);
+      setTimeout(game_start_count_down(count-1), 1);
     }
   }
 
-  function count_down_break() {
-
+  function game_start_count_down_break() {
+    GAME_START_COUNT_DOWN_BREAK_FLAG = true;
   }
 
   // player use card
   function player_use_card(player, card, target, extend) {
     socket.to(socket_room).emit("player_use", player, card, target, extend);
   }
+
   socket.on("player_use", function (player, card, target, extend) {
     // valid player is the right one and the card is such player's
     socket.to(socket_room).emit("player_draw", player, card, target);
@@ -266,22 +361,30 @@ io.on('connection', function (socket) {
 
   // player fold card
   function player_fold_card(player, card) {
-    socket.to(socket_room).emit("player_fold", player, card);
+    socket.to(socket_room).emit("player_fold", socket.player, card);
   }
 
   // player out
   function player_out() {
-    socket.to(socket_room).emit("player_out", player);
+    socket.to(socket_room).emit("player_out", socket.player);
+  }
+
+  function is_player_playing_and_normal() {
+
   }
 
   // card engine
   // 1. bodyguard
-  function card_engine_bodyguard() {
-    socket.to(socket_room).emit("card_engine_bodyguard", player)
+  function card_engine_bodyguard(player) {
+    socket.to(socket_room).emit("card_engine_bodyguard", player);
+    client.get(player_info(player), function (err, reply) {
+
+    });
   }
+
   // 2. periest
   function card_engine_priest() {
-    socket.to(socket_room).emit("card_engine_priest", player, card);
+    socket.to(socket_room).emit("card_engine_priest", socket.player, card);
     socket.to(player).emit("card_engine_priest", player, card);
   }
   // 3. baron
@@ -304,9 +407,10 @@ io.on('connection', function (socket) {
   function card_engine_countess() {
 
   }
+
   // 8. princess
   function card_engine_princess() {
-
+    player_out(socket.player);
   }
 
   // game start
@@ -321,15 +425,27 @@ io.on('connection', function (socket) {
     is_game_should_be_ended(function (result) {
       if (result) {
         // game is ended normally, close accounts.
+        close_all_accounts();
       } else {
         // game is broken, nothing will happen.
       }
     })
   }
 
-  function close_all_accounts() {
+  function close_all_accounts(winner) {
     // 1. all players add 1 count.
     // 2. winner add 1 win.
+    client.get(room_player_list(socket.room), function (err, players) {
+      players.forEach(function (player) {
+        if (is_player_is_playing(player['name'])) {
+          if (player['name'] == winner) {
+            player['score'] = player['score'] + 1;
+          }
+          player['games'] = player['games'] + 1;
+          client.set(player_info(player['name']), player);
+        }
+      })
+    });
   }
 
   function is_game_should_be_started(callback) {
