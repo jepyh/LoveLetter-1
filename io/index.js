@@ -4,6 +4,7 @@ var express = require('express'),
     http = require('http').Server(app),
     io = require('socket.io')(http),
     config = require('./config'),
+    Promise = require('bluebird'),
     client = require('redis').createClient({
       'host': '172.17.0.1'
     });
@@ -45,18 +46,6 @@ const CARD_TYPE = {
   '国王': '选择另一名玩家，将你的手牌与之交换。',
   '女伯爵': '若你手牌中有国王牌或王子牌时，你必须打出女伯爵牌',
   '公主': '若你将公主牌打出或弃置，你将被淘汰。'
-};
-
-const DECK_TEMPLATE = {
-  'deck': ['侍卫', '侍卫', '侍卫', '侍卫', '侍卫', '牧师', '牧师', '男爵',
-    '男爵', '侍女', '侍女', '王子', '王子', '国王', '女伯爵', '公主'],
-  'fold': []
-};
-
-const RESULT_TEMPLATE = {
-  "result": 0,
-  "message": "success",
-  "data": null
 };
 
 var result = function (result, message, data) {
@@ -256,7 +245,7 @@ io.on('connection', function (socket) {
       if (!reply) {
         client.multi()
             .set(room_status(socket.room), ROOM_STATUS.IDLE)
-            .hmset(room_deck(socket.room), DECK_TEMPLATE)
+            .hmset(room_deck(socket.room), config.DECK_TEMPLATE)
             .sadd(room_player_list(socket.room), socket.player)
             .exce(function (err, result) {
               callback()
