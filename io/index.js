@@ -299,10 +299,14 @@ io.on('connection', function (socket) {
     // if all other players is ready,
     // only 1 player still not ready,
     // then give the player 10 seconds,
-    // or leave him out of room by force.
-    is_game_should_be_started(function (result) {
+    // or kick him out of room by force.
+    is_game_should_be_started(function (result, count) {
       if (result) {
         game_start_count_down_start();
+      } else {
+        if (count == 1) {
+
+        }
       }
     })
   });
@@ -438,8 +442,13 @@ io.on('connection', function (socket) {
   }
 
   function is_game_should_be_started(callback) {
-    // player.count > 2 and all players.is_ready = true
-    callback(false)
+    // player.count >= 2 and all players.is_ready = true
+    client.get(room_player_list(socket.room), function (err, reply) {
+      if (reply.count < 2) callback(false);
+      else {
+        
+      }
+    });
   }
 
   // next step
