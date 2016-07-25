@@ -126,7 +126,13 @@ const INIT_PLAYER_IN_ROOM = {
 
 const COUNT_DOWN_STARTER = 10;
 
-var GAME_START_COUNT_DOWN_BREAK_FLAG = false
+var GAME_START_COUNT_DOWN_BREAK_FLAG = false;
+
+var ALL_PLAYERS_READY_COUNT_DOWN_BREAK_FLAG = false;
+
+function point_of_card(card) {
+  return CARD_TYPE.indexOf(card);
+}
 
 /**
  * add a player
@@ -299,7 +305,7 @@ io.on('connection', function (socket) {
     // if all other players is ready,
     // only 1 player still not ready,
     // then give the player 10 seconds,
-    // or kick him out of room by force.
+    // or make him ready by force.
     is_game_should_be_started(function (result, count) {
       if (result) {
         game_start_count_down_start();
@@ -317,9 +323,9 @@ io.on('connection', function (socket) {
   }
 
   // player draw card
-  function player_draw_card(player, card, target) {
+  function player_draw_card(player) {
     // valid player is the right one and the card is such player's
-    socket.to(socket_room).emit("player_draw", player, card, target);
+    socket.to(socket_room).emit("player_draw", player, card);
     socket.to(player).emit("draw", card);
   }
 
@@ -358,8 +364,10 @@ io.on('connection', function (socket) {
   }
 
   // player out
-  function player_out() {
-    socket.to(socket_room).emit("player_out", socket.player);
+  function player_out(player) {
+    // discard card of hand.
+    player_fold_card(player['name'], player['hand'][0])
+    socket.to(socket_room).emit("player_out", player['name']);
   }
 
   function is_player_playing_and_normal() {
@@ -377,33 +385,72 @@ io.on('connection', function (socket) {
 
   // 2. periest
   function card_engine_priest() {
-    socket.to(socket_room).emit("card_engine_priest", socket.player, card);
+    socket.to(socket_room).emit("card_engine_priest", socket.player, target);
     socket.to(player).emit("card_engine_priest", player, card);
   }
+
   // 3. baron
   function card_engine_baron() {
-    
+    socket.to(socket_room()).emit("card_engine_baron", socket.player, target);
+    get_player_with_name(socket.player, function (err, player1) {
+      if (!err) {
+        get_player_with_name(socket.player, function (err, player2) {
+          if (!err) {
+            var player1_card = player1['hand'][0];
+            var player2_card = player2['hand'][0];
+            if (player1['hand'][0] == CARD_TYPE.男爵) {
+              player1_card = player1['hand'][1];
+            }
+            if (point_of_card(player1_card) > point_of_card(player2_card)) {
+              player_out(player2);
+            }
+          }
+        })
+      }
+    })
   }
+
   // 4. handmaid
   function card_engine_handmaid() {
-
+    socket.to(socket_room()).emit("card_engine_baron", socket.player);
+    get_player_with_name(socket.player, function (err, player) {
+      player['status'] = PLAYER_STATUS.PLAYING_INVINCIBLE;
+      client.update(room_player_list(socket.room), player);
+    });
   }
+
   // 5. prince
   function card_engine_prince() {
-
+    socket.to(socket_room()).emit("card_engine_prince", socket.player, target);
+    get_player_with_name(target, function (err, player) {
+      var card_to_fold = player['hand'][0];
+      if (target == socket.player && card_to_fold == CARD_TYPE.王子) {
+        card_to_fold = player['hand'][1];
+      }
+      player_fold_card(target, card_to_fold);
+      player_draw_card(target);
+    });
   }
+
   // 6. king
   function card_engine_king() {
-
-  }
-  // 7. countess
-  function card_engine_countess() {
-
+    socket.to(socket_room()).emit("card_engine_prince", socket.player, target);
+    get_player_with_name(target, function (err, player_target) {
+      get_player_with_name(socket.player, function (err, player) {
+        var card_to_exchange = player['hand'][0];
+        if (target == socket.player && card_to_fold == CARD_TYPE.国王) {
+          card_to_exchange = player['hand'][1];
+          // ToDo: not finished yet.
+        }
+        socket.to(socket_player())
+      })
+    })
   }
 
   // 8. princess
   function card_engine_princess() {
-    player_out(socket.player);
+    socket.to(socket_room()).emit("card_engine_princess", socket.player);
+    player_out(socket.player)
   }
 
   // game start
@@ -469,12 +516,40 @@ io.on('connection', function (socket) {
   function is_game_should_be_ended(callback) {
     // 1. all players hand.count = 1 and room.deck.count = 0
     // 2. only 1 player.status = alive
-    callback(false)
+    client.get(room_player_list(socket.room), function (err, players) {
+      is_all_players_hand_count_1(function (result) {
+        if (result) {
+          callback(true);
+        }
+      });
+      var count = 0;
+      players.forEach(function (item) {
+        if (item['status'] == PLAYER_STATUS.PLAYING_NORMAL) {
+          count = count + 1;
+        }
+      });
+      if (count <= 1) {
+        callback(true);
+      }
+    });
   }
 
   function is_should_step_forward(callback) {
     // everyone hand.count = 1
-    callback(false)
+    is_all_players_hand_count_1(function (result) {
+      callback(result);
+    });
+  }
+
+  function is_all_players_hand_count_1(callback) {
+    client.get(room_player_list(socket.room), function (err, replies) {
+      replies.forEach(function (item) {
+        if (item['hand'].count != 0) {
+          callback(false);
+        }
+      });
+      callback(true);
+    });
   }
 
 });
