@@ -1,6 +1,6 @@
 export default {
   env: 'production',
-  jwtSecret: '0a6b944d-d2fb-46fc-a85e-0295c986cd9f',
-  db: 'mongodb://localhost/express-mongoose-es6-rest-api-production',
-  port: 4040
+  jwtSecret: '111e664f-837b-0613-3e57-e272d6a9c691',
+  db: 'mongodb://localhost/arena',
+  port: 3001
 };

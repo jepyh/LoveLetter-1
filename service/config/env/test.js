@@ -1,6 +1,6 @@
 export default {
   env: 'test',
-  jwtSecret: '0a6b944d-d2fb-46fc-a85e-0295c986cd9f',
-  db: 'mongodb://localhost/express-mongoose-es6-rest-api-test',
+  jwtSecret: 'a46a4ce0-fa11-f360-d435-fa3c3d0a6b46',
+  db: 'mongodb://localhost/arena-test',
   port: 4040
 };

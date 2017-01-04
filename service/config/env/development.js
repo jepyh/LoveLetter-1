@@ -1,7 +1,7 @@
 export default {
   env: 'development',
   MONGOOSE_DEBUG: true,
-  jwtSecret: '0a6b944d-d2fb-46fc-a85e-0295c986cd9f',
-  db: 'mongodb://localhost/express-mongoose-es6-rest-api-development',
-  port: 4040
+  jwtSecret: '3b37719a-f5f8-d269-f307-023a25f4fc46',
+  db: 'mongodb://localhost/arena-dev',
+  port: 3001
 };

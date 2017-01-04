@@ -1,7 +1,7 @@
 {
-  "name": "love-letter-online",
-  "version": "1.0",
-  "description": "RESTful API and socket.io for love letter.",
+  "name": "arena",
+  "version": "1.0.0",
+  "description": "Arena Game Center, personal social gaming network.",
   "author": "lhzbxx <lhzbxx@gmail.com>",
   "main": "index.js",
   "private": true,
@@ -15,16 +15,20 @@
     "build": "gulp",
     "lint": "esw *.js server config --color",
     "lint:watch": "yarn lint -- --watch",
-    "test": "NODE_ENV=test babel-node node_modules/.bin/isparta cover _mocha -- --ui bdd --reporter spec --colors --compilers js:babel-core/register ./server/**/*.test.js",
+    "test": "cross-env NODE_ENV=test babel-node node_modules/isparta/bin/isparta cover node_modules/mocha/bin/_mocha -- --ui bdd --reporter spec --colors --compilers js:babel-core/register ./server/**/*.test.js",
     "test:watch": "yarn test -- --watch",
     "test:check-coverage": "yarn test && istanbul check-coverage",
     "report-coverage": "coveralls < ./coverage/lcov.info"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:lhzbxx/LoveLetter.git"
+    "url": "git@github.com:lhzbxx/Arena.git"
   },
-  "keywords": [],
+  "keywords": [
+    "arena",
+    "game center",
+    "API"
+  ],
   "dependencies": {
     "bluebird": "3.4.6",
     "body-parser": "1.15.2",
@@ -43,8 +47,6 @@
     "method-override": "^2.3.5",
     "mongoose": "4.7.4",
     "morgan": "1.7.0",
-    "redis": "^2.6.3",
-    "socket.io": "^1.7.2",
     "winston": "2.3.0"
   },
   "devDependencies": {
@@ -56,6 +58,7 @@
     "chai": "^3.4.1",
     "commitizen": "^2.9.2",
     "coveralls": "^2.11.6",
+    "cross-env": "3.1.3",
     "cz-conventional-changelog": "1.2.0",
     "del": "^2.2.0",
     "eslint": "3.12.0",
@@ -80,7 +83,7 @@
   "license": "MIT",
   "config": {
     "ghooks": {
-      "pre-commit": "yarn lint && yarn test"
+      "pre-commit": "cd service && yarn lint && yarn test"
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
