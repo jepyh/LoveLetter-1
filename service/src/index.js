@@ -1,18 +1,12 @@
 import socket from 'socket.io'
+import CONFIG from './config'
 
 const io = socket()
-
-const func1 = () => {
-  return '123'
-}
-
-const func2 = () => {
-  return 'abc'
-}
 
 io.on('connection', (socket) => {
   let socketId = socket.client.conn.id
   console.log('user ' + socketId + ' connected')
+  console.log(CONFIG.CONSTANTS.DECK)
   socket.on('disconnect', () => {
     console.log('user ' + socketId + ' disconnected')
   })
@@ -23,6 +17,7 @@ const preDeal = () => {
 
 }
 
+// 发牌
 const deal = () => {
 
 }
