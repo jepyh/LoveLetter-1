@@ -36,6 +36,7 @@ module.exports = {
   },
   externals: externals(),
   plugin: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.UglifyJsPlugin()
   ]
 }
