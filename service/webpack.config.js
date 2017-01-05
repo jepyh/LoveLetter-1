@@ -2,6 +2,7 @@
 
 var webpack = require('webpack')
 var path = require('path')
+var externals = require('webpack-node-externals')
 
 module.exports = {
   entry: {
@@ -33,6 +34,7 @@ module.exports = {
       }
     ]
   },
+  externals: externals(),
   plugin: [
     new webpack.optimize.UglifyJsPlugin()
   ]
