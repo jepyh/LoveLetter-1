@@ -10,15 +10,22 @@ const func2 = () => {
   return 'abc'
 }
 
-io.on('connection', async () => {
-  io.emit('hello~')
+io.on('connection', (socket) => {
+  let socketId = socket.client.conn.id
+  console.log('user ' + socketId + ' connected')
+  socket.on('disconnect', () => {
+    console.log('user ' + socketId + ' disconnected')
+  })
 })
 
-io.on('message', async () => {
-  const some1 = await func1()
-  const some2 = await func2()
-  io.emit('reply', some1, some2)
-})
+// 洗牌
+const preDeal = () => {
+
+}
+
+const deal = () => {
+
+}
 
 console.log('server start: 3000')
 
