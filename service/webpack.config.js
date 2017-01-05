@@ -14,11 +14,18 @@ module.exports = {
   target: 'node',
   devtool: 'source-map',
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+        exclude: /node_modules/
+      }
+    ],
     loaders: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel',
+        exclude: /node_modules/
       },
       {
         test: /\.json$/,
