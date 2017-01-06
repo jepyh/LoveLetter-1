@@ -1,19 +1,36 @@
 import socket from 'socket.io'
 import CONFIG from './config'
-import store from './store'
+// import store from './store'
+import * as speakers from './flow/speakers'
 
 const io = socket()
 
-io.on('connection', (socket) => {
-  let socketId = socket.client.conn.id
-  console.log('user ' + socketId + ' connected')
-  socket.on('disconnect', () => {
-    console.log('user ' + socketId + ' disconnected')
+io.on('connection', (client) => {
+  let clientId = client.id
+  console.log('user ' + clientId + ' connected')
+
+  client.on('join', (roomId) => {
+    client.join(roomId)
+    io.to(roomId).emit('message', speakers.welcome(clientId))
+  })
+
+  client.on('ready', () => {
+    io.clients((error, clients) => {
+      console.log(clients)
+    })
+    io.in('100001').clients((error, clients) => {
+      console.log(clients)
+    })
+    io.to('100001').emit('ready', clientId)
+  })
+
+  client.on('disconnect', () => {
+    console.log('user ' + clientId + ' disconnected')
   })
 })
 
 /**
- * 洗牌
+ * 预发牌
  * @param deck
  * @param number
  */
@@ -35,6 +52,7 @@ const preDeal = (deck, number) => {
     default:
       break
   }
+  console.log('preDeal: ' + deck)
 }
 
 /**
@@ -68,11 +86,6 @@ const deal = (deck, roomId) => {
 }
 
 console.log('server start: 3000')
-
-console.log(CONFIG.CONSTANTS.DECK)
-
-console.log(store.room)
-console.log(store.user)
 
 preDeal(CONFIG.CONSTANTS.DECK.slice(), 2)
 

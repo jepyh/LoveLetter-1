@@ -4,7 +4,9 @@ const state = {
   // 手牌
   hand: [],
   // 底牌
-  bottom: []
+  bottom: [],
+  // 当前玩家
+  currentPlayer: null
 }
 
 export default {
