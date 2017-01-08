@@ -1,3 +1,5 @@
+import * as types from '../mutation-types'
+
 const state = {
   // 牌库
   deck: [],
@@ -9,6 +11,13 @@ const state = {
   currentPlayer: null
 }
 
+const mutations = {
+  [types.DEAL] (state, roomId) {
+    console.log('OK')
+  }
+}
+
 export default {
-  state
+  state,
+  mutations
 }

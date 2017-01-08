@@ -21,7 +21,7 @@ const preDeal = (deck, number) => {
     default:
       break
   }
-  console.log('preDeal: ' + deck)
+  console.log('preDeal => ' + deck)
 }
 
 /**
@@ -34,6 +34,7 @@ const shuffle = (deck, index1, index2) => {
   let tmp = deck[index1]
   deck[index1] = deck[index2]
   deck[index2] = tmp
+  // console.log('shuffle => ' + deck)
 }
 
 /**

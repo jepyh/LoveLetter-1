@@ -37,4 +37,6 @@ store.room.mutations[types.DEAL]()
 
 actions.deal(CONFIG.CONSTANTS.DECK.slice(), '100001')
 
+store.dispatch('DEAL', 1, 2, 3)
+
 io.listen(3000)
