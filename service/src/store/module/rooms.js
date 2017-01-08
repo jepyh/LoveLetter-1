@@ -7,7 +7,6 @@ const state = {
 const mutations = {
   [types.DEAL] (state, roomId) {
     console.log('OK')
-    [types.DEAL] (state, roomId)
   }
 }
 
