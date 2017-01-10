@@ -8,7 +8,9 @@ const state = {
   // 底牌
   bottom: [],
   // 当前玩家
-  currentPlayer: null
+  currentPlayer: null,
+  // 轮次
+  players: []
 }
 
 const mutations = {

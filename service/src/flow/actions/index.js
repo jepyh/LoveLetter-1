@@ -54,3 +54,10 @@ const random = (max) => {
 export const deal = (deck, roomId) => {
   preDeal(deck, 3)
 }
+
+/**
+ * 下一步
+ */
+export const next = () => {
+
+}
