@@ -1,9 +1,11 @@
+import constants from '../../config/constants'
+
 /**
  * 预发牌
  * @param deck
  * @param number
  */
-const preDeal = (deck, number) => {
+const prepare = (deck, number) => {
   let max = deck.length
   for (let i of deck.keys()) {
     shuffle(deck, i, random(max))
@@ -21,7 +23,7 @@ const preDeal = (deck, number) => {
     default:
       break
   }
-  console.log('preDeal => ' + deck)
+  console.log('prepare => ' + deck)
 }
 
 /**
@@ -51,13 +53,18 @@ const random = (max) => {
  * @param deck
  * @param roomId
  */
-export const deal = (deck, roomId) => {
-  preDeal(deck, 3)
+export const draw = (deck, roomId) => {
+  prepare(deck, 3)
 }
 
 /**
  * 下一步
  */
-export const next = () => {
+export const next = (context) => {
+  context.currentStage += 1
+  this[constants.STAGE[context.currentStage]](context)
+}
+
+export const init = (context) => {
 
 }

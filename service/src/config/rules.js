@@ -8,3 +8,11 @@ const CARD_TYPE = {
   '女伯爵': '若你手牌中有国王牌或王子牌时，你必须打出女伯爵牌。',
   '公主': '若你将公主牌打出或弃置，你将被淘汰。'
 }
+
+const playerContext = {
+
+}
+
+const roomContext = {
+
+}

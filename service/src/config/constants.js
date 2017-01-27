@@ -3,6 +3,11 @@ const DECK = [
   '男爵-2', '侍女-1', '侍女-2', '王子-1', '王子-2', '国王', '女伯爵', '公主'
 ]
 
+const STAGE = [
+  'draw'
+]
+
 export default {
-  DECK
+  DECK,
+  STAGE
 }

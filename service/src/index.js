@@ -35,7 +35,7 @@ console.log('server start: 3000')
 
 store.room.mutations[types.DEAL]()
 
-actions.deal(CONFIG.CONSTANTS.DECK.slice(), '100001')
+actions.draw(CONFIG.CONSTANTS.DECK.slice(), '100001')
 
 store.dispatch('DEAL', 1, 2, 3)
 

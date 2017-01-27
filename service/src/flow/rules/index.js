@@ -1,24 +1,28 @@
 /**
  * 侍卫
- * @param player
+ * @param player1
+ * @param player2
+ * @param card
  */
-export const bodyguard = (player) => {
+export const bodyguard = (player1, player2, card) => {
 
 }
 
 /**
  * 牧师
- * @param player
+ * @param player1
+ * @param player2
  */
-export const priest = (player) => {
+export const priest = (player1, player2) => {
 
 }
 
 /**
  * 男爵
- * @param player
+ * @param player1
+ * @param player2
  */
-export const baron = (player) => {
+export const baron = (player1, player2) => {
 
 }
 
@@ -32,17 +36,19 @@ export const handmaid = (player) => {
 
 /**
  * 王子
- * @param player
+ * @param player1
+ * @param player2
  */
-export const prince = (player) => {
+export const prince = (player1, player2) => {
 
 }
 
 /**
  * 国王
- * @param player
+ * @param player1
+ * @param player2
  */
-export const king = (player) => {
+export const king = (player1, player2) => {
 
 }
 
