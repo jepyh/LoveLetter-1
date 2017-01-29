@@ -1,12 +1,11 @@
 import * as types from '../mutation-types'
 
-const users = []
 const state = {
-  roomId: null
+  players: {}
 }
 
 const mutations = {
-  [types.DEAL] (state, roomId) {
+  [types.DEAL] (state) {
     console.log('OK')
   }
 }

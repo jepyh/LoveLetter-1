@@ -9,10 +9,17 @@ const CARD_TYPE = {
   '公主': '若你将公主牌打出或弃置，你将被淘汰。'
 }
 
-const playerContext = {
-
+const ROOM_CONTEXT = {
+  id: null,
+  players: [],
+  currentState: null,
+  currentStage: null,
+  deck: []
 }
 
-const roomContext = {
-
+const PLAYER_CONTEXT = {
+  id: null,
+  currentRoom: null,
+  hand: [],
+  stack: []
 }
