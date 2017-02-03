@@ -10,16 +10,28 @@ const CARD_TYPE = {
 }
 
 const ROOM_CONTEXT = {
+  // 房主 clientId
   id: null,
+  // 所有玩家（包括观察者）
+  allPlayers: [],
+  // 对局中的玩家
   players: [],
+  // 出局玩家
+  outPlayers: [],
+  // 当前状态
   currentState: null,
+  // 回合阶段
   currentStage: null,
+  // 牌库
   deck: []
 }
 
 const PLAYER_CONTEXT = {
+  // clientId
   id: null,
   currentRoom: null,
+  // 手牌
   hand: [],
+  // 弃牌堆
   stack: []
 }

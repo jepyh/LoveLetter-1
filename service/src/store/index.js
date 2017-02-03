@@ -1,5 +1,5 @@
 import room from './module/rooms'
-import user from './module/users'
+import user from './module/players'
 import game from './module/games'
 
 const dispatch = (name, ...params) => {
