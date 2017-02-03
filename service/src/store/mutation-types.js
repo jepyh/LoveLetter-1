@@ -1,1 +1,7 @@
 export const DEAL = 'DEAL'
+export const ROUND_START = 'ROUND_START'
+export const NEXT_STAGE = 'NEXT_STAGE'
+export const DRAW = 'DRAW'
+export const DISCARD = 'DISCARD'
+export const APPLY_EFFECT = 'APPLY_EFFECT'
+export const PASS = 'PASS'

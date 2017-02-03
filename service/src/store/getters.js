@@ -26,7 +26,6 @@ const getRoomContext = (clientId) => {
  * @returns {boolean}
  */
 export const isGameOver = (clientId) => {
-  let playerContext = getPlayerContext(clientId)
-  let roomContext = getRoomContext(playerContext)
-  return roomContext.players.length < 2 || roomContext.deck.length === 0;
+  let roomContext = getRoomContext(clientId)
+  return (roomContext.players.length - roomContext.outPlayers.length) < 2 || roomContext.deck.length === 0
 }

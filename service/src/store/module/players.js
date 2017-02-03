@@ -5,7 +5,7 @@ const state = {
 }
 
 const mutations = {
-  [types.DEAL] (state) {
+  [types.DEAL] () {
     console.log('OK')
   }
 }

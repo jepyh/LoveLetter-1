@@ -1,6 +1,3 @@
-import constants from '../../config/constants'
-import store from '../../store'
-
 /**
  * 预发牌
  * @param deck
@@ -55,16 +52,4 @@ const random = (max) => {
  */
 export const draw = (deck, roomId) => {
   prepare(deck, 3)
-}
-
-/**
- * 下一步
- * @param clientId
- */
-export const next = (clientId) => {
-  store.dispatch('NEXT_STAGE', clientId)
-}
-
-export const init = (context) => {
-
 }

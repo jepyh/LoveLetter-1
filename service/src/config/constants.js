@@ -4,7 +4,7 @@ const DECK = [
 ]
 
 const ROOM_STAGE = [
-  'DRAW'
+  'DRAW', 'DISCARD', 'APPLY_EFFECT', 'PASS'
 ]
 
 const ROOM_STATE = [
