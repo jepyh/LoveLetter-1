@@ -18,12 +18,16 @@ const ROOM_CONTEXT = {
   players: [],
   // 出局玩家
   outPlayers: [],
+  // 当前玩家
+  currentPlayer: null,
   // 当前状态
   currentState: null,
   // 回合阶段
   currentStage: null,
   // 牌库
-  deck: []
+  deck: [],
+  // 底牌
+  bottom: []
 }
 
 const PLAYER_CONTEXT = {

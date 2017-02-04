@@ -1,16 +1,13 @@
 import * as types from '../mutation-types'
 
-const state = {
-  players: {}
-}
+const players = {}
 
-const mutations = {
+export default {
+  players,
+  getContext (id) {
+    return players[id]
+  },
   [types.DEAL] () {
     console.log('OK')
   }
-}
-
-export default {
-  state,
-  mutations
 }

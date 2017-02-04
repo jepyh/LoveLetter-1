@@ -1,3 +1,5 @@
+import * as types from '../mutation-types'
+
 /**
  * 预发牌
  * @param deck
@@ -50,6 +52,26 @@ const random = (max) => {
  * @param deck
  * @param roomId
  */
-export const draw = (deck, roomId) => {
+export const deal = () => {
   prepare(deck, 3)
+}
+
+const _draw = (player) => {
+  let card = this.dispatch('DEAL', this.getPlayerContext(clientId).currentRoom)
+  this.dispatch('DRAW', clientId)
+}
+
+export const draw = (clientId) => {
+
+}
+
+export const roundStart = (clientId) => {
+  this.dispatch('ROUND_START', this.getPlayerContext(clientId).currentRoom)
+}
+
+export const deal = (clientId) => {
+}
+
+export default {
+  types
 }

@@ -1,13 +1,12 @@
 import room from './module/rooms'
 import player from './module/players'
-import game from './module/games'
 
 /**
  * 获取 player 上下文
  * @param clientId
  * @returns {*}
  */
-const getPlayerContext = (clientId) => {
+export const getPlayerContext = (clientId) => {
   return player.state.players[clientId]
 }
 
@@ -16,7 +15,7 @@ const getPlayerContext = (clientId) => {
  * @param clientId
  * @returns {*}
  */
-const getRoomContext = (clientId) => {
+export const getRoomContext = (clientId) => {
   return room.state.rooms[getPlayerContext(clientId).currentRoom]
 }
 
@@ -25,7 +24,11 @@ const getRoomContext = (clientId) => {
  * @param clientId
  * @returns {boolean}
  */
-export const isGameOver = (clientId) => {
+const isGameOver = (clientId) => {
   let roomContext = getRoomContext(clientId)
   return (roomContext.players.length - roomContext.outPlayers.length) < 2 || roomContext.deck.length === 0
+}
+
+export default {
+  isGameOver
 }
