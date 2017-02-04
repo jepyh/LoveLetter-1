@@ -1,4 +1,3 @@
-import * as types from '../mutation-types'
 import constants from '../../config/constants'
 
 const rooms = {}

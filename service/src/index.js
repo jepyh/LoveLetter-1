@@ -2,7 +2,6 @@ import socket from 'socket.io'
 import CONFIG from './config'
 import store from './store'
 import * as actions from './flow/actions'
-import * as types from './store/mutation-types'
 import * as speakers from './flow/speakers'
 
 const io = socket()

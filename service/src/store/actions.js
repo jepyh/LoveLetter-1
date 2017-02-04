@@ -1,6 +1,5 @@
 import player from './module/players'
 import room from './module/rooms'
-import * as types from './mutation-types'
 
 /**
  * 预发牌
@@ -75,5 +74,4 @@ export const deal = (clientId) => {
 }
 
 export default {
-  types
 }

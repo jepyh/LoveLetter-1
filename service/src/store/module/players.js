@@ -1,5 +1,3 @@
-import * as types from '../mutation-types'
-
 const players = {}
 
 export default {
@@ -7,7 +5,7 @@ export default {
   getContext (id) {
     return players[id]
   },
-  [types.DEAL] () {
+  deal () {
     console.log('OK')
   }
 }
