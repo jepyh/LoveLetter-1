@@ -8,7 +8,7 @@ export default {
   getContext (id) {
     return rooms[id]
   },
-  [types.ROUND_START] (roomId) {
+  roundStart (roomId) {
     let room = rooms[roomId]
     for (let i of room.outPlayers) {
       room.players.push(i)
@@ -17,11 +17,11 @@ export default {
     room.currentStage = 1
     room.deck = constants.DECK.slice()
   },
-  [types.DEAL] (roomId) {
+  deal (roomId) {
     let room = rooms[roomId]
     return room.deck.pop()
   },
-  [types.NEXT_STAGE] (roomId) {
+  nextStage (roomId) {
     let room = rooms[roomId]
     return room.currentStage >= constants.ROOM_STAGE.length ? room.currentStage = 1 : room.currentStage += 1
   }

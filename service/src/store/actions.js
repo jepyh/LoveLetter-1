@@ -1,4 +1,6 @@
-import * as types from '../mutation-types'
+import player from './module/players'
+import room from './module/rooms'
+import * as types from './mutation-types'
 
 /**
  * 预发牌
@@ -66,7 +68,7 @@ export const draw = (clientId) => {
 }
 
 export const roundStart = (clientId) => {
-  this.dispatch('ROUND_START', this.getPlayerContext(clientId).currentRoom)
+  room.roundStart(player.getContext(clientId).currentRoom)
 }
 
 export const deal = (clientId) => {

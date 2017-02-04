@@ -1,3 +1,4 @@
+export const GET_CONTEXT = 'GET_CONTEXT'
 export const DEAL = 'DEAL'
 export const ROUND_START = 'ROUND_START'
 export const NEXT_STAGE = 'NEXT_STAGE'
