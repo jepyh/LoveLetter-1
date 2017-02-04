@@ -1,8 +1,4 @@
 import socket from 'socket.io'
-import CONFIG from './config'
-import store from './store'
-import * as actions from './flow/actions'
-import * as speakers from './flow/speakers'
 
 const io = socket()
 
@@ -31,9 +27,5 @@ io.on('connection', (client) => {
 })
 
 console.log('server start: 3000')
-
-actions.draw(CONFIG.CONSTANTS.DECK.slice(), '100001')
-
-store.dispatch('DEAL', 1, 2, 3)
 
 io.listen(3000)
