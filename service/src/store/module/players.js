@@ -5,7 +5,8 @@ export default {
   getContext (id) {
     return players[id]
   },
-  deal () {
-    console.log('OK')
+  draw (clientId, card) {
+    let player = getContext(clientId)
+    player.hand.push(card)
   }
 }
