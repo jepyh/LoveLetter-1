@@ -1,21 +1,11 @@
+<!DOCTYPE html>
 <html>
-<body>
-	<div id="message"></div>
-	<button>创建房间</button>
-	<button>快速加入</button>
-</body>
-<script src="//cdn.bootcss.com/socket.io/1.7.2/socket.io.min.js"></script>
-<script>
-	var socket = io("http://127.0.0.1:3000")
-	console.log("OK")
-	socket.emit("join", "100001")
-	socket.on("message", function (msg) {
-		console.log(msg)
-		document.getElementById("message").append(msg)
-	})
-	socket.emit("ready")
-	socket.on("ready", function (player) {
-		console.log("ready: " + player)
-	})
-</script>
+  <head>
+    <meta charset="utf-8">
+    <title>mobile</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>
