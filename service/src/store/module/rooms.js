@@ -5,24 +5,26 @@ const rooms = {}
 /**
  * 预发牌
  * @param deck
+ * @param bottom
  * @param number
  */
-const prepare = (deck, number) => {
+const prepare = (deck, bottom, number) => {
   let max = deck.length
   for (let i of deck.keys()) {
     shuffle(deck, i, random(max))
   }
   switch (number) {
     case 2:
-      deck.splice(0, 3)
+      bottom = deck.splice(0, 3)
       break
     case 3:
-      deck.splice(0, 2)
+      bottom = deck.splice(0, 2)
       break
     case 4:
-      deck.splice(0, 1)
+      bottom = deck.splice(0, 1)
       break
     default:
+      bottom = []
       break
   }
   console.log('prepare => ' + deck)
@@ -62,7 +64,7 @@ export default {
     room.currentStage = 'PLAYING'
     room.currentStage = 1
     room.deck = constants.DECK.slice()
-    prepare(room.deck, room.players.length)
+    prepare(room.deck, room.bottom, room.players.length)
   },
   draw (roomId) {
     let room = getContext(roomId)

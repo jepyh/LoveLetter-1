@@ -1,5 +1,5 @@
-import room from './module/rooms'
-import player from './module/players'
+import rooms from './module/rooms'
+import players from './module/players'
 
 /**
  * 获取 player 上下文
@@ -7,7 +7,7 @@ import player from './module/players'
  * @returns {*}
  */
 export const getPlayerContext = (clientId) => {
-  return player.state.players[clientId]
+  return players.players[clientId]
 }
 
 /**
@@ -16,7 +16,7 @@ export const getPlayerContext = (clientId) => {
  * @returns {*}
  */
 export const getRoomContext = (clientId) => {
-  return room.state.rooms[getPlayerContext(clientId).currentRoom]
+  return rooms.rooms[getPlayerContext(clientId).currentRoom]
 }
 
 /**
@@ -24,11 +24,8 @@ export const getRoomContext = (clientId) => {
  * @param clientId
  * @returns {boolean}
  */
-const isGameOver = (clientId) => {
-  let roomContext = getRoomContext(clientId)
-  return (roomContext.players.length - roomContext.outPlayers.length) < 2 || roomContext.deck.length === 0
+export const isGameOver = (clientId) => {
+  let room = getRoomContext(clientId)
+  return (room.players.length - room.outPlayers.length) < 2 || room.deck.length === 0
 }
 
-export default {
-  isGameOver
-}

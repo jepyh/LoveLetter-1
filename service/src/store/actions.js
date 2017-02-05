@@ -13,5 +13,8 @@ export default {
   },
   draw (clientId) {
     players.draw(clientId, rooms.draw(players.getContext(clientId).currentRoom))
+  },
+  discard (clientId, card) {
+    players.discard(clientId, card)
   }
 }
