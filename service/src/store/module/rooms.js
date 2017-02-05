@@ -1,4 +1,5 @@
 import constants from '../../config/constants'
+import speaker from './speaker'
 
 const rooms = {}
 
@@ -70,7 +71,6 @@ export default {
     room.id = clientId
     room.allPlayers.push(clientId)
     room.players.push(clientId)
-    console.log(clientId)
     room.currentState = 'IDLE'
     rooms[clientId] = room
   },
@@ -83,6 +83,7 @@ export default {
   joinRoom (clientId, roomId) {
     let room = rooms[roomId]
     if (room) {
+      speaker.joinRoom(roomId, clientId)
       room.allPlayers.push(clientId)
       if (room.players.length < 4) {
         room.players.push(clientId)
@@ -125,7 +126,9 @@ export default {
    */
   disconnect (roomId) {
     let room = rooms[roomId]
-    room.currentState = 'IDLE'
+    if (room) {
+      room.currentState = 'IDLE'
+    }
   },
   /**
    * 玩家准备
@@ -174,6 +177,7 @@ export default {
     if (index < 0) {
       return console.log('ERROR.INVALID_DATA === rooms.js | out')
     } else {
+      speaker.out(player.id, room.id)
       room.outPlayers.unshift(player.id)
       room.players.splice(index, 1)
     }

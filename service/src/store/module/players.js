@@ -1,5 +1,6 @@
 import constants from '../../config/constants'
 import {dispatcher} from './rules'
+import speaker from './speaker'
 
 const players = {}
 
@@ -27,6 +28,7 @@ export default {
     let player = constants.PLAYER_CONTEXT
     player.id = clientId
     players[clientId] = player
+    speaker.connect(clientId)
   },
   /**
    * 创建房间

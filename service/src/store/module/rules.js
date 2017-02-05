@@ -1,5 +1,6 @@
 import {_discard, _switch, _getContext} from './players'
 import rooms from './rooms'
+import speaker from './speaker'
 
 const cardWrapper = {
   '侍卫-1': 'bodyguard',

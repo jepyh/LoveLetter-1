@@ -1,8 +1,10 @@
 import socket from 'socket.io'
-import speakers from './config/speakers'
+import speakers from './config/statements'
 import store from './store'
 
 const io = socket()
+
+store.initSpeaker(io)
 
 io.on('connection', (client) => {
   let clientId = client.id
