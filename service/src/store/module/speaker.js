@@ -31,6 +31,9 @@ export default {
   roundStart (roomId) {
     _io.to(roomId).emit('message', statements.roundStart())
   },
+  roundEnd (roomId) {
+    _io.to(roomId).emit('message', statements.roundEnd())
+  },
   winner (roomId, player) {
     _io.to(roomId).emit('message', statements.winner(player))
   },
@@ -47,5 +50,9 @@ export default {
   myTurn (roomId, player) {
     _io.to(roomId).emit('message', statements.myTurn(player))
     _io.to(player).emit('turn')
+  },
+  draw (roomId, player, card) {
+    _io.to(roomId).emit('message', statements.draw(player))
+    _io.to(player).emit('draw', card)
   }
 }

@@ -109,7 +109,8 @@ export default {
   discard (clientId, card, targetId, extra) {
     players.discard(clientId, card, targetId, extra)
     if (_isGameOver(clientId)) {
-      return findWinner(_getPlayers())
+      rooms.roundEnd(players.getContext(clientId).currentRoom)
+      return findWinner(_getPlayers(clientId))
     } else {
       return false
     }

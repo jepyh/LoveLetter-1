@@ -23,8 +23,11 @@ export default {
   roundStart () {
     return '游戏开始'
   },
+  roundEnd () {
+    return '游戏结束'
+  },
   winner (player) {
-    return '游戏结束，本局获胜者是：' + player
+    return '本局获胜者是：' + player
   },
   discard (player1, card, player2, extra) {
     if (extra) {
@@ -54,5 +57,8 @@ export default {
   },
   myTurn (player) {
     return '轮到玩家 ' + player + ' 回合'
+  },
+  draw (player) {
+    return '玩家 ' + player + ' 抽牌'
   }
 }

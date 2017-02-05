@@ -77,8 +77,9 @@ const roundStart = (roomId) => {
   }
   room.currentState = 'PLAYING'
   room.deck = constants.DECK.slice()
+  room.readyPlayers = []
   prepare(room.deck, room.bottom, room.players.length)
-  room.currentPlayer = 0
+  room.currentPlayer = room.players[0]
 }
 
 export default {
@@ -195,6 +196,18 @@ export default {
     }
   },
   /**
+   * 回合结束
+   * @param roomId
+   */
+  roundEnd (roomId) {
+    let room = rooms[roomId]
+    room.currentState = 'IDLE'
+    room.outPlayers.reverse()
+    room.players.concat(room.outPlayers)
+    room.outPlayers = []
+    speaker.roundEnd()
+  },
+  /**
    * 抽牌
    * @param roomId
    * @returns {String}
@@ -225,8 +238,12 @@ export default {
    */
   nextPlayer (roomId) {
     let room = rooms[roomId]
-    room.currentPlayer += 1
-    if (room.players)
-    speaker.myTurn(roomId, )
+    let index = room.players.findIndex(i => i === room.currentPlayer)
+    if (index === room.players.length - 1) {
+      room.currentPlayer = room.players[0]
+    } else {
+      room.currentPlayer = room.players[index + 1]
+    }
+    speaker.myTurn(roomId, room.currentPlayer)
   }
 }

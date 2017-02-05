@@ -83,7 +83,7 @@ export default {
    */
   draw (clientId, card) {
     let player = players[clientId]
-    player.hand.push(card)
+    speaker.draw(player.currentRoom, player.id, player.hand.push(card))
   },
   /**
    * 弃牌
