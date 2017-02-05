@@ -59,6 +59,13 @@ export default {
     rooms.exitRoom(clientId, players.exitRoom(clientId))
   },
   /**
+   * 玩家准备
+   * @param clientId
+   */
+  ready (clientId) {
+    rooms.ready(players.getContext(clientId).currentRoom, clientId)
+  },
+  /**
    * 回合开始
    * @param clientId
    */

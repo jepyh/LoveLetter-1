@@ -7,13 +7,14 @@ const io = socket()
 io.on('connection', (client) => {
   let clientId = client.id
   console.log('user ' + clientId + ' connected')
-
-
+  store.actions.connect(clientId)
+  console.log(store.getters.getData())
+  io.to(clientId).emit('message', store.getters.getData())
   client.on('join', (roomId) => {
+    store.actions.joinRoom(clientId, roomId)
     client.join(roomId)
     io.to(roomId).emit('message', speakers.welcome(clientId))
   })
-
   client.on('ready', () => {
     io.clients((error, clients) => {
       console.log(clients)

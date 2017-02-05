@@ -99,8 +99,12 @@ export default {
    */
   exitRoom (clientId, roomId) {
     let room = rooms[roomId]
-    let index1 = room.allPlayers.findIndex(clientId)
-    let index2 = room.players.findIndex(clientId)
+    let index1 = room.allPlayers.findIndex(i => i === clientId)
+    let index2 = room.players.findIndex(i => i === clientId)
+    let index3 = room.readyPlayers.findIndex(i => i === clientId)
+    if (index3 >= 0) {
+      room.readyPlayers.splice(index3, 1)
+    }
     if (index2 < 0 && index1 >= 0) {
       return room.allPlayers.splice(index1, 1)
     }
@@ -121,6 +125,20 @@ export default {
   disconnect (roomId) {
     let room = rooms[roomId]
     room.currentState = 'IDLE'
+  },
+  /**
+   * 玩家准备
+   * @param roomId
+   * @param clientId
+   */
+  ready (roomId, clientId) {
+    let room = rooms[roomId]
+    room.readyPlayers.push(clientId)
+    if (room.readyPlayers.length === room.players.length) {
+      return room.currentState = 'COUNTDOWN'
+    } else {
+      return false
+    }
   },
   /**
    * 回合开始

@@ -20,12 +20,13 @@ export const _getContext = (clientId) => {
 export default {
   players,
   /**
-   * 玩家上线
+   * 连接
    * @param clientId
    */
   connect (clientId) {
-    let player = constants.PLAYER_CONTEXT.slice()
+    let player = constants.PLAYER_CONTEXT
     player.id = clientId
+    players[clientId] = player
   },
   /**
    * 创建房间

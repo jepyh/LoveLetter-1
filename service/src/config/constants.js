@@ -26,6 +26,7 @@ export default {
     allPlayers: [],
     // 对局中的玩家
     players: [],
+    readyPlayers: [],
     // 出局玩家
     outPlayers: [],
     // 当前玩家
