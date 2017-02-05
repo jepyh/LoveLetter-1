@@ -28,7 +28,6 @@ const prepare = (deck, bottom, number) => {
       bottom = []
       break
   }
-  console.log('prepare => ' + deck)
 }
 
 /**
@@ -131,7 +130,7 @@ export default {
     }
   },
   /**
-   * 玩家准备
+   * 准备
    * @param roomId
    * @param clientId
    */
@@ -142,6 +141,24 @@ export default {
       return room.currentState = 'COUNTDOWN'
     } else {
       return false
+    }
+  },
+  /**
+   * 取消准备
+   * @param roomId
+   * @param clientId
+   */
+  cancel (roomId, clientId) {
+    let room = rooms[roomId]
+    let index = room.players.findIndex(i => i === clientId)
+    if (index < 0) {
+      return console.log('ERROR.INVALID_DATA === rooms.js | cancel')
+    } else {
+      speaker.cancel(roomId, clientId)
+      room.readyPlayers.splice(index, 1)
+      if (room.currentState === 'COUNTDOWN') {
+        room.currentState = 'IDLE'
+      }
     }
   },
   /**

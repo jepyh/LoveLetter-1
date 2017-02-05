@@ -86,16 +86,19 @@ export const dispatcher = (card, player1, player2, extra) => {
  * @param players
  */
 export const findWinner = (...players) => {
+  let winner
   if (players.length === 1) {
-    return players[0]
+    winner = players[0]
   } else {
     let _players = []
     for (let i of players) {
       _players.push(_getContext(i))
     }
     _players.sort((a, b) => _getLevel(_converter(b.hand[0])) - _getLevel(_converter(a.hand[0])))
-    return _players[0].id
+    winner = _players[0].id
   }
+  speaker.winner(_getContext(winner).currentRoom, winner)
+  return winner
 }
 
 /**
@@ -105,7 +108,8 @@ export const findWinner = (...players) => {
  * @param card
  */
 const bodyguard = (player1, player2, card) => {
-  if (player2.hand[0] === card) {
+  speaker.discard(player1.currentRoom, player1.id, player2.id, null, card)
+  if (player2.hand[0].substr(0, 2) === card.substr(0, 2)) {
     rooms.out(player2)
   }
 }
@@ -117,7 +121,8 @@ const bodyguard = (player1, player2, card) => {
  * @returns {*}
  */
 const priest = (player1, player2) => {
-  return player2.hand[0]
+  speaker.discard(player1.currentRoom, player1.id, player2.id, '牧师', null)
+  speaker.priest(player1, player2.hand[0])
 }
 
 /**
@@ -126,12 +131,20 @@ const priest = (player1, player2) => {
  * @param player2
  */
 const baron = (player1, player2) => {
-  let level1 = _getLevel(_converter(player1.hand[0]))
-  let level2 = _getLevel(_converter(player2.hand[0]))
-  if (level1 > level2)
+  let card1 = player1.hand[0]
+  let level1 = _getLevel(_converter(card1))
+  let card2 = player2.hand[0]
+  let level2 = _getLevel(_converter(card2))
+  speaker.discard(player1.currentRoom, player1.id, player2.id, '牧师', null)
+  if (level1 > level2) {
+    speaker.baron(player1.id, player2.id, card1, card2, 1)
     rooms.out(player2)
-  if (level1 < level2)
+  } else if (level1 < level2) {
+    speaker.baron(player1.id, player2.id, card1, card2, 0)
     rooms.out(player1)
+  } else {
+    speaker.baron(player1.id, player2.id, card1, card2, -1)
+  }
 }
 
 /**

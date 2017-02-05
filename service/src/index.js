@@ -1,5 +1,4 @@
 import socket from 'socket.io'
-import speakers from './config/statements'
 import store from './store'
 
 const io = socket()
@@ -19,7 +18,6 @@ io.on('connection', (client) => {
   client.on('join', (roomId) => {
     store.actions.joinRoom(clientId, roomId)
     client.join(roomId)
-    io.to(roomId).emit('message', speakers.welcome(clientId))
   })
   client.on('ready', () => {
     io.clients((error, clients) => {

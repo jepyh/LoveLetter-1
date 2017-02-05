@@ -1,6 +1,6 @@
 import players from './module/players'
 import rooms from './module/rooms'
-import rules from './module/rules'
+import {findWinner} from './module/rules'
 
 /**
  * 是否结束？
@@ -69,11 +69,18 @@ export default {
     rooms.exitRoom(clientId, players.exitRoom(clientId))
   },
   /**
-   * 玩家准备
+   * 准备
    * @param clientId
    */
   ready (clientId) {
     rooms.ready(players.getContext(clientId).currentRoom, clientId)
+  },
+  /**
+   * 取消准备
+   * @param clientId
+   */
+  cancel (clientId) {
+    rooms.cancel(players.getContext(clientId).currentRoom, clientId)
   },
   /**
    * 回合开始
@@ -109,7 +116,7 @@ export default {
   discard (clientId, card, targetId, extra) {
     players.discard(clientId, card, targetId, extra)
     if (_isGameOver(clientId)) {
-      return rules.findWinner(_getPlayers())
+      return findWinner(_getPlayers())
     } else {
       return false
     }
