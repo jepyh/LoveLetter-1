@@ -1,14 +1,13 @@
+import constants from '../../config/constants'
 import {dispatcher} from './rules'
 
 const players = {}
 
-export const _discard = (clientId) => {
-  return players[clientId].hand.pop()
+export const _discard = (player) => {
+  return player.hand.pop()
 }
 
-export const _switch = (clientId1, clientId2) => {
-  let player1 = players[clientId1]
-  let player2 = players[clientId2]
+export const _switch = (player1, player2) => {
   let tmp = player1.hand[0]
   player1.hand[0] = player2.hand[0]
   player2.hand[0] = tmp
@@ -20,6 +19,46 @@ export const _getContext = (clientId) => {
 
 export default {
   players,
+  /**
+   * 玩家上线
+   * @param clientId
+   */
+  connect (clientId) {
+    let player = constants.PLAYER_CONTEXT.slice()
+    player.id = clientId
+  },
+  /**
+   * 创建房间
+   * @param clientId
+   */
+  createRoom (clientId) {
+    let player = players[clientId]
+    player.currentRoom = clientId
+  },
+  /**
+   * 加入房间
+   * @param clientId
+   * @param roomId
+   */
+  joinRoom (clientId, roomId) {
+    let player = players[clientId]
+    player.currentRoom = roomId
+  },
+  /**
+   * 离开房间
+   * @param clientId
+   */
+  exitRoom (clientId) {
+    let player = players[clientId]
+    player.currentRoom = null
+  },
+  /**
+   * 玩家离线
+   * @param clientId
+   */
+  disconnect (clientId) {
+    delete(players[clientId])
+  },
   /**
    * 获取上下文
    * @param id

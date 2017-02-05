@@ -1,5 +1,5 @@
 import actions from './actions'
-import getters from './getters'
+import * as getters from './getters'
 
 export default {
   actions,

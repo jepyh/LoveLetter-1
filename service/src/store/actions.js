@@ -1,6 +1,16 @@
 import players from './module/players'
 import rooms from './module/rooms'
 
+/**
+ * 是否结束？
+ * @param clientId
+ * @returns {boolean}
+ */
+const isGameOver = (clientId) => {
+  let room = rooms.getContext(players.getContext(clientId).currentRoom)
+  return (room.players.length - room.outPlayers.length) < 2 || room.deck.length === 0
+}
+
 export default {
   /**
    * 回合开始
@@ -31,8 +41,18 @@ export default {
    * @param clientId
    * @param card
    * @param targetId
+   * @param extra
    */
   discard (clientId, card, targetId, extra) {
     players.discard(clientId, card, targetId, extra)
+  },
+  /**
+   * 判定
+   * @param clientId
+   */
+  pass (clientId) {
+    if (isGameOver(clientId)) {
+      return
+    }
   }
 }

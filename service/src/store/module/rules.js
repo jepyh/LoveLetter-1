@@ -40,6 +40,12 @@ const _isEffective = (card) => {
   return ['bodyguard', 'priest', 'baron', 'prince', 'king'].findIndex(i => i === card) >= 0
 }
 
+/**
+ * 中文->英文
+ * @param card
+ * @returns {*}
+ * @private
+ */
 const _converter = (card) => {
   return cardWrapper[card]
 }
@@ -48,6 +54,12 @@ const level = {
   'bodyguard': 1, 'priest': 2, 'baron': 3, 'handmaid': 4, 'prince': 5, 'king': 6, 'countess': 7, 'princess': 8
 }
 
+/**
+ * 获取点数
+ * @param card
+ * @returns {*}
+ * @private
+ */
 const _getLevel = (card) => {
   return level[card]
 }
@@ -137,7 +149,7 @@ const prince = (player1, player2) => {
   if (_converter(_discard(player2)) === 'princess') {
     rooms.out(player2)
   } else {
-    context.hand.push(rooms.draw(player2.currentRoom))
+    player2.hand.push(rooms.draw(player2.currentRoom))
   }
 }
 

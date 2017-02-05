@@ -18,13 +18,3 @@ export const getPlayerContext = (clientId) => {
 export const getRoomContext = (clientId) => {
   return rooms.rooms[getPlayerContext(clientId).currentRoom]
 }
-
-/**
- * 是否结束？
- * @param clientId
- * @returns {boolean}
- */
-export const isGameOver = (clientId) => {
-  let room = getRoomContext(clientId)
-  return (room.players.length - room.outPlayers.length) < 2 || room.deck.length === 0
-}

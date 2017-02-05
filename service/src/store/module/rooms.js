@@ -62,6 +62,59 @@ export default {
     return rooms[id]
   },
   /**
+   * 创建房间
+   * @param clientId
+   */
+  createRoom (clientId) {
+    let room = constants.ROOM_CONTEXT.slice()
+    room.id = clientId
+    room.allPlayers.push(clientId)
+    room.players.push(clientId)
+    room.currentStage = 'IDLE'
+    rooms.push(room)
+  },
+  /**
+   * 加入房间
+   * @param clientId
+   * @param roomId
+   * @returns {boolean}
+   */
+  joinRoom (clientId, roomId) {
+    let room = rooms[roomId]
+    if (room) {
+      room.allPlayers.push(clientId)
+      if (room.players.length < 4) {
+        room.players.push(clientId)
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  /**
+   * 离开房间
+   * @param clientId
+   * @param roomId
+   * @returns {Array.<*>}
+   */
+  exitRoom (clientId, roomId) {
+    let room = rooms[roomId]
+    let index1 = room.allPlayers.findIndex(clientId)
+    let index2 = room.players.findIndex(clientId)
+    if (index2 < 0 && index1 >= 0) {
+      return room.allPlayers.splice(index1, 1)
+    }
+    room.allPlayers.splice(index1, 1)
+    room.players.splice(index2, 1)
+    if (room.allPlayers.length > room.players.length) {
+      room.players.push(room.allPlayers.pop())
+    } else {
+      if (room.players.length === 1) {
+        delete(rooms[roomId])
+      }
+    }
+  },
+  /**
    * 回合开始
    * @param roomId
    */
