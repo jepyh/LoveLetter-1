@@ -14,6 +14,10 @@ export const _switch = (clientId1, clientId2) => {
   player2.hand[0] = tmp
 }
 
+export const _getContext = (clientId) => {
+  return players[clientId]
+}
+
 export default {
   players,
   /**
@@ -49,18 +53,5 @@ export default {
       player.stack.unshift(player.hand.splice(index, 1))
     }
     dispatcher(card, player, players.getContext(targetId), extra)
-  },
-  /**
-   * 判断获胜者
-   * @param players
-   */
-  findWinner (...players) {
-    if (players.length === 1) {
-      return players[0]
-    } else {
-      for (let player of players) {
-
-      }
-    }
   }
 }

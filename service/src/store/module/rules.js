@@ -1,4 +1,4 @@
-import {_discard, _switch} from './players'
+import {_discard, _switch, _getContext} from './players'
 import rooms from './rooms'
 
 const cardWrapper = {
@@ -53,13 +53,35 @@ const _getLevel = (card) => {
 }
 
 export const dispatcher = (card, player1, player2, extra) => {
-  let card = _converter(card)
+  card = _converter(card)
+  player1 = _getContext(player1)
+  player2 = _getContext(player2)
+  if (player1.find(i => i === 'countess') && _isRoyal(card)) {
+    console.log('ERROR.INVALID_DATA === rules.js | dispatcher')
+  }
   if (_isEffective(card)) {
     if (player2 && _converter(player2.stack[0]) !== 'handmaid') {
       this[card](player1, player2, extra)
     }
   } else {
     this[card](player1)
+  }
+}
+
+/**
+ * 判断获胜者
+ * @param players
+ */
+export const findWinner = (...players) => {
+  if (players.length === 1) {
+    return players[0]
+  } else {
+    let _players = []
+    for (let i of players) {
+      _players.push(_getContext(i))
+    }
+    _players.sort((a, b) => _getLevel(_converter(b.hand[0])) - _getLevel(_converter(a.hand[0])))
+    return _players[0].id
   }
 }
 
