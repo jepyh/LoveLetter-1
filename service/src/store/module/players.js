@@ -50,7 +50,9 @@ export default {
    */
   exitRoom (clientId) {
     let player = players[clientId]
+    let tmp = player.currentRoom
     player.currentRoom = null
+    return tmp
   },
   /**
    * 玩家离线

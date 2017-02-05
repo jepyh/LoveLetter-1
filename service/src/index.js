@@ -8,6 +8,7 @@ io.on('connection', (client) => {
   let clientId = client.id
   console.log('user ' + clientId + ' connected')
 
+
   client.on('join', (roomId) => {
     client.join(roomId)
     io.to(roomId).emit('message', speakers.welcome(clientId))

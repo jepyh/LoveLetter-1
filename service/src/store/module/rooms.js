@@ -115,6 +115,14 @@ export default {
     }
   },
   /**
+   * 断开连接
+   * @param roomId
+   */
+  disconnect (roomId) {
+    let room = rooms[roomId]
+    room.currentState = 'IDLE'
+  },
+  /**
    * 回合开始
    * @param roomId
    */
