@@ -13,6 +13,9 @@ export default {
   joinRoom (roomId, player) {
     _io.to(roomId).emit('message', statements.joinRoom(player))
   },
+  exitRoom (roomId, player) {
+    _io.to(roomId).emit('message', statements.exitRoom(player))
+  },
   out (roomId, player) {
     _io.to(roomId).emit('out', player, statements.out(player))
   },
@@ -24,6 +27,9 @@ export default {
   },
   countdown (roomId, count) {
     _io.to(roomId).emit('message', statements.countdown(count))
+  },
+  roundStart (roomId) {
+    _io.to(roomId).emit('message', statements.roundStart())
   },
   winner (roomId, player) {
     _io.to(roomId).emit('message', statements.winner(player))

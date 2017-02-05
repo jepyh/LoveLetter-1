@@ -152,6 +152,7 @@ const baron = (player1, player2) => {
  * @param player
  */
 const handmaid = (player) => {
+  speaker.discard(player.currentRoom, player.id, null, '侍女', null)
 }
 
 /**
@@ -160,6 +161,7 @@ const handmaid = (player) => {
  * @param player2
  */
 const prince = (player1, player2) => {
+  speaker.discard(player1.currentRoom, player1.id, player2.id, '王子', null)
   if (_converter(_discard(player2)) === 'princess') {
     rooms.out(player2)
   } else {
@@ -173,6 +175,7 @@ const prince = (player1, player2) => {
  * @param player2
  */
 const king = (player1, player2) => {
+  speaker.discard(player1.currentRoom, player1.id, player2.id, '国王', null)
   _switch(player1, player2)
 }
 
@@ -181,6 +184,7 @@ const king = (player1, player2) => {
  * @param player
  */
 const countess = (player) => {
+  speaker.discard(player.currentRoom, player.id, null, '女伯爵', null)
 }
 
 /**
@@ -188,5 +192,6 @@ const countess = (player) => {
  * @param player
  */
 const princess = (player) => {
+  speaker.discard(player.currentRoom, player.id, null, '公主', null)
   rooms.out(player)
 }

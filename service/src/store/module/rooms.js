@@ -51,6 +51,36 @@ const random = (max) => {
   return Math.floor(Math.random() * max)
 }
 
+/**
+ * 倒计时
+ * @param roomId
+ * @param count
+ * @private
+ */
+const _countdown = (roomId, count) => {
+  if (count === 0) {
+    roundStart(roomId)
+  } else {
+    speaker.countdown(roomId, count)
+    setTimeout(_countdown(roomId, count - 1), 1000)
+  }
+}
+
+/**
+ * 回合开始
+ * @param roomId
+ */
+const roundStart = (roomId) => {
+  let room = rooms[roomId]
+  for (let i of room.outPlayers) {
+    room.players.push(i)
+  }
+  room.currentState = 'PLAYING'
+  room.currentStage = 1
+  room.deck = constants.DECK.slice()
+  prepare(room.deck, room.bottom, room.players.length)
+}
+
 export default {
   rooms,
   /**
@@ -103,6 +133,7 @@ export default {
     let index1 = room.allPlayers.findIndex(i => i === clientId)
     let index2 = room.players.findIndex(i => i === clientId)
     let index3 = room.readyPlayers.findIndex(i => i === clientId)
+    speaker.exitRoom(roomId, clientId)
     if (index3 >= 0) {
       room.readyPlayers.splice(index3, 1)
     }
@@ -136,8 +167,10 @@ export default {
    */
   ready (roomId, clientId) {
     let room = rooms[roomId]
+    speaker.ready(roomId, clientId)
     room.readyPlayers.push(clientId)
     if (room.readyPlayers.length === room.players.length) {
+      setTimeout(_countdown(roomId, 5), 1000)
       return room.currentState = 'COUNTDOWN'
     } else {
       return false
@@ -160,20 +193,6 @@ export default {
         room.currentState = 'IDLE'
       }
     }
-  },
-  /**
-   * 回合开始
-   * @param roomId
-   */
-  roundStart (roomId) {
-    let room = rooms[roomId]
-    for (let i of room.outPlayers) {
-      room.players.push(i)
-    }
-    room.currentStage = 'PLAYING'
-    room.currentStage = 1
-    room.deck = constants.DECK.slice()
-    prepare(room.deck, room.bottom, room.players.length)
   },
   /**
    * 抽牌

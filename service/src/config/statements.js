@@ -5,6 +5,9 @@ export default {
   joinRoom (player) {
     return '玩家 ' + player + ' 进入房间'
   },
+  exitRoom (player) {
+    return '玩家 ' + player + ' 离开房间'
+  },
   out (player) {
     return '玩家 ' + player + ' 出局'
   },
@@ -16,6 +19,9 @@ export default {
   },
   countdown (count) {
     return count + '秒后，游戏开始'
+  },
+  roundStart () {
+    return '游戏开始'
   },
   winner (player) {
     return '本局获胜者是：' + player

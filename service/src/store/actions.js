@@ -83,13 +83,6 @@ export default {
     rooms.cancel(players.getContext(clientId).currentRoom, clientId)
   },
   /**
-   * 回合开始
-   * @param clientId
-   */
-  roundStart (clientId) {
-    rooms.roundStart(players.getContext(clientId).currentRoom)
-  },
-  /**
    * 发牌
    * @param clientId
    */
