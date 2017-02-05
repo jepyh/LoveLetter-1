@@ -1,6 +1,18 @@
-import * as rules from '../flow/rules'
+import {dispatcher} from './rules'
 
 const players = {}
+
+export const _discard = (clientId) => {
+  return players[clientId].hand.pop()
+}
+
+export const _switch = (clientId1, clientId2) => {
+  let player1 = players[clientId1]
+  let player2 = players[clientId2]
+  let tmp = player1.hand[0]
+  player1.hand[0] = player2.hand[0]
+  player2.hand[0] = tmp
+}
 
 export default {
   players,
@@ -18,7 +30,7 @@ export default {
    * @param card
    */
   draw (clientId, card) {
-    let player = getContext(clientId)
+    let player = players[clientId]
     player.hand.push(card)
   },
   /**
@@ -29,14 +41,14 @@ export default {
    * @param extra
    */
   discard (clientId, card, targetId, extra) {
-    let player = getContext(clientId)
+    let player = players[clientId]
     let index = player.hand.findIndex(i => i === card)
     if (index < 0) {
       return console.log('ERROR.INVALID_DATA === players.js | discard')
     } else {
       player.stack.unshift(player.hand.splice(index, 1))
     }
-    rules.dispatcher(card, player, players.getContext(targetId), extra)
+    dispatcher(card, player, players.getContext(targetId), extra)
   },
   /**
    * 判断获胜者

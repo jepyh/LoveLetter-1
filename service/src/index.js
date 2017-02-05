@@ -1,4 +1,6 @@
 import socket from 'socket.io'
+import speakers from './config/speakers'
+import store from './store'
 
 const io = socket()
 

@@ -66,7 +66,7 @@ export default {
    * @param roomId
    */
   roundStart (roomId) {
-    let room = getContext(roomId)
+    let room = rooms[roomId]
     for (let i of room.outPlayers) {
       room.players.push(i)
     }
@@ -81,7 +81,7 @@ export default {
    * @returns {String}
    */
   draw (roomId) {
-    let room = getContext(roomId)
+    let room = rooms[roomId]
     return room.deck.pop()
   },
   /**
@@ -104,7 +104,7 @@ export default {
    * @returns {number}
    */
   nextStage (roomId) {
-    let room = getContext(roomId)
+    let room = rooms[roomId]
     return room.currentStage >= constants.ROOM_STAGE.length ? room.currentStage = 1 : room.currentStage += 1
   }
 }

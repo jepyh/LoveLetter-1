@@ -1,11 +1,23 @@
+import {_discard, _switch} from './players'
 import rooms from './rooms'
 
 const cardWrapper = {
-  '侍卫-1': 'bodyguard', '侍卫-2': 'bodyguard', '侍卫-3': 'bodyguard', '侍卫-4': 'bodyguard', '侍卫-5': 'bodyguard',
-  '牧师-1': 'priest', '牧师-2': 'priest', '男爵-1': 'baron', '男爵-2': 'baron',
-  '侍女-1': 'handmaid', '侍女-2': 'handmaid',
-  '王子-1': 'prince', '王子-2': 'prince',
-  '国王': 'king', '女伯爵': 'countess', '公主': 'princess'
+  '侍卫-1': 'bodyguard',
+  '侍卫-2': 'bodyguard',
+  '侍卫-3': 'bodyguard',
+  '侍卫-4': 'bodyguard',
+  '侍卫-5': 'bodyguard',
+  '牧师-1': 'priest',
+  '牧师-2': 'priest',
+  '男爵-1': 'baron',
+  '男爵-2': 'baron',
+  '侍女-1': 'handmaid',
+  '侍女-2': 'handmaid',
+  '王子-1': 'prince',
+  '王子-2': 'prince',
+  '国王': 'king',
+  '女伯爵': 'countess',
+  '公主': 'princess'
 }
 
 /**
@@ -91,7 +103,8 @@ const baron = (player1, player2) => {
  * 侍女
  * @param player
  */
-const handmaid = (player) => {}
+const handmaid = (player) => {
+}
 
 /**
  * 王子
@@ -99,8 +112,11 @@ const handmaid = (player) => {}
  * @param player2
  */
 const prince = (player1, player2) => {
-  player2
-  let card = rooms.draw(player2.currentRoom)
+  if (_converter(_discard(player2)) === 'princess') {
+    rooms.out(player2)
+  } else {
+    context.hand.push(rooms.draw(player2.currentRoom))
+  }
 }
 
 /**
@@ -109,14 +125,15 @@ const prince = (player1, player2) => {
  * @param player2
  */
 const king = (player1, player2) => {
-
+  _switch(player1, player2)
 }
 
 /**
  * 女伯爵
  * @param player
  */
-const countess = (player) => {}
+const countess = (player) => {
+}
 
 /**
  * 公主
