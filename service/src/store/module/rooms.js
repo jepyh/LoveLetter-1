@@ -103,6 +103,7 @@ export default {
     room.players.push(clientId)
     room.currentState = 'IDLE'
     rooms[clientId] = room
+    speaker.createRoom(clientId)
   },
   /**
    * 加入房间

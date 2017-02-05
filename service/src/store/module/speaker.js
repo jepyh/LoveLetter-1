@@ -10,6 +10,9 @@ export default {
   connect (player) {
     _io.emit('message', statements.connect(player))
   },
+  createRoom (player) {
+    _io.emit('create', player, statements.createRoom(player))
+  },
   joinRoom (roomId, player) {
     _io.to(roomId).emit('message', statements.joinRoom(player))
   },

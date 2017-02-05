@@ -14,7 +14,7 @@
 <script>
   var socket = io("http://127.0.0.1:3000")
   socket.on("message", function (msg) {
-    console.log(msg)
+    console.log('message: ' + msg)
 //    document.getElementById("message").append(msg)
   })
   function createRoom() {
