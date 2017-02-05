@@ -24,7 +24,7 @@ export default {
     return '游戏开始'
   },
   winner (player) {
-    return '本局获胜者是：' + player
+    return '游戏结束，本局获胜者是：' + player
   },
   discard (player1, card, player2, extra) {
     if (extra) {
@@ -51,5 +51,8 @@ export default {
       case 0:
         return '对方的手牌是：' + card + '，平手'
     }
+  },
+  myTurn (player) {
+    return '轮到玩家 ' + player + ' 回合'
   }
 }

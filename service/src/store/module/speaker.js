@@ -43,5 +43,9 @@ export default {
   baron (player1, player2, card1, card2, result) {
     _io.to(player1).emit('message', statements.baron(card2, result))
     _io.to(player2).emit('message', statements.baron(card1, -result))
+  },
+  myTurn (roomId, player) {
+    _io.to(roomId).emit('message', statements.myTurn(player))
+    _io.to(player).emit('turn')
   }
 }

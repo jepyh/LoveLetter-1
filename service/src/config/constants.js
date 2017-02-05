@@ -3,7 +3,7 @@ export default {
     '侍卫-1', '侍卫-2', '侍卫-3', '侍卫-4', '侍卫-5', '牧师-1', '牧师-2', '男爵-1',
     '男爵-2', '侍女-1', '侍女-2', '王子-1', '王子-2', '国王', '女伯爵', '公主'
   ],
-  ROOM_STAGE: [
+  TURN_STAGE: [
     'DRAW', 'DISCARD', 'APPLY_EFFECT', 'PASS'
   ],
   ROOM_STATE: [
@@ -33,8 +33,6 @@ export default {
     currentPlayer: null,
     // 当前状态
     currentState: null,
-    // 回合阶段
-    currentStage: null,
     // 牌库
     deck: [],
     // 底牌

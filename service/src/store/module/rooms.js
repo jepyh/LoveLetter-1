@@ -76,9 +76,9 @@ const roundStart = (roomId) => {
     room.players.push(i)
   }
   room.currentState = 'PLAYING'
-  room.currentStage = 1
   room.deck = constants.DECK.slice()
   prepare(room.deck, room.bottom, room.players.length)
+  room.currentPlayer = 0
 }
 
 export default {
@@ -169,7 +169,7 @@ export default {
     let room = rooms[roomId]
     speaker.ready(roomId, clientId)
     room.readyPlayers.push(clientId)
-    if (room.readyPlayers.length === room.players.length) {
+    if (room.players.length > 1 && room.readyPlayers.length === room.players.length) {
       setTimeout(_countdown(roomId, 5), 1000)
       return room.currentState = 'COUNTDOWN'
     } else {
@@ -219,12 +219,14 @@ export default {
     }
   },
   /**
-   * 下一阶段
+   * 下一名玩家
    * @param roomId
    * @returns {number}
    */
-  nextStage (roomId) {
+  nextPlayer (roomId) {
     let room = rooms[roomId]
-    return room.currentStage >= constants.ROOM_STAGE.length ? room.currentStage = 1 : room.currentStage += 1
+    room.currentPlayer += 1
+    if (room.players)
+    speaker.myTurn(roomId, )
   }
 }
