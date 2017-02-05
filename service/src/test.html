@@ -1,0 +1,28 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+  <meta name="renderer" content="webkit">
+</head>
+<body>
+<div id="message"></div>
+<button onclick="createRoom()">创建房间</button>
+<button onclick="joinRoom()">快速加入</button>
+</body>
+<script src="//cdn.bootcss.com/socket.io/1.7.2/socket.io.min.js"></script>
+<script>
+  var socket = io("http://127.0.0.1:3000")
+  socket.on("message", function (msg) {
+    console.log(msg)
+//    document.getElementById("message").append(msg)
+  })
+  function createRoom() {
+    console.log("create room")
+    socket.emit("create")
+  }
+  function joinRoom() {
+    socket.emit("join")
+  }
+</script>
+</html>

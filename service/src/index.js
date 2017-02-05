@@ -8,8 +8,12 @@ io.on('connection', (client) => {
   let clientId = client.id
   console.log('user ' + clientId + ' connected')
   store.actions.connect(clientId)
-  console.log(store.getters.getData())
+  // console.log(store.getters.getData())
   io.to(clientId).emit('message', store.getters.getData())
+  client.on('create', () => {
+    store.actions.createRoom(clientId)
+    client.join(clientId)
+  })
   client.on('join', (roomId) => {
     store.actions.joinRoom(clientId, roomId)
     client.join(roomId)
@@ -26,6 +30,7 @@ io.on('connection', (client) => {
   })
 
   client.on('disconnect', () => {
+    store.actions.disconnect(clientId)
     console.log('user ' + clientId + ' disconnected')
   })
 })

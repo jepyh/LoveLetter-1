@@ -66,12 +66,13 @@ export default {
    * @param clientId
    */
   createRoom (clientId) {
-    let room = constants.ROOM_CONTEXT.slice()
+    let room = constants.ROOM_CONTEXT
     room.id = clientId
     room.allPlayers.push(clientId)
     room.players.push(clientId)
-    room.currentStage = 'IDLE'
-    rooms.push(room)
+    console.log(clientId)
+    room.currentState = 'IDLE'
+    rooms[clientId] = room
   },
   /**
    * 加入房间

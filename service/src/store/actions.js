@@ -35,11 +35,20 @@ export default {
    * @param clientId
    */
   disconnect (clientId) {
-    players.disconnect(clientId)
     let roomId = players.players[clientId].currentRoom
     if (roomId) {
       rooms.exitRoom(clientId, roomId)
       rooms.disconnect(roomId)
+    }
+    players.disconnect(clientId)
+  },
+  /**
+   * 创建房间
+   * @param clientId
+   */
+  createRoom (clientId) {
+    if (players.createRoom(clientId)) {
+      rooms.createRoom(clientId)
     }
   },
   /**
@@ -48,8 +57,9 @@ export default {
    * @param roomId
    */
   joinRoom (clientId, roomId) {
-    players.joinRoom(clientId, roomId)
-    rooms.joinRoom(clientId, roomId)
+    if (rooms.joinRoom(clientId, roomId)) {
+      players.joinRoom(clientId, roomId)
+    }
   },
   /**
    * 离开房间

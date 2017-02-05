@@ -34,7 +34,11 @@ export default {
    */
   createRoom (clientId) {
     let player = players[clientId]
-    player.currentRoom = clientId
+    if (player.currentRoom) {
+      return false
+    } else {
+      return player.currentRoom = clientId
+    }
   },
   /**
    * 加入房间
