@@ -53,9 +53,18 @@ const random = (max) => {
 
 export default {
   rooms,
+  /**
+   * 获取上下文
+   * @param id
+   * @returns {*}
+   */
   getContext (id) {
     return rooms[id]
   },
+  /**
+   * 回合开始
+   * @param roomId
+   */
   roundStart (roomId) {
     let room = getContext(roomId)
     for (let i of room.outPlayers) {
@@ -66,10 +75,34 @@ export default {
     room.deck = constants.DECK.slice()
     prepare(room.deck, room.bottom, room.players.length)
   },
+  /**
+   * 抽牌
+   * @param roomId
+   * @returns {String}
+   */
   draw (roomId) {
     let room = getContext(roomId)
     return room.deck.pop()
   },
+  /**
+   * 出局
+   * @param player
+   */
+  out (player) {
+    let room = getContext(player.currentRoom)
+    let index = room.players.findIndex(i => i === player.id)
+    if (index < 0) {
+      return console.log('ERROR.INVALID_DATA === rooms.js | out')
+    } else {
+      room.outPlayers.unshift(player.id)
+      room.players.splice(index, 1)
+    }
+  },
+  /**
+   * 下一阶段
+   * @param roomId
+   * @returns {number}
+   */
   nextStage (roomId) {
     let room = getContext(roomId)
     return room.currentStage >= constants.ROOM_STAGE.length ? room.currentStage = 1 : room.currentStage += 1

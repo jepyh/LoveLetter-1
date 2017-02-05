@@ -1,3 +1,5 @@
+import * as rules from '../flow/rules'
+
 const players = {}
 
 export default {
@@ -23,16 +25,23 @@ export default {
    * 弃牌
    * @param clientId
    * @param card
+   * @param targetId
+   * @param extra
    */
-  discard (clientId, card) {
+  discard (clientId, card, targetId, extra) {
     let player = getContext(clientId)
     let index = player.hand.findIndex(i => i === card)
     if (index < 0) {
-      console.log('ERROR.INVALID_DATA')
+      return console.log('ERROR.INVALID_DATA === players.js | discard')
     } else {
-      let card = player.hand.splice(index, 1)
-      player.stack.splice(0, 0, card)
-      return card
+      player.stack.unshift(player.hand.splice(index, 1))
+    }
+    switch (card) {
+      case '侍卫':
+        rules.bodyguard(player, players.getContext(targetId), extra)
+        break
+      default:
+        break
     }
   }
 }
