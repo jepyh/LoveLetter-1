@@ -1,22 +1,19 @@
 <template>
   <div id="lobby">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <div class="header">
+      游戏大厅
+    </div>
+    <div class="rooms">
+      <lh-room></lh-room>
+    </div>
+    <div class="footer">
+      <p class="button"
+         style="background: #D74937;"
+         @click="createRoom">创建房间</p>
+      <p class="button"
+         style="background: #4485F5;"
+         @click="quickStart">快速加入</p>
+    </div>
   </div>
 </template>
 
@@ -35,27 +32,45 @@
       return {
         msg: 'Welcome to Your Vue.js App'
       }
+    },
+    methods: {
+      createRoom () {
+
+      },
+      quickStart () {
+        alert('匹配系统暂未上线')
+      }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  h1, h2 {
-    font-weight: normal;
+  #lobby {
+    height: 100%;
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
+  .header {
+    text-align: center;
+    height: 44px;
+    font-size: 18px;
+    line-height: 44px;
+    box-shadow: 0 0 3px #aaa;
   }
 
-  li {
-    display: inline-block;
-    margin: 0 10px;
+  .footer {
+    display: flex;
+    height: 44px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 
-  a {
-    color: #42b983;
+  .button {
+    text-align: center;
+    flex-grow: 1;
+    line-height: 44px;
+    color: white;
+    font-weight: bold;
   }
 </style>

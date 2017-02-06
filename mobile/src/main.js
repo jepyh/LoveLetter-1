@@ -7,6 +7,10 @@ import router from './router'
 
 Vue.use(VueSocket, 'http://localhost:3000')
 
+import Room from './components/Room.vue'
+
+Vue.component('lh-room', Room)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
