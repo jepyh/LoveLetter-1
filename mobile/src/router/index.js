@@ -3,14 +3,20 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import Hello from 'components/Hello'
+import Lobby from '../pages/Lobby.vue'
+import Room from '../pages/Room.vue'
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'Lobby',
+      component: Lobby
+    },
+    {
+      path: '/:roomId',
+      name: 'Room',
+      component: Room
     }
   ]
 })
