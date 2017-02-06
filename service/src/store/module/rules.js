@@ -107,7 +107,7 @@ export const findWinner = (...players) => {
  * @param player2
  * @param card
  */
-const bodyguard = (player1, player2, card) => {
+export const bodyguard = (player1, player2, card) => {
   speaker.discard(player1.currentRoom, player1.id, player2.id, null, card)
   if (player2.hand[0].substr(0, 2) === card.substr(0, 2)) {
     rooms.out(player2)
@@ -120,7 +120,7 @@ const bodyguard = (player1, player2, card) => {
  * @param player2
  * @returns {*}
  */
-const priest = (player1, player2) => {
+export const priest = (player1, player2) => {
   speaker.discard(player1.currentRoom, player1.id, player2.id, '牧师', null)
   speaker.priest(player1, player2.hand[0])
 }
@@ -130,7 +130,7 @@ const priest = (player1, player2) => {
  * @param player1
  * @param player2
  */
-const baron = (player1, player2) => {
+export const baron = (player1, player2) => {
   let card1 = player1.hand[0]
   let level1 = _getLevel(_converter(card1))
   let card2 = player2.hand[0]
@@ -151,7 +151,7 @@ const baron = (player1, player2) => {
  * 侍女
  * @param player
  */
-const handmaid = (player) => {
+export const handmaid = (player) => {
   speaker.discard(player.currentRoom, player.id, null, '侍女', null)
 }
 
@@ -160,7 +160,7 @@ const handmaid = (player) => {
  * @param player1
  * @param player2
  */
-const prince = (player1, player2) => {
+export const prince = (player1, player2) => {
   speaker.discard(player1.currentRoom, player1.id, player2.id, '王子', null)
   if (_converter(_discard(player2)) === 'princess') {
     rooms.out(player2)
@@ -174,7 +174,7 @@ const prince = (player1, player2) => {
  * @param player1
  * @param player2
  */
-const king = (player1, player2) => {
+export const king = (player1, player2) => {
   speaker.discard(player1.currentRoom, player1.id, player2.id, '国王', null)
   _switch(player1, player2)
 }
@@ -183,7 +183,7 @@ const king = (player1, player2) => {
  * 女伯爵
  * @param player
  */
-const countess = (player) => {
+export const countess = (player) => {
   speaker.discard(player.currentRoom, player.id, null, '女伯爵', null)
 }
 
@@ -191,7 +191,7 @@ const countess = (player) => {
  * 公主
  * @param player
  */
-const princess = (player) => {
+export const princess = (player) => {
   speaker.discard(player.currentRoom, player.id, null, '公主', null)
   rooms.out(player)
 }

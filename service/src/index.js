@@ -21,10 +21,14 @@ io.on('connection', (client) => {
   })
   client.on('ready', () => {
     io.clients((error, clients) => {
-      console.log(clients)
+      if (!error) {
+        console.log(clients)
+      }
     })
     io.in('100001').clients((error, clients) => {
-      console.log(clients)
+      if (!error) {
+        console.log(clients)
+      }
     })
     io.to('100001').emit('ready', clientId)
   })

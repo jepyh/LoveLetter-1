@@ -1,7 +1,7 @@
 {
   "name": "mobile",
   "version": "1.0.0",
-  "description": "The online version of board game `Love Letter`",
+  "description": "Love Letter OL based on Node and Socket.io",
   "author": "lhzbxx <lhzbxx@gmail.com>",
   "private": true,
   "scripts": {

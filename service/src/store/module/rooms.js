@@ -148,7 +148,7 @@ export default {
       room.players.push(room.allPlayers.pop())
     } else {
       if (room.players.length === 1) {
-        delete(rooms[roomId])
+        delete rooms[roomId]
       }
     }
   },
@@ -173,7 +173,8 @@ export default {
     room.readyPlayers.push(clientId)
     if (room.players.length > 1 && room.readyPlayers.length === room.players.length) {
       setTimeout(_countdown(roomId, 5), 1000)
-      return room.currentState = 'COUNTDOWN'
+      room.currentState = 'COUNTDOWN'
+      return true
     } else {
       return false
     }
@@ -222,7 +223,7 @@ export default {
    * @param player
    */
   out (player) {
-    let room = getContext(player.currentRoom)
+    let room = rooms[player.currentRoom]
     let index = room.players.findIndex(i => i === player.id)
     if (index < 0) {
       return console.log('ERROR.INVALID_DATA === rooms.js | out')

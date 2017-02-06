@@ -39,7 +39,8 @@ export default {
     if (player.currentRoom) {
       return false
     } else {
-      return player.currentRoom = clientId
+      player.currentRoom = clientId
+      return true
     }
   },
   /**
@@ -66,7 +67,7 @@ export default {
    * @param clientId
    */
   disconnect (clientId) {
-    delete(players[clientId])
+    delete players[clientId]
   },
   /**
    * 获取上下文

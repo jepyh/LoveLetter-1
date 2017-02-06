@@ -1,7 +1,7 @@
 {
   "name": "love-letter-service",
   "version": "1.0.0",
-  "description": "Love Letter OL based on Node and Socket.io.",
+  "description": "Love Letter OL based on Node and Socket.io",
   "main": "index.js",
   "scripts": {
     "start": "webpack --watch && node ./dist/main.js",
