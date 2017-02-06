@@ -32,9 +32,8 @@
     },
     methods: {
       createRoom () {
-        console.log(this)
-        console.log(this.$socket)
-        this.$socket.emit('create', '')
+        this.$socket.emit('create')
+        this.$router.push({name: 'Room', params: {roomId: this.$socket.id}})
       },
       quickStart () {
         alert('匹配系统暂未上线')
@@ -58,6 +57,12 @@
     },
     mounted () {
       vm = this
+      if (window.localStorage.messages) {
+        this.messages = JSON.parse(window.localStorage.messages)
+      }
+    },
+    beforeDestroy () {
+      window.localStorage.setItem('messages', JSON.stringify(vm.messages))
     }
   }
 </script>

@@ -4,6 +4,7 @@
   "description": "Love Letter OL based on Node and Socket.io",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack --watch",
     "start": "webpack --watch & node ./dist/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

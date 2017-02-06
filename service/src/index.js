@@ -19,20 +19,12 @@ io.on('connection', (client) => {
     store.actions.joinRoom(clientId, roomId)
     client.join(roomId)
   })
-  client.on('ready', () => {
-    io.clients((error, clients) => {
-      if (!error) {
-        console.log(clients)
-      }
-    })
-    io.in('100001').clients((error, clients) => {
-      if (!error) {
-        console.log(clients)
-      }
-    })
-    io.to('100001').emit('ready', clientId)
+  client.on('exit', (roomId) => {
+    store.actions.exitRoom(clientId)
   })
-
+  client.on('ready', () => {
+    store.actions.ready(clientId)
+  })
   client.on('disconnect', () => {
     store.actions.disconnect(clientId)
     console.log('user ' + clientId + ' disconnected')
