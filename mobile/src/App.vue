@@ -15,4 +15,29 @@ export default {
     position: relative;
     height: 100%;
   }
+
+  .header {
+    text-align: center;
+    height: 44px;
+    font-size: 18px;
+    line-height: 44px;
+    box-shadow: 0 0 3px #aaa;
+  }
+
+  .footer {
+    display: flex;
+    height: 44px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  .button {
+    text-align: center;
+    flex-grow: 1;
+    line-height: 44px;
+    color: white;
+    font-weight: bold;
+  }
 </style>

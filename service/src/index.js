@@ -10,7 +10,7 @@ io.on('connection', (client) => {
   console.log('user ' + clientId + ' connected')
   store.actions.connect(clientId)
   // console.log(store.getters.getData())
-  io.to(clientId).emit('message', store.getters.getData())
+  io.to(clientId).emit('data', store.getters.getData())
   client.on('create', () => {
     store.actions.createRoom(clientId)
     client.join(clientId)

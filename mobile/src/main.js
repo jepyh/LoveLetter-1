@@ -5,11 +5,13 @@ import VueSocket from 'vue-socket.io'
 import App from './App'
 import router from './router'
 
-Vue.use(VueSocket, 'http://localhost:3000')
+Vue.use(VueSocket, 'http://192.168.1.5:3000')
 
 import Room from './components/Room.vue'
+import MessageBox from './components/MessageBox.vue'
 
 Vue.component('lh-room', Room)
+Vue.component('lh-message-box', MessageBox)
 
 /* eslint-disable no-new */
 new Vue({
