@@ -125,6 +125,7 @@
       },
       start () {
         vm.isPlaying = true
+        vm.isReady = false
       },
       end () {
         vm.isPlaying = false

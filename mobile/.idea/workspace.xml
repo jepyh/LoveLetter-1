@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="656186bc-40f5-4df0-a72e-e930705a80e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Room.vue" afterPath="$PROJECT_DIR$/src/pages/Room.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/config/statements.js" afterPath="$PROJECT_DIR$/../service/src/config/statements.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/index.js" afterPath="$PROJECT_DIR$/../service/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/store/actions.js" afterPath="$PROJECT_DIR$/../service/src/store/actions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/store/module/players.js" afterPath="$PROJECT_DIR$/../service/src/store/module/players.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/store/module/rooms.js" afterPath="$PROJECT_DIR$/../service/src/store/module/rooms.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/store/module/rules.js" afterPath="$PROJECT_DIR$/../service/src/store/module/rules.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/store/module/speaker.js" afterPath="$PROJECT_DIR$/../service/src/store/module/speaker.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,15 +22,15 @@
       <file leaf-file-name="Room.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/Room.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="129" column="14" lean-forward="false" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
+            <state relative-caret-position="408">
+              <caret line="127" column="26" lean-forward="false" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
               <folding>
                 <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#2;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#3;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#p#4;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <marker date="1486476544000" expanded="true" signature="1818:2275" ph="..." />
+                <marker date="1486476728000" expanded="true" signature="1818:2275" ph="..." />
               </folding>
             </state>
           </provider>
@@ -911,12 +905,12 @@
       <option name="presentableId" value="Default" />
       <updated>1486382895598</updated>
       <workItem from="1486382899565" duration="69000" />
-      <workItem from="1486392810336" duration="33827000" />
+      <workItem from="1486392810336" duration="34075000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33896000" />
+    <option name="totallyTimeSpent" value="34144000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
@@ -1222,15 +1216,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/Room.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="129" column="14" lean-forward="false" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
+        <state relative-caret-position="408">
+          <caret line="127" column="26" lean-forward="false" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
           <folding>
             <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#2;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#3;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#4;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <marker date="1486476544000" expanded="true" signature="1818:2275" ph="..." />
+            <marker date="1486476728000" expanded="true" signature="1818:2275" ph="..." />
           </folding>
         </state>
       </provider>
