@@ -60,6 +60,10 @@ export default {
     _io.to(roomId).emit('end')
     _io.to(roomId).emit('message', statements.roundEnd())
   },
+  quit (roomId, clientId) {
+    _io.to(roomId).emit('quit')
+    _io.to(roomId).emit('message', statements.quit(clientId))
+  },
   winner (roomId, player) {
     _io.to(roomId).emit('message', statements.winner(player))
   },

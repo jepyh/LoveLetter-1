@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="656186bc-40f5-4df0-a72e-e930705a80e6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/Room.vue" afterPath="$PROJECT_DIR$/src/pages/Room.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/config/statements.js" afterPath="$PROJECT_DIR$/../service/src/config/statements.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/store/module/rooms.js" afterPath="$PROJECT_DIR$/../service/src/store/module/rooms.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../service/src/store/module/speaker.js" afterPath="$PROJECT_DIR$/../service/src/store/module/speaker.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,12 +21,19 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="Room.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/Room.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="348">
+              <caret line="137" column="20" lean-forward="false" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="20" />
+              <folding>
+                <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#2;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#3;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#4;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <marker date="1486484873000" expanded="true" signature="1818:2275" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,9 +73,9 @@
         <option value="$PROJECT_DIR$/src/components/Room.vue" />
         <option value="$PROJECT_DIR$/src/components/MessageBox.vue" />
         <option value="$PROJECT_DIR$/src/store/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/Room.vue" />
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/pages/Room.vue" />
       </list>
     </option>
   </component>
@@ -967,16 +977,16 @@
       <option name="presentableId" value="Default" />
       <updated>1486382895598</updated>
       <workItem from="1486382899565" duration="69000" />
-      <workItem from="1486392810336" duration="36313000" />
+      <workItem from="1486392810336" duration="36893000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36382000" />
+    <option name="totallyTimeSpent" value="36962000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -989,7 +999,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1024,7 +1034,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="64" lean-forward="false" selection-start-line="3" selection-start-column="64" selection-end-line="3" selection-end-column="64" />
-          <folding />
+          <folding>
+            <marker date="1486484226000" expanded="true" signature="0:1978" ph="{&quot;name&quot;: &quot;mobile&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="180:394" ph="{&quot;dev&quot;: &quot;node build/dev-server.js&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="414:521" ph="{&quot;vue&quot;: &quot;^2.1.10&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="544:1910" ph="{&quot;autoprefixer&quot;: &quot;^6.7.2&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="1925:1976" ph="{&quot;node&quot;: &quot;&gt;= 4.0.0&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1122,55 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Room.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-          <folding>
-            <marker date="1486462609000" expanded="true" signature="9:240" ph="..." />
-            <marker date="1486462609000" expanded="true" signature="30:228" ph="..." />
-            <marker date="1486462609000" expanded="true" signature="250:617" ph="..." />
-            <marker date="1486462609000" expanded="true" signature="269:608" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="282:308" ph="{&quot;room&quot;: Object...}" />
-            <marker date="1486462609000" expanded="true" signature="323:506" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="343:500" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="370:418" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="522:604" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="540:598" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="633:830" ph="..." />
-            <marker date="1486462609000" expanded="true" signature="643:739" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="754:788" ph="{...}" />
-            <marker date="1486462609000" expanded="true" signature="794:822" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MessageBox.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="23" lean-forward="false" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
-          <folding>
-            <marker date="1486462856000" expanded="true" signature="9:291" ph="..." />
-            <marker date="1486462856000" expanded="true" signature="17:279" ph="..." />
-            <marker date="1486462856000" expanded="true" signature="44:165" ph="..." />
-            <marker date="1486462856000" expanded="true" signature="123:154" ph="..." />
-            <marker date="1486462856000" expanded="true" signature="199:270" ph="..." />
-            <marker date="1486462856000" expanded="true" signature="301:600" ph="..." />
-            <marker date="1486462856000" expanded="true" signature="354:591" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="368:422" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="383:416" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="437:511" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="457:505" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="527:587" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="549:580" ph="[...]" />
-            <marker date="1486462856000" expanded="true" signature="616:1195" ph="..." />
-            <marker date="1486462856000" expanded="true" signature="630:891" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="912:975" ph="{...}" />
-            <marker date="1486462856000" expanded="true" signature="996:1187" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1224,72 +1191,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/Room.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="127" column="26" lean-forward="false" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
-          <folding>
-            <marker date="1486476728000" expanded="true" signature="9:1790" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="27:1778" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="52:99" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="125:980" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="156:440" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="276:427" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="471:721" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="523:708" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="752:969" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="804:956" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1043:1769" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1068:1208" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1128:1148" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1233:1347" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1293:1313" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1372:1486" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1432:1452" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1511:1611" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1557:1577" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1636:1758" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1682:1702" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1800:5029" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="1813:2275" ph="//..." />
-            <marker date="1486476728000" expanded="true" signature="1818:2275" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="2296:2535" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="2538:2722" ph="//..." />
-            <marker date="1486476728000" expanded="true" signature="2740:5020" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="2754:3117" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="2769:3111" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="2998:3079" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3132:3549" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3159:3191" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3222:3261" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3278:3342" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3357:3437" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3453:3487" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3507:3543" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3564:4879" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3584:3655" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3672:3848" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3737:3785" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3791:3840" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3868:4357" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="3895:4349" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="4163:4263" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="4269:4339" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="4377:4687" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="4518:4637" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="4643:4679" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="4707:4873" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="4896:5016" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="5045:5364" ph="..." />
-            <marker date="1486476728000" expanded="true" signature="5055:5078" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="5091:5115" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="5130:5163" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="5182:5302" ph="{...}" />
-            <marker date="1486476728000" expanded="true" signature="5324:5356" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
@@ -1334,7 +1235,77 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="38" lean-forward="false" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
-          <folding />
+          <folding>
+            <marker date="1486484226000" expanded="true" signature="0:1978" ph="{&quot;name&quot;: &quot;mobile&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="180:394" ph="{&quot;dev&quot;: &quot;node build/dev-server.js&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="414:521" ph="{&quot;vue&quot;: &quot;^2.1.10&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="544:1910" ph="{&quot;autoprefixer&quot;: &quot;^6.7.2&quot;...}" />
+            <marker date="1486484226000" expanded="true" signature="1925:1976" ph="{&quot;node&quot;: &quot;&gt;= 4.0.0&quot;...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/MessageBox.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="23" lean-forward="false" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <marker date="1486462856000" expanded="true" signature="9:291" ph="..." />
+            <marker date="1486462856000" expanded="true" signature="17:279" ph="..." />
+            <marker date="1486462856000" expanded="true" signature="44:165" ph="..." />
+            <marker date="1486462856000" expanded="true" signature="123:154" ph="..." />
+            <marker date="1486462856000" expanded="true" signature="199:270" ph="..." />
+            <marker date="1486462856000" expanded="true" signature="301:600" ph="..." />
+            <marker date="1486462856000" expanded="true" signature="354:591" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="368:422" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="383:416" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="437:511" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="457:505" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="527:587" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="549:580" ph="[...]" />
+            <marker date="1486462856000" expanded="true" signature="616:1195" ph="..." />
+            <marker date="1486462856000" expanded="true" signature="630:891" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="912:975" ph="{...}" />
+            <marker date="1486462856000" expanded="true" signature="996:1187" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Room.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+          <folding>
+            <marker date="1486462609000" expanded="true" signature="9:240" ph="..." />
+            <marker date="1486462609000" expanded="true" signature="30:228" ph="..." />
+            <marker date="1486462609000" expanded="true" signature="250:617" ph="..." />
+            <marker date="1486462609000" expanded="true" signature="269:608" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="282:308" ph="{&quot;room&quot;: Object...}" />
+            <marker date="1486462609000" expanded="true" signature="323:506" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="343:500" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="370:418" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="522:604" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="540:598" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="633:830" ph="..." />
+            <marker date="1486462609000" expanded="true" signature="643:739" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="754:788" ph="{...}" />
+            <marker date="1486462609000" expanded="true" signature="794:822" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/Room.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="137" column="20" lean-forward="false" selection-start-line="137" selection-start-column="20" selection-end-line="137" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#2;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#3;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#4;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <marker date="1486484873000" expanded="true" signature="1818:2275" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -32,6 +32,9 @@ export default {
   roundEnd () {
     return '游戏结束'
   },
+  quit (player) {
+    return '玩家 ' + player + ' 中途退出，游戏结束'
+  },
   winner (player) {
     return '本局获胜者是：' + player
   },

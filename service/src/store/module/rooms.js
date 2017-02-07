@@ -184,6 +184,19 @@ export default {
     room.allPlayers.splice(index1, 1)
     room.players.splice(index2, 1)
     speaker.updateRoom(room)
+    if (room.state !== 'IDLE') {
+      // 中途有玩家退出（或掉线）
+      room.currentState = 'IDLE'
+      for (let i of room.outPlayers) {
+        if (i !== clientId) {
+          room.players.push(i)
+        }
+      }
+      room.outPlayers = []
+      room.readyPlayers = []
+      speaker.updateRoom(roomId)
+      speaker.quit(roomId, clientId)
+    }
     if (room.allPlayers.length > room.players.length) {
       room.players.push(room.allPlayers.pop())
     } else {

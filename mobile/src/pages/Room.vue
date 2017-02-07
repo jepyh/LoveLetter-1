@@ -132,6 +132,11 @@
         vm.stage = 1
         vm.hand = []
       },
+      quit () {
+        vm.isPlaying = false
+        vm.stage = 1
+        vm.hand = []
+      },
       turn () {
         vm.myTurn = true
       },
