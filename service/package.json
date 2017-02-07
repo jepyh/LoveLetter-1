@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack --watch",
     "start": "webpack --watch & node ./dist/main.js",
+    "deploy": "scp -r dist/ root@115.28.71.169:/home/LoveLetter",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
