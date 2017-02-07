@@ -13,9 +13,9 @@ export default {
   disconnect (player) {
     _io.emit('message', statements.disconnect(player))
   },
-  createRoom (room) {
+  createRoom (room, clientId) {
     _io.emit('create', room)
-    _io.emit('message', statements.createRoom(room.id))
+    _io.emit('message', statements.createRoom(clientId))
   },
   joinRoom (roomId, player) {
     _io.to(roomId).emit('message', statements.joinRoom(player))

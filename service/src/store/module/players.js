@@ -39,7 +39,7 @@ export default {
     if (player.currentRoom) {
       return false
     } else {
-      player.currentRoom = clientId
+      player.currentRoom = 'room_' + clientId
       return true
     }
   },

@@ -1,5 +1,6 @@
 import constants from '../../config/constants'
 import speaker from './speaker'
+import {_deal, _draw} from '../actions'
 
 const rooms = {}
 
@@ -57,7 +58,7 @@ const random = (max) => {
  * @param count
  * @private
  */
-function _countdown (roomId, count) {
+function _countdown(roomId, count) {
   return function () {
     if (count === 0) {
       roundStart(roomId)
@@ -66,6 +67,23 @@ function _countdown (roomId, count) {
       setTimeout(_countdown(roomId, count - 1), 1000)
     }
   }
+}
+
+/**
+ * 下一名玩家
+ * @param roomId
+ * @private
+ */
+function _nextPlayer (roomId) {
+  let room = rooms[roomId]
+  let index = room.players.findIndex(i => i === room.currentPlayer)
+  if (index === room.players.length - 1) {
+    room.currentPlayer = room.players[0]
+  } else {
+    room.currentPlayer = room.players[index + 1]
+  }
+  speaker.myTurn(roomId, room.currentPlayer)
+  _draw(room.currentPlayer)
 }
 
 /**
@@ -81,8 +99,10 @@ const roundStart = (roomId) => {
   room.deck = constants.DECK.slice()
   room.readyPlayers = []
   prepare(room.deck, room.bottom, room.players.length)
-  room.currentPlayer = room.players[0]
+  room.currentPlayer = room.players[room.players.length - 1]
   speaker.roundStart(roomId)
+  _deal(room)
+  _nextPlayer(roomId)
 }
 
 export default {
@@ -101,12 +121,13 @@ export default {
    */
   createRoom (clientId) {
     let room = JSON.parse(JSON.stringify(constants.ROOM_CONTEXT))
-    room.id = clientId
+    let roomId = 'room_' + clientId
+    room.id = roomId
     room.allPlayers.push(clientId)
     room.players.push(clientId)
     room.currentState = 'IDLE'
-    rooms[clientId] = room
-    speaker.createRoom(room)
+    rooms[roomId] = room
+    speaker.createRoom(room, clientId)
   },
   /**
    * 加入房间
@@ -257,13 +278,6 @@ export default {
    * @returns {number}
    */
   nextPlayer (roomId) {
-    let room = rooms[roomId]
-    speaker.myTurn(roomId, room.currentPlayer)
-    let index = room.players.findIndex(i => i === room.currentPlayer)
-    if (index === room.players.length - 1) {
-      room.currentPlayer = room.players[0]
-    } else {
-      room.currentPlayer = room.players[index + 1]
-    }
+    _nextPlayer(roomId)
   }
 }

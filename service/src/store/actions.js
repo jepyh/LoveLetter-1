@@ -22,6 +22,24 @@ const _getPlayers = (clientId) => {
   return rooms.getContext(players.getContext(clientId).currentRoom).players
 }
 
+/**
+ * 发牌
+ * @param room
+ */
+export const _deal = (room) => {
+  for (let i of room.players) {
+    players.draw(i, rooms.draw(room.id))
+  }
+}
+
+/**
+ * 抽牌
+ * @param clientId
+ */
+export const _draw = (clientId) => {
+  players.draw(clientId, rooms.draw(players.getContext(clientId).currentRoom))
+}
+
 export default {
   /**
    * 连接
@@ -83,23 +101,6 @@ export default {
     rooms.cancel(players.getContext(clientId).currentRoom, clientId)
   },
   /**
-   * 发牌
-   * @param clientId
-   */
-  deal (clientId) {
-    let room = rooms.getContext(players.getContext(clientId).currentRoom)
-    for (let i of room.players) {
-      players.draw(i, rooms.draw(room.id))
-    }
-  },
-  /**
-   * 抽牌
-   * @param clientId
-   */
-  draw (clientId) {
-    players.draw(clientId, rooms.draw(players.getContext(clientId).currentRoom))
-  },
-  /**
    * 弃牌
    * @param clientId
    * @param card
@@ -108,8 +109,10 @@ export default {
    */
   discard (clientId, card, targetId, extra) {
     players.discard(clientId, card, targetId, extra)
+    let roomId = players.getContext(clientId).currentRoom
+    rooms.nextPlayer(roomId)
     if (_isGameOver(clientId)) {
-      rooms.roundEnd(players.getContext(clientId).currentRoom)
+      rooms.roundEnd(roomId)
       return findWinner(_getPlayers(clientId))
     } else {
       return false

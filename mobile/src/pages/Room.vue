@@ -1,8 +1,10 @@
 <template>
   <div id="room">
     <div class="header">
-      等待中
+      {{isPlaying ? '游戏中' : '等待中'}}
     </div>
+    <p>手牌：</p>
+    <span v-for="item in hand">{{hand}}</span>
     <lh-message-box></lh-message-box>
     <div class="footer">
       <p class="button"
@@ -28,15 +30,19 @@
       return {
         isReady: false,
         isPlaying: false,
-        myTurn: false
+        myTurn: false,
+        hand: []
       }
     },
     sockets: {
       start () {
         vm.isPlaying = true
       },
-      myTurn () {
+      turn () {
         vm.myTurn = true
+      },
+      draw (card) {
+        vm.hand.push(card)
       }
     },
     methods: {

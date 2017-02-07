@@ -18,7 +18,7 @@
   export default {
     data () {
       return {
-        isClosed: true
+        isClosed: false
       }
     },
     methods: {

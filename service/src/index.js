@@ -13,13 +13,13 @@ io.on('connection', (client) => {
   io.to(clientId).emit('data', store.getters.getData())
   client.on('create', () => {
     store.actions.createRoom(clientId)
-    client.join(clientId)
+    client.join('room_' + clientId)
   })
   client.on('join', (roomId) => {
     store.actions.joinRoom(clientId, roomId)
     client.join(roomId)
   })
-  client.on('exit', (roomId) => {
+  client.on('exit', () => {
     store.actions.exitRoom(clientId)
   })
   client.on('ready', () => {

@@ -2,7 +2,7 @@
   <div class="room"
        :class="{busy: isBusy}"
        @click="joinRoom">
-    <p>房间名：LzBBKmt9z_df1FgbAAAh</p>
+    <p>房间名：{{room.id}}</p>
     <p>玩家人数：{{room.allPlayers.length}}</p>
     <p>房间类型：无限制</p>
     <p>房间状态：{{isBusy ? '游戏中' : '等待中'}}</p>
