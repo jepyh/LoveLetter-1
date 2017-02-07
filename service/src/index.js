@@ -20,7 +20,7 @@ io.on('connection', (client) => {
     client.join(roomId)
   })
   client.on('exit', () => {
-    store.actions.exitRoom(clientId)
+    client.leave(store.actions.exitRoom(clientId))
   })
   client.on('ready', () => {
     store.actions.ready(clientId)

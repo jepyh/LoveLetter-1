@@ -17,7 +17,7 @@
         <span class="selection"
               :class="{active: index === selected}"
               @click="selected = index"
-              v-for="(item, index) in room.players">{{item}}</span>
+              v-for="(item, index) in room.players">{{clientId === item ? '你' : item}}</span>
       </div>
       <div v-if="stage === 3">
         <p>猜测：</p>
@@ -112,12 +112,16 @@
           card: null,
           targetId: null,
           extra: null
-        }
+        },
+        clientId: null
       }
     },
     sockets: {
-      _update (room) {
+      update_room (room) {
         vm.room = room
+      },
+      update_player (player) {
+        vm.hand = player.hand
       },
       start () {
         vm.isPlaying = true
@@ -156,6 +160,7 @@
             this.stage = 2
             this.selected = 0
           }
+          this.hand.splice(this.selected, 1)
         }
       },
       confirm1 () {
@@ -173,11 +178,13 @@
         this.discard.extra = this.guess[this.selected]
         this.$socket.emit('discard', this.discard)
         this.myTurn = false
+        this.stage = 1
       }
     },
     mounted () {
       vm = this
       this.$socket.emit('join', this.$route.params.roomId)
+      this.clientId = this.$socket.clientId
     }
   }
 </script>

@@ -84,7 +84,9 @@ export default {
    * @param clientId
    */
   exitRoom (clientId) {
-    rooms.exitRoom(clientId, players.exitRoom(clientId))
+    let roomId = players.exitRoom(clientId)
+    rooms.exitRoom(clientId, roomId)
+    return roomId
   },
   /**
    * 准备

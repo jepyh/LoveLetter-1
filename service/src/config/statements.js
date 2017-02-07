@@ -35,7 +35,7 @@ export default {
   winner (player) {
     return '本局获胜者是：' + player
   },
-  discard (player1, card, player2, extra) {
+  discard (player1, player2, card, extra) {
     if (extra) {
       return '玩家 ' + player1 + ' 猜测玩家 ' + player2 + ' 手牌为 ' + extra
     }

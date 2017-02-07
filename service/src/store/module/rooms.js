@@ -211,7 +211,7 @@ export default {
     speaker.ready(roomId, clientId)
     room.readyPlayers.push(clientId)
     if (room.players.length > 1 && room.readyPlayers.length === room.players.length) {
-      setTimeout(_countdown(roomId, 5), 1000)
+      _countdown(roomId, 5)
       room.currentState = 'COUNTDOWN'
       speaker.updateRoom(room)
       return true

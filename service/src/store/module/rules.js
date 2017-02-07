@@ -109,7 +109,7 @@ const rules = {
    * @param card
    */
   bodyguard: (player1, player2, card) => {
-    speaker.discard(player1.currentRoom, player1.id, player2.id, null, card)
+    speaker.discard(player1.currentRoom, player1.id, player2.id, '侍卫', card)
     if (player2.hand[0].substr(0, 2) === card.substr(0, 2)) {
       rooms.out(player2)
     }
@@ -163,6 +163,7 @@ const rules = {
       rooms.out(player2)
     } else {
       player2.hand.push(rooms.draw(player2.currentRoom))
+      speaker._updatePlayer(player2)
     }
   },
   /**
@@ -173,6 +174,8 @@ const rules = {
   king: (player1, player2) => {
     speaker.discard(player1.currentRoom, player1.id, player2.id, '国王', null)
     _switch(player1, player2)
+    speaker._updatePlayer(player1)
+    speaker._updatePlayer(player2)
   },
   /**
    * 女伯爵
