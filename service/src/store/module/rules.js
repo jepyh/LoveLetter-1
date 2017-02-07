@@ -120,7 +120,7 @@ const rules = {
    */
   priest: (player1, player2) => {
     speaker.discard(player1.currentRoom, player1.id, player2.id, '牧师', null)
-    speaker.priest(player1, player2.hand[0])
+    speaker.priest(player1.id, player2.hand[0])
   },
   /**
    * 男爵

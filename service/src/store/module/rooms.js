@@ -252,6 +252,7 @@ export default {
     room.outPlayers.reverse()
     room.players.concat(room.outPlayers)
     room.outPlayers = []
+    room.readyPlayers = []
     speaker.updateRoom(roomId)
     speaker.roundEnd(roomId)
   },
