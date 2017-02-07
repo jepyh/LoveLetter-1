@@ -17,7 +17,7 @@ export default new Vuex.Store({
     },
     SOCKET_data: (state, data) => {
       state.rooms = data.rooms
-      state.players = data.players
+      state.players = data.players - 1
     },
     SOCKET_enter: (state) => {
       state.players += 1
