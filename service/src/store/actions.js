@@ -113,11 +113,10 @@ export default {
     players.discard(clientId, card, targetId, extra)
     let roomId = players.getContext(clientId).currentRoom
     if (_isGameOver(clientId)) {
+      findWinner(_getPlayers(clientId))
       rooms.roundEnd(roomId)
-      return findWinner(_getPlayers(clientId))
     } else {
       rooms.nextPlayer(roomId)
-      return false
     }
   }
 }

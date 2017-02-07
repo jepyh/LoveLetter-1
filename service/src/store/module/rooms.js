@@ -249,8 +249,9 @@ export default {
   roundEnd (roomId) {
     let room = rooms[roomId]
     room.currentState = 'IDLE'
-    room.outPlayers.reverse()
-    room.players.concat(room.outPlayers)
+    for (let i of room.outPlayers) {
+      room.players.push(i)
+    }
     room.outPlayers = []
     room.readyPlayers = []
     speaker.updateRoom(roomId)
