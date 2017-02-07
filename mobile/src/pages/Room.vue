@@ -3,7 +3,7 @@
     <div class="header">
       等待中
     </div>
-    <lh-message-box :messages="messages"></lh-message-box>
+    <lh-message-box></lh-message-box>
     <div class="footer">
       <p class="button"
          style="background: #D74937;"
@@ -16,19 +16,9 @@
 </template>
 
 <script>
-  let vm
   export default {
-    sockets: {
-      connect: () => {
-        console.log('connected')
-      },
-      message: (msg) => {
-        console.log('message: ' + msg)
-      }
-    },
     data () {
       return {
-        messages: []
       }
     },
     methods: {
@@ -41,14 +31,7 @@
       }
     },
     mounted () {
-      vm = this
-      if (window.localStorage.messages) {
-        this.messages = JSON.parse(window.localStorage.messages)
-      }
       this.$socket.emit('join', this.$route.params.roomId)
-    },
-    beforeDestroy () {
-      window.localStorage.setItem('messages', JSON.stringify(vm.messages))
     }
   }
 </script>

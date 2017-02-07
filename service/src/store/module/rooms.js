@@ -113,7 +113,9 @@ export default {
    */
   joinRoom (clientId, roomId) {
     let room = rooms[roomId]
-    if (room) {
+    let index1 = room.allPlayers.findIndex(i => i === clientId)
+    let index2 = room.players.findIndex(i => i === clientId)
+    if (room && index1 < 0 && index2 < 0) {
       speaker.joinRoom(roomId, clientId)
       room.allPlayers.push(clientId)
       if (room.players.length < 4) {
@@ -150,7 +152,7 @@ export default {
     if (room.allPlayers.length > room.players.length) {
       room.players.push(room.allPlayers.pop())
     } else {
-      if (room.players.length === 1) {
+      if (room.players.length === 0) {
         speaker.destroyRoom(roomId)
         delete rooms[roomId]
       }

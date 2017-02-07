@@ -10,9 +10,12 @@ export default new Vuex.Store({
     messages: []
   },
   mutations: {
-    SOCKET_connect: (state) => {
+    SOCKET_CONNECT: (state) => {
       console.log('连接成功')
       state.connect = true
+    },
+    SOCKET_data: (state, data) => {
+      state.rooms = data.rooms
     },
     SOCKET_message: (state, msg) => {
       let date = new Date()
@@ -21,9 +24,16 @@ export default new Vuex.Store({
       }
       state.messages.unshift('[' + format(date.getHours()) + ':' + format(date.getMinutes()) + ':' + format(date.getSeconds()) + '] ' + msg)
     },
-    SOCKET_CREATE_ROOM: (state, message) => {
-      console.log('fucking create room')
-      state.message = message
+    SOCKET_create: (state, room) => {
+      console.log(room)
+      state.rooms.push(room)
+      console.log(state.rooms)
+    },
+    SOCKET_destroy: (state, roomId) => {
+      let index = state.rooms.findIndex(item => item.id === roomId)
+      if (index >= 0) {
+        state.rooms.splice(index, 1)
+      }
     }
   },
   getters: {
