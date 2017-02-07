@@ -26,17 +26,17 @@ export default new Vuex.Store({
       state.message = message
     }
   },
+  getters: {
+    getRooms: (state) => {
+      return state.rooms
+    },
+    getMessages: (state) => {
+      return state.messages
+    }
+  },
   actions: {
     otherAction: ({commit, dispatch, state}, type) => {
       return true
-    }
-  },
-  getters: {
-    getRooms (state) {
-      return state.rooms
-    },
-    getMessages (state) {
-      return state.messages
     }
   }
 })
