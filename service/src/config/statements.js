@@ -2,6 +2,9 @@ export default {
   connect (player) {
     return '玩家 ' + player + ' 进入大厅'
   },
+  disconnect (player) {
+    return '玩家 ' + player + '  离开大厅'
+  },
   createRoom (player) {
     return '玩家 ' + player + ' 创建了房间'
   },

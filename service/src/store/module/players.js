@@ -67,6 +67,7 @@ export default {
    * @param clientId
    */
   disconnect (clientId) {
+    speaker.disconnect(clientId)
     delete players[clientId]
   },
   /**

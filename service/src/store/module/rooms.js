@@ -57,12 +57,14 @@ const random = (max) => {
  * @param count
  * @private
  */
-const _countdown = (roomId, count) => {
-  if (count === 0) {
-    roundStart(roomId)
-  } else {
-    speaker.countdown(roomId, count)
-    setTimeout(_countdown(roomId, count - 1), 1000)
+function _countdown (roomId, count) {
+  return function () {
+    if (count === 0) {
+      roundStart(roomId)
+    } else {
+      speaker.countdown(roomId, count)
+      setTimeout(_countdown(roomId, count - 1), 1000)
+    }
   }
 }
 
@@ -80,6 +82,7 @@ const roundStart = (roomId) => {
   room.readyPlayers = []
   prepare(room.deck, room.bottom, room.players.length)
   room.currentPlayer = room.players[0]
+  speaker.roundStart(roomId)
 }
 
 export default {
@@ -113,11 +116,15 @@ export default {
    */
   joinRoom (clientId, roomId) {
     let room = rooms[roomId]
+    if (!room) {
+      return false
+    }
     let index1 = room.allPlayers.findIndex(i => i === clientId)
     let index2 = room.players.findIndex(i => i === clientId)
     if (room && index1 < 0 && index2 < 0) {
       speaker.joinRoom(roomId, clientId)
       room.allPlayers.push(clientId)
+      speaker.updateRoom(room)
       if (room.players.length < 4) {
         room.players.push(clientId)
         return true
@@ -149,6 +156,7 @@ export default {
     }
     room.allPlayers.splice(index1, 1)
     room.players.splice(index2, 1)
+    speaker.updateRoom(room)
     if (room.allPlayers.length > room.players.length) {
       room.players.push(room.allPlayers.pop())
     } else {
@@ -175,11 +183,15 @@ export default {
    */
   ready (roomId, clientId) {
     let room = rooms[roomId]
+    if (!room || room.readyPlayers.findIndex(i => i === clientId) >= 0) {
+      return false
+    }
     speaker.ready(roomId, clientId)
     room.readyPlayers.push(clientId)
     if (room.players.length > 1 && room.readyPlayers.length === room.players.length) {
       setTimeout(_countdown(roomId, 5), 1000)
       room.currentState = 'COUNTDOWN'
+      speaker.updateRoom(room)
       return true
     } else {
       return false
@@ -192,15 +204,15 @@ export default {
    */
   cancel (roomId, clientId) {
     let room = rooms[roomId]
-    let index = room.players.findIndex(i => i === clientId)
+    if (!room) {
+      return
+    }
+    let index = room.readyPlayers.findIndex(i => i === clientId)
     if (index < 0) {
       return console.log('ERROR.INVALID_DATA === rooms.js | cancel')
     } else {
       speaker.cancel(roomId, clientId)
       room.readyPlayers.splice(index, 1)
-      if (room.currentState === 'COUNTDOWN') {
-        room.currentState = 'IDLE'
-      }
     }
   },
   /**
@@ -246,12 +258,12 @@ export default {
    */
   nextPlayer (roomId) {
     let room = rooms[roomId]
+    speaker.myTurn(roomId, room.currentPlayer)
     let index = room.players.findIndex(i => i === room.currentPlayer)
     if (index === room.players.length - 1) {
       room.currentPlayer = room.players[0]
     } else {
       room.currentPlayer = room.players[index + 1]
     }
-    speaker.myTurn(roomId, room.currentPlayer)
   }
 }

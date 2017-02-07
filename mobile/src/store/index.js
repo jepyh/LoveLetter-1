@@ -25,9 +25,13 @@ export default new Vuex.Store({
       state.messages.unshift('[' + format(date.getHours()) + ':' + format(date.getMinutes()) + ':' + format(date.getSeconds()) + '] ' + msg)
     },
     SOCKET_create: (state, room) => {
-      console.log(room)
       state.rooms.push(room)
-      console.log(state.rooms)
+    },
+    SOCKET_update: (state, room) => {
+      let index = state.rooms.findIndex(item => item.id === room.id)
+      if (index >= 0) {
+        state.rooms.splice(index, 1, room)
+      }
     },
     SOCKET_destroy: (state, roomId) => {
       let index = state.rooms.findIndex(item => item.id === roomId)

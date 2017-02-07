@@ -39,5 +39,6 @@ export default {
     line-height: 44px;
     color: white;
     font-weight: bold;
+    min-width: 50%;
   }
 </style>

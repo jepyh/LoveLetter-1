@@ -10,6 +10,9 @@ export default {
   connect (player) {
     _io.emit('message', statements.connect(player))
   },
+  disconnect (player) {
+    _io.emit('message', statements.disconnect(player))
+  },
   createRoom (room) {
     _io.emit('create', room)
     _io.emit('message', statements.createRoom(room.id))
@@ -19,6 +22,9 @@ export default {
   },
   exitRoom (roomId, player) {
     _io.to(roomId).emit('message', statements.exitRoom(player))
+  },
+  updateRoom (room) {
+    _io.emit('update', room)
   },
   destroyRoom (roomId) {
     _io.emit('destroy', roomId)
@@ -36,6 +42,9 @@ export default {
     _io.to(roomId).emit('message', statements.cancel(player))
   },
   countdown (roomId, count) {
+    if (count === 5) {
+      _io.to(roomId).emit('start')
+    }
     _io.to(roomId).emit('message', statements.countdown(count))
   },
   roundStart (roomId) {

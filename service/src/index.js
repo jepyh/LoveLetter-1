@@ -25,6 +25,9 @@ io.on('connection', (client) => {
   client.on('ready', () => {
     store.actions.ready(clientId)
   })
+  client.on('cancel', () => {
+    store.actions.cancel(clientId)
+  })
   client.on('disconnect', () => {
     store.actions.disconnect(clientId)
     console.log('user ' + clientId + ' disconnected')
