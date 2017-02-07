@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     connect: false,
     rooms: [],
+    players: 0,
     messages: []
   },
   mutations: {
@@ -16,6 +17,13 @@ export default new Vuex.Store({
     },
     SOCKET_data: (state, data) => {
       state.rooms = data.rooms
+      state.players = data.players
+    },
+    SOCKET_enter: (state) => {
+      state.players += 1
+    },
+    SOCKET_leave: (state) => {
+      state.players -= 1
     },
     SOCKET_message: (state, msg) => {
       let date = new Date()
@@ -44,13 +52,12 @@ export default new Vuex.Store({
     getRooms: (state) => {
       return state.rooms
     },
+    getPlayers: (state) => {
+      return state.players
+    },
     getMessages: (state) => {
       return state.messages
     }
   },
-  actions: {
-    otherAction: ({commit, dispatch, state}, type) => {
-      return true
-    }
-  }
+  actions: {}
 })

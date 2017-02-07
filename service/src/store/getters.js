@@ -6,7 +6,7 @@ const _getRooms = () => {
 }
 
 const _getPlayers = () => {
-  return players.players
+  return Object.keys(players.players).map(key => players.players[key]).length
 }
 
 export default {

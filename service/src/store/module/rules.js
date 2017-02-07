@@ -95,8 +95,6 @@ export const findWinner = (players) => {
     _players.sort((a, b) => _getLevel(_converter(b.hand[0])) - _getLevel(_converter(a.hand[0])))
     winner = _players[0].id
   }
-  console.log(players)
-  console.log('winner: ' + winner)
   speaker.winner(_getContext(winner).currentRoom, winner)
   return winner
 }

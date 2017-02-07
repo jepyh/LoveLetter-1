@@ -9,9 +9,11 @@ export const init = (io) => {
 export default {
   connect (player) {
     _io.emit('message', statements.connect(player))
+    _io.emit('enter')
   },
   disconnect (player) {
     _io.emit('message', statements.disconnect(player))
+    _io.emit('leave')
   },
   createRoom (room, clientId) {
     _io.emit('create', room)
@@ -24,7 +26,7 @@ export default {
     _io.to(roomId).emit('message', statements.exitRoom(player))
   },
   updateRoom (room) {
-    _io.emit('update', room)
+    _io.emit('update_rooms', room)
   },
   _updateRoom (room) {
     _io.to(room.id).emit('update_room', room)

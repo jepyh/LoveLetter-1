@@ -3,6 +3,7 @@
     <div class="header">
       游戏大厅
     </div>
+    <p style="padding: 10px;">在线人数：{{getPlayers}}</p>
     <div class="rooms">
       <lh-room v-for="room in getRooms"
                :room="room"></lh-room>
@@ -38,7 +39,8 @@
     },
     computed: {
       ...mapGetters([
-        'getRooms'
+        'getRooms',
+        'getPlayers'
       ])
     }
   }
