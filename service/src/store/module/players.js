@@ -25,7 +25,7 @@ export default {
    * @param clientId
    */
   connect (clientId) {
-    let player = constants.PLAYER_CONTEXT
+    let player = JSON.parse(JSON.stringify(constants.PLAYER_CONTEXT))
     player.id = clientId
     players[clientId] = player
     speaker.connect(clientId)

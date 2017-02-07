@@ -10,8 +10,9 @@ export default {
   connect (player) {
     _io.emit('message', statements.connect(player))
   },
-  createRoom (player) {
-    _io.emit('create', player, statements.createRoom(player))
+  createRoom (room) {
+    _io.emit('create', room)
+    _io.emit('message', statements.createRoom(room.id))
   },
   joinRoom (roomId, player) {
     _io.to(roomId).emit('message', statements.joinRoom(player))
@@ -19,14 +20,20 @@ export default {
   exitRoom (roomId, player) {
     _io.to(roomId).emit('message', statements.exitRoom(player))
   },
+  destroyRoom (roomId) {
+    _io.emit('destroy', roomId)
+  },
   out (roomId, player) {
-    _io.to(roomId).emit('out', player, statements.out(player))
+    _io.to(roomId).emit('out', player)
+    _io.to(roomId).emit('message', statements.out(player))
   },
   ready (roomId, player) {
-    _io.to(roomId).emit('ready', player, statements.ready(player))
+    _io.to(roomId).emit('ready', player)
+    _io.to(roomId).emit('message', statements.ready(player))
   },
   cancel (roomId, player) {
-    _io.to(roomId).emit('cancel', player, statements.cancel(player))
+    _io.to(roomId).emit('cancel', player)
+    _io.to(roomId).emit('message', statements.cancel(player))
   },
   countdown (roomId, count) {
     _io.to(roomId).emit('message', statements.countdown(count))

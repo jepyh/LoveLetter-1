@@ -97,13 +97,13 @@ export default {
    * @param clientId
    */
   createRoom (clientId) {
-    let room = constants.ROOM_CONTEXT
+    let room = JSON.parse(JSON.stringify(constants.ROOM_CONTEXT))
     room.id = clientId
     room.allPlayers.push(clientId)
     room.players.push(clientId)
     room.currentState = 'IDLE'
     rooms[clientId] = room
-    speaker.createRoom(clientId)
+    speaker.createRoom(room)
   },
   /**
    * 加入房间
@@ -132,6 +132,9 @@ export default {
    */
   exitRoom (clientId, roomId) {
     let room = rooms[roomId]
+    if (!room) {
+      return []
+    }
     let index1 = room.allPlayers.findIndex(i => i === clientId)
     let index2 = room.players.findIndex(i => i === clientId)
     let index3 = room.readyPlayers.findIndex(i => i === clientId)
@@ -148,6 +151,7 @@ export default {
       room.players.push(room.allPlayers.pop())
     } else {
       if (room.players.length === 1) {
+        speaker.destroyRoom(roomId)
         delete rooms[roomId]
       }
     }
