@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-    "deploy": "scp -r dist/ root@115.28.71.169:/home/www/love_letter",
+    "deploy": "node build/build.js && scp -r dist/ root@115.28.71.169:/home/www/love_letter",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
