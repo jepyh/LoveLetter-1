@@ -7,7 +7,7 @@
       <lh-room v-for="room in rooms"
                :room="room"></lh-room>
     </div>
-    <lh-message-box :messages="messages"></lh-message-box>
+    <lh-message-box></lh-message-box>
     <div class="footer">
       <p class="button"
          style="background: #D74937;"
@@ -24,8 +24,7 @@
   export default {
     data () {
       return {
-        rooms: [],
-        messages: []
+        rooms: []
       }
     },
     methods: {
@@ -46,14 +45,6 @@
         if (index >= 0) {
           delete vm.rooms[index]
         }
-      },
-      message: (msg) => {
-        console.log('message: ' + msg)
-        let date = new Date()
-        function format (num) {
-          return num >= 10 ? num : '0' + num
-        }
-        vm.messages.unshift('[' + format(date.getHours()) + ':' + format(date.getMinutes()) + ':' + format(date.getSeconds()) + '] ' + msg)
       },
       create: (room) => {
         vm.rooms.push(room)

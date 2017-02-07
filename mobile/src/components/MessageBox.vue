@@ -2,7 +2,7 @@
   <div>
     <div class="messages"
          :class="{active: !isClosed}">
-      <p v-for="message in messages">
+      <p v-for="message in getMessages">
         {{message}}
       </p>
     </div>
@@ -14,10 +14,8 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   export default {
-    props: {
-      messages: Array
-    },
     data () {
       return {
         isClosed: true
@@ -27,6 +25,11 @@
       collapse () {
         this.isClosed = !this.isClosed
       }
+    },
+    computed: {
+      ...mapGetters([
+        'getMessages'
+      ])
     }
   }
 </script>
