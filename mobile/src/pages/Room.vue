@@ -3,14 +3,44 @@
     <div class="header">
       {{isPlaying ? '游戏中' : '等待中'}}
     </div>
-    <p>手牌：</p>
-    <span v-for="item in hand">{{hand}}</span>
+    <div class="wrapper">
+      <div v-if="stage === 1">
+        <p>手牌：</p>
+        <span class="selection" v-show="hand.length === 0">空</span>
+        <span class="selection"
+              :class="{active: index === selected}"
+              @click="selected = index"
+              v-for="(item, index) in hand">{{item}}</span>
+      </div>
+      <div v-if="stage === 2">
+        <p>玩家：</p>
+        <span class="selection"
+              :class="{active: index === selected}"
+              @click="selected = index"
+              v-for="(item, index) in room.players">{{item}}</span>
+      </div>
+      <div v-if="stage === 3">
+        <p>猜测：</p>
+        <span class="selection"
+              :class="{active: index === selected}"
+              @click="selected = index"
+              v-for="(item, index) in guess">{{item}}</span>
+      </div>
+    </div>
     <lh-message-box></lh-message-box>
     <div class="footer">
       <p class="button"
-         v-show="isPlaying"
+         v-show="isPlaying && stage === 1"
          style="background: #4485F5;"
-         @click="discard">{{myTurn ? '出牌！' : '请等待……'}}</p>
+         @click="_discard">{{myTurn ? '出牌！' : '请等待……'}}</p>
+      <p class="button"
+         v-show="isPlaying && stage === 2"
+         style="background: #4485F5;"
+         @click="confirm1">确认</p>
+      <p class="button"
+         v-show="isPlaying && stage === 3"
+         style="background: #4485F5;"
+         @click="confirm2">确认</p>
       <p class="button"
          v-show="!isPlaying"
          style="background: #D74937;"
@@ -25,16 +55,70 @@
 
 <script>
   let vm
+  //  const cardWrapper = {
+  //    '侍卫-1': 'bodyguard',
+  //    '侍卫-2': 'bodyguard',
+  //    '侍卫-3': 'bodyguard',
+  //    '侍卫-4': 'bodyguard',
+  //    '侍卫-5': 'bodyguard',
+  //    '牧师-1': 'priest',
+  //    '牧师-2': 'priest',
+  //    '男爵-1': 'baron',
+  //    '男爵-2': 'baron',
+  //    '侍女-1': 'handmaid',
+  //    '侍女-2': 'handmaid',
+  //    '王子-1': 'prince',
+  //    '王子-2': 'prince',
+  //    '国王': 'king',
+  //    '女伯爵': 'countess',
+  //    '公主': 'princess'
+  //  }
+  const cardStage = {
+    '侍卫-1': 3,
+    '侍卫-2': 3,
+    '侍卫-3': 3,
+    '侍卫-4': 3,
+    '侍卫-5': 3,
+    '牧师-1': 2,
+    '牧师-2': 2,
+    '男爵-1': 2,
+    '男爵-2': 2,
+    '侍女-1': 1,
+    '侍女-2': 1,
+    '王子-1': 2,
+    '王子-2': 2,
+    '国王': 2,
+    '女伯爵': 1,
+    '公主': 1
+  }
+  //  const _converter = (card) => {
+  //    return cardWrapper[card]
+  //  }
+  //  const _isRoyal = (card) => {
+  //    return ['prince', 'king'].findIndex(i => i === card) >= 0
+  //  }
   export default {
     data () {
       return {
+        room: null,
         isReady: false,
         isPlaying: false,
         myTurn: false,
-        hand: []
+        hand: [],
+        selected: 0,
+        guess: ['牧师', '男爵', '侍女', '王子', '国王', '女伯爵', '公主'],
+        stage: 1,
+        discard: {
+          card: null,
+          targetId: null,
+          extra: null
+        }
       }
     },
     sockets: {
+      _update (room) {
+        vm.room = room
+      },
       start () {
         vm.isPlaying = true
       },
@@ -58,10 +142,37 @@
           this.$socket.emit('cancel')
         }
       },
-      discard () {
+      _discard () {
         if (this.myTurn) {
-          console.log('discard')
+          let card = this.hand[this.selected]
+          let stage = cardStage[card]
+          this.discard.card = card
+          this.discard.targetId = null
+          this.discard.extra = null
+          if (stage === 1) {
+            this.$socket.emit('discard', this.discard)
+            this.myTurn = false
+          } else {
+            this.stage = 2
+            this.selected = 0
+          }
         }
+      },
+      confirm1 () {
+        this.discard.targetId = this.room.players[this.selected]
+        this.selected = 0
+        if (cardStage[this.discard.card] === 2) {
+          this.$socket.emit('discard', this.discard)
+          this.stage = 1
+          this.myTurn = false
+        } else {
+          this.stage = 3
+        }
+      },
+      confirm2 () {
+        this.discard.extra = this.guess[this.selected]
+        this.$socket.emit('discard', this.discard)
+        this.myTurn = false
       }
     },
     mounted () {
@@ -74,5 +185,25 @@
 <style scoped>
   #room {
     height: 100%;
+  }
+
+  .wrapper {
+    padding: 10px;
+  }
+
+  .selection {
+    border: 1px solid #aaa;
+  }
+
+  span.selection {
+    display: inline-block;
+    padding: 8px 5px;
+    line-height: 20px;
+    margin-left: 8px;
+    margin-top: 8px;
+  }
+
+  .selection.active {
+    border-color: #4485F5;
   }
 </style>

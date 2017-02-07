@@ -26,6 +26,9 @@ export default {
   updateRoom (room) {
     _io.emit('update', room)
   },
+  _updateRoom (room) {
+    _io.to(room.id).emit('_update', room)
+  },
   destroyRoom (roomId) {
     _io.emit('destroy', roomId)
   },

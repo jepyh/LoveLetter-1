@@ -85,7 +85,8 @@ export default {
    */
   draw (clientId, card) {
     let player = players[clientId]
-    speaker.draw(player.currentRoom, player.id, player.hand.push(card))
+    player.hand.push(card)
+    speaker.draw(player.currentRoom, player.id, card)
   },
   /**
    * 弃牌
@@ -102,6 +103,6 @@ export default {
     } else {
       player.stack.unshift(player.hand.splice(index, 1))
     }
-    dispatcher(card, player, players.getContext(targetId), extra)
+    dispatcher(card, player, players[targetId], extra)
   }
 }

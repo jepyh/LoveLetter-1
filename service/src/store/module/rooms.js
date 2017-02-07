@@ -101,6 +101,7 @@ const roundStart = (roomId) => {
   prepare(room.deck, room.bottom, room.players.length)
   room.currentPlayer = room.players[room.players.length - 1]
   speaker.roundStart(roomId)
+  speaker._updateRoom(room)
   _deal(room)
   _nextPlayer(roomId)
 }
@@ -271,6 +272,7 @@ export default {
       room.outPlayers.unshift(player.id)
       room.players.splice(index, 1)
     }
+    speaker._updateRoom(room)
   },
   /**
    * 下一名玩家

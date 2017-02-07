@@ -28,6 +28,9 @@ io.on('connection', (client) => {
   client.on('cancel', () => {
     store.actions.cancel(clientId)
   })
+  client.on('discard', (discard) => {
+    store.actions.discard(clientId, discard.card, discard.targetId, discard.extra)
+  })
   client.on('disconnect', () => {
     store.actions.disconnect(clientId)
     console.log('user ' + clientId + ' disconnected')
