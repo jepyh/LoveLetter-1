@@ -1,5 +1,6 @@
 import constants from '../../config/constants'
 import speaker from './speaker'
+import {_roundStart} from './players'
 import {_deal, _draw} from '../actions'
 
 const rooms = {}
@@ -58,7 +59,7 @@ const random = (max) => {
  * @param count
  * @private
  */
-function _countdown(roomId, count) {
+function _countdown (roomId, count) {
   return function () {
     if (count === 0) {
       roundStart(roomId)
@@ -74,7 +75,7 @@ function _countdown(roomId, count) {
  * @param roomId
  * @private
  */
-function _nextPlayer (roomId) {
+function _nextPlayer(roomId) {
   let room = rooms[roomId]
   let index = room.players.findIndex(i => i === room.currentPlayer)
   if (index === room.players.length - 1) {
@@ -97,7 +98,11 @@ const roundStart = (roomId) => {
   }
   room.currentState = 'PLAYING'
   room.deck = constants.DECK.slice()
+  room.outPlayers = []
   room.readyPlayers = []
+  for (let i of room.players) {
+    _roundStart(i)
+  }
   prepare(room.deck, room.bottom, room.players.length)
   room.currentPlayer = room.players[room.players.length - 1]
   speaker.roundStart(roomId)
@@ -211,7 +216,7 @@ export default {
     speaker.ready(roomId, clientId)
     room.readyPlayers.push(clientId)
     if (room.players.length > 1 && room.readyPlayers.length === room.players.length) {
-      _countdown(roomId, 5)
+      setTimeout(_countdown(roomId, 5), 0)
       room.currentState = 'COUNTDOWN'
       speaker.updateRoom(room)
       return true
@@ -247,7 +252,8 @@ export default {
     room.outPlayers.reverse()
     room.players.concat(room.outPlayers)
     room.outPlayers = []
-    speaker.roundEnd()
+    speaker.updateRoom(roomId)
+    speaker.roundEnd(roomId)
   },
   /**
    * 抽牌

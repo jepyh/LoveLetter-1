@@ -18,6 +18,12 @@ export const _getContext = (clientId) => {
   return players[clientId]
 }
 
+export const _roundStart = (clientId) => {
+  let player = players[clientId]
+  player.hand = []
+  player.stack = []
+}
+
 export default {
   players,
   /**

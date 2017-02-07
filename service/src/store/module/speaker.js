@@ -57,6 +57,8 @@ export default {
     _io.to(roomId).emit('message', statements.roundStart())
   },
   roundEnd (roomId) {
+    console.log('end')
+    _io.to(roomId).emit('end')
     _io.to(roomId).emit('message', statements.roundEnd())
   },
   winner (roomId, player) {

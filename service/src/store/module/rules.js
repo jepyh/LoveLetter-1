@@ -67,9 +67,7 @@ const _getLevel = (card) => {
 
 export const dispatcher = (card, player1, player2, extra) => {
   card = _converter(card)
-  console.log(player1)
-  console.log(player2)
-  if (player1.hand.findIndex(i => i === 'countess') && _isRoyal(card)) {
+  if (player1.hand.findIndex(i => i === 'countess') >= 0 && _isRoyal(card)) {
     console.log('ERROR.INVALID_DATA === rules.js | dispatcher')
   }
   if (_isEffective(card)) {

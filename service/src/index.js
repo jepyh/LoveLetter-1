@@ -7,7 +7,7 @@ store.initSpeaker(io)
 
 io.on('connection', (client) => {
   let clientId = client.id
-  console.log('user ' + clientId + ' connected')
+  // console.log('user ' + clientId + ' connected')
   store.actions.connect(clientId)
   // console.log(store.getters.getData())
   io.to(clientId).emit('data', store.getters.getData())
@@ -33,7 +33,7 @@ io.on('connection', (client) => {
   })
   client.on('disconnect', () => {
     store.actions.disconnect(clientId)
-    console.log('user ' + clientId + ' disconnected')
+    // console.log('user ' + clientId + ' disconnected')
   })
 })
 

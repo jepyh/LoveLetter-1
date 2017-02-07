@@ -126,6 +126,11 @@
       start () {
         vm.isPlaying = true
       },
+      end () {
+        vm.isPlaying = false
+        vm.stage = 1
+        vm.hand = []
+      },
       turn () {
         vm.myTurn = true
       },
@@ -153,6 +158,7 @@
           this.discard.card = card
           this.discard.targetId = null
           this.discard.extra = null
+          this.hand.splice(this.selected, 1)
           if (stage === 1) {
             this.$socket.emit('discard', this.discard)
             this.myTurn = false
@@ -160,7 +166,6 @@
             this.stage = 2
             this.selected = 0
           }
-          this.hand.splice(this.selected, 1)
         }
       },
       confirm1 () {
@@ -184,7 +189,7 @@
     mounted () {
       vm = this
       this.$socket.emit('join', this.$route.params.roomId)
-      this.clientId = this.$socket.clientId
+      this.clientId = this.$socket.id
     }
   }
 </script>
