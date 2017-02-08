@@ -4,6 +4,13 @@
       {{isPlaying ? '游戏中' : '等待中'}}
     </div>
     <div class="wrapper">
+      <div v-if="isPlaying && stage === 1">
+        玩家轮次：
+        <span v-for="(item, index) in room.players">{{item}}</span>
+      </div>
+      <div v-if="isPlaying && stage === 1">
+        底牌数量：{{room.bottom.length}}
+      </div>
       <div v-if="stage === 1">
         <p>手牌：</p>
         <span class="selection" v-show="hand.length === 0">空</span>

@@ -6,8 +6,7 @@ import store from './store'
 import App from './App'
 import router from './router'
 
-// Vue.use(VueSocket, 'http://localhost:10016', store)
-Vue.use(VueSocket, 'http://115.28.71.169:10016', store)
+Vue.use(VueSocket, process.env.URL, store)
 
 import Room from './components/Room.vue'
 import MessageBox from './components/MessageBox.vue'
