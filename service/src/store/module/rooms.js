@@ -198,6 +198,7 @@ export default {
       speaker.updateRoom(roomId)
       speaker.quit(roomId, clientId)
     }
+    speaker._updateRoom(room)
     if (room.allPlayers.length > room.players.length) {
       room.players.push(room.allPlayers.pop())
     } else {

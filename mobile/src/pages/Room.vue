@@ -5,6 +5,15 @@
     </div>
     <div class="wrapper">
       <div class="block"
+           v-if="stage === 1">
+        <p>手牌：</p>
+        <span class="selection" v-show="hand.length === 0">空</span>
+        <span class="selection"
+              :class="{active: index === selected}"
+              @click="selected = index"
+              v-for="(item, index) in hand">{{item}}</span>
+      </div>
+      <div class="block"
            v-if="room && stage === 1">
         <p>玩家轮次：</p>
         <span class="selection"
@@ -18,15 +27,6 @@
       <div class="block"
            v-if="isPlaying && stage === 1">
         剩余牌数：{{room.deck.length}}
-      </div>
-      <div class="block"
-           v-if="stage === 1">
-        <p>手牌：</p>
-        <span class="selection" v-show="hand.length === 0">空</span>
-        <span class="selection"
-              :class="{active: index === selected}"
-              @click="selected = index"
-              v-for="(item, index) in hand">{{item}}</span>
       </div>
       <div class="block"
            v-if="stage === 2">
