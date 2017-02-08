@@ -2,8 +2,9 @@
   <div>
     <div class="messages"
          :class="{active: !isClosed}">
-      <p v-for="message in getMessages">
-        {{message}}
+      <p v-for="message in getMessages"
+         :class="{system: message.type === 'SYSTEM'}">
+        {{message.body}}
       </p>
     </div>
     <div class="messages-switch"
@@ -47,6 +48,10 @@
     font-size: 13px;
     line-height: 15px;
     transition: height 0.2s ease-in-out;
+  }
+
+  p.system {
+    color: red;
   }
 
   .messages.active {

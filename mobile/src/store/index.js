@@ -3,6 +3,15 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+function format (num) {
+  return num >= 10 ? num : '0' + num
+}
+
+function datePrefix (msg) {
+  let date = new Date()
+  return '[' + format(date.getHours()) + ':' + format(date.getMinutes()) + ':' + format(date.getSeconds()) + '] ' + msg
+}
+
 export default new Vuex.Store({
   state: {
     connect: false,
@@ -26,11 +35,7 @@ export default new Vuex.Store({
       state.players -= 1
     },
     SOCKET_message: (state, msg) => {
-      let date = new Date()
-      function format (num) {
-        return num >= 10 ? num : '0' + num
-      }
-      state.messages.unshift('[' + format(date.getHours()) + ':' + format(date.getMinutes()) + ':' + format(date.getSeconds()) + '] ' + msg)
+      state.messages.unshift({body: datePrefix(msg), type: 'SERVER'})
     },
     SOCKET_create: (state, room) => {
       state.rooms.push(room)
@@ -46,6 +51,9 @@ export default new Vuex.Store({
       if (index >= 0) {
         state.rooms.splice(index, 1)
       }
+    },
+    push: (state, msg) => {
+      state.messages.unshift({body: datePrefix(msg), type: 'SYSTEM'})
     }
   },
   getters: {
@@ -59,5 +67,9 @@ export default new Vuex.Store({
       return state.messages
     }
   },
-  actions: {}
+  actions: {
+    pushMessage: ({commit}, msg) => {
+      commit('push', '系统提示：' + msg)
+    }
+  }
 })

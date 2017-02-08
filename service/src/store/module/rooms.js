@@ -195,7 +195,7 @@ export default {
       }
       room.outPlayers = []
       room.readyPlayers = []
-      speaker.updateRoom(roomId)
+      speaker.updateRoom(room)
       speaker.quit(roomId, clientId)
     }
     speaker._updateRoom(room)

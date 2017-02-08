@@ -245,6 +245,7 @@
       vm = this
       this.$socket.emit('join', this.$route.params.roomId)
       this.clientId = this.$socket.id
+      this.$store.dispatch('pushMessage', '当所有玩家准备完毕后，游戏将自动开始，请点击准备并等待其他玩家。')
     },
     beforeDestroy () {
       this.$socket.emit('exit')
@@ -283,7 +284,7 @@
   }
 
   .selection.ready {
-    border-color: green;
+    border-color: lightgreen;
   }
 
   .selection.out {
