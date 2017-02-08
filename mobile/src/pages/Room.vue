@@ -168,11 +168,13 @@
         vm.isPlaying = false
         vm.stage = 1
         vm.hand = []
+        vm.$store.dispatch('pushMessage', '请重新准备，并等待其他玩家准备完毕。')
       },
       quit () {
         vm.isPlaying = false
         vm.stage = 1
         vm.hand = []
+        vm.$store.dispatch('pushMessage', '请重新准备，并等待其他玩家准备完毕。')
       },
       turn () {
         vm.myTurn = true
