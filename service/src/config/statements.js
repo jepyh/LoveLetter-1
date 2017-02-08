@@ -58,13 +58,10 @@ export default {
     switch (result) {
       case 1:
         return '对方的手牌是：' + card + '，拼点成功'
-        break
       case -1:
         return '对方的手牌是：' + card + '，拼点失败'
-        break
       case 0:
         return '对方的手牌是：' + card + '，平手'
-        break
     }
   },
   handmaid (player) {

@@ -73,7 +73,7 @@ function _countdown (roomId, count) {
  * @param roomId
  * @private
  */
-function _nextPlayer(roomId) {
+function _nextPlayer (roomId) {
   let room = rooms[roomId]
   let index = room.players.findIndex(i => i === room.currentPlayer)
   if (index === room.players.length - 1) {

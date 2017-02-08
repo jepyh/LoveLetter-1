@@ -245,6 +245,9 @@
       vm = this
       this.$socket.emit('join', this.$route.params.roomId)
       this.clientId = this.$socket.id
+    },
+    beforeDestroy () {
+      this.$socket.emit('exit')
     }
   }
 </script>
