@@ -7,27 +7,25 @@ const rooms = {}
 
 /**
  * 预发牌
- * @param deck
- * @param bottom
- * @param number
+ * @param room
  */
-const prepare = (deck, bottom, number) => {
-  let max = deck.length
-  for (let i of deck.keys()) {
-    shuffle(deck, i, random(max))
+const prepare = (room) => {
+  let max = room.deck.length
+  for (let i of room.deck.keys()) {
+    shuffle(room.deck, i, random(max))
   }
-  switch (number) {
+  switch (room.players.length) {
     case 2:
-      bottom = deck.splice(0, 3)
+      room.bottom = room.deck.splice(0, 3)
       break
     case 3:
-      bottom = deck.splice(0, 2)
+      room.bottom = room.deck.splice(0, 2)
       break
     case 4:
-      bottom = deck.splice(0, 1)
+      room.bottom = room.deck.splice(0, 1)
       break
     default:
-      bottom = []
+      room.bottom = []
       break
   }
 }
@@ -85,6 +83,7 @@ function _nextPlayer(roomId) {
   }
   speaker.myTurn(roomId, room.currentPlayer)
   _draw(room.currentPlayer)
+  speaker._updateRoom(room)
 }
 
 /**
@@ -103,7 +102,7 @@ const roundStart = (roomId) => {
   for (let i of room.players) {
     _roundStart(i)
   }
-  prepare(room.deck, room.bottom, room.players.length)
+  prepare(room)
   room.currentPlayer = room.players[room.players.length - 1]
   speaker.roundStart(roomId)
   speaker._updateRoom(room)
@@ -154,6 +153,7 @@ export default {
       speaker.updateRoom(room)
       if (room.players.length < 4) {
         room.players.push(clientId)
+        speaker._updateRoom(room)
         return true
       } else {
         return false
@@ -184,7 +184,7 @@ export default {
     room.allPlayers.splice(index1, 1)
     room.players.splice(index2, 1)
     speaker.updateRoom(room)
-    if (room.state !== 'IDLE') {
+    if (room.currentState !== 'IDLE') {
       // 中途有玩家退出（或掉线）
       room.currentState = 'IDLE'
       for (let i of room.outPlayers) {
@@ -228,6 +228,7 @@ export default {
     }
     speaker.ready(roomId, clientId)
     room.readyPlayers.push(clientId)
+    speaker._updateRoom(room)
     if (room.players.length > 1 && room.readyPlayers.length === room.players.length) {
       setTimeout(_countdown(roomId, 5), 0)
       room.currentState = 'COUNTDOWN'
@@ -253,6 +254,7 @@ export default {
     } else {
       speaker.cancel(roomId, clientId)
       room.readyPlayers.splice(index, 1)
+      speaker._updateRoom(room)
     }
   },
   /**

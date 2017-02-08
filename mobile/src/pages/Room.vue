@@ -4,14 +4,23 @@
       {{isPlaying ? '游戏中' : '等待中'}}
     </div>
     <div class="wrapper">
-      <div v-if="isPlaying && stage === 1">
-        玩家轮次：
-        <span v-for="(item, index) in room.players">{{item}}</span>
+      <div class="block"
+           v-if="room && stage === 1">
+        <p>玩家轮次：</p>
+        <span class="selection"
+              :class="{ready: room.readyPlayers.findIndex(i => i === item) >= 0, out: room.outPlayers.findIndex(i => i=== item) >= 0}"
+              v-for="(item, index) in room.allPlayers">{{clientId === item ? '你' : item}}</span>
       </div>
-      <div v-if="isPlaying && stage === 1">
+      <div class="block"
+           v-if="isPlaying && stage === 1">
         底牌数量：{{room.bottom.length}}
       </div>
-      <div v-if="stage === 1">
+      <div class="block"
+           v-if="isPlaying && stage === 1">
+        剩余牌数：{{room.deck.length}}
+      </div>
+      <div class="block"
+           v-if="stage === 1">
         <p>手牌：</p>
         <span class="selection" v-show="hand.length === 0">空</span>
         <span class="selection"
@@ -19,14 +28,16 @@
               @click="selected = index"
               v-for="(item, index) in hand">{{item}}</span>
       </div>
-      <div v-if="stage === 2">
+      <div class="block"
+           v-if="stage === 2">
         <p>玩家：</p>
         <span class="selection"
               :class="{active: index === selected}"
               @click="selected = index"
               v-for="(item, index) in room.players">{{clientId === item ? '你' : item}}</span>
       </div>
-      <div v-if="stage === 3">
+      <div class="block"
+           v-if="stage === 3">
         <p>猜测：</p>
         <span class="selection"
               :class="{active: index === selected}"
@@ -230,5 +241,17 @@
 
   .selection.active {
     border-color: #4485F5;
+  }
+
+  .selection.ready {
+    border-color: green;
+  }
+
+  .selection.out {
+    border-color: black;
+  }
+
+  .block {
+    margin-top: 5px;
   }
 </style>

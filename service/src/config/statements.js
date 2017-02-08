@@ -72,5 +72,12 @@ export default {
   },
   draw (player) {
     return '玩家 ' + player + ' 抽牌'
+  },
+  result (room) {
+    let playerHands = []
+    for (let i of room.players) {
+      playerHands += '；' + '玩家 ' + i.id + ' 的手牌是：' + i.hand
+    }
+    return '底牌是：' + room.bottom + playerHands + '。'
   }
 }
