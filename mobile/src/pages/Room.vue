@@ -6,7 +6,7 @@
     <div class="room-wrapper main">
       <div class="block"
            v-if="stage === 1">
-        <p>手牌：</p>
+        <p>选择手牌：</p>
         <span class="selection" v-show="hand.length === 0">空</span>
         <img class="selection"
              :class="{active: index === selected}"
@@ -31,10 +31,11 @@
       </div>
       <div class="block"
            v-if="stage === 2">
-        <p>玩家：</p>
+        <p>选择玩家：</p>
         <span class="selection"
               :class="{active: index === selected}"
               @click="selected = index"
+              v-show="clientId !== item || canConfirm"
               v-for="(item, index) in room.players">{{clientId === item ? '你' : item}}</span>
       </div>
       <div class="block"
@@ -108,6 +109,24 @@
     '国王': 2,
     '女伯爵': 1,
     '公主': 1
+  }
+  const cardRange = {
+    '侍卫-1': 1,
+    '侍卫-2': 1,
+    '侍卫-3': 1,
+    '侍卫-4': 1,
+    '侍卫-5': 1,
+    '牧师-1': 1,
+    '牧师-2': 1,
+    '男爵-1': 1,
+    '男爵-2': 1,
+    '侍女-1': 0,
+    '侍女-2': 0,
+    '王子-1': 2,
+    '王子-2': 2,
+    '国王': 1,
+    '女伯爵': 0,
+    '公主': 0
   }
   //  const _converter = (card) => {
   //    return cardWrapper[card]
@@ -188,7 +207,11 @@
             this.myTurn = false
           } else {
             this.stage = 2
-            this.selected = 0
+            if (cardRange[this.discard.card] === 1) {
+              this.selected = this.room.players.findIndex(i => i !== this.clientId)
+            } else {
+              this.selected = 0
+            }
           }
         }
       },
@@ -211,6 +234,11 @@
       },
       _converter (card) {
         return cardWrapper[card] + '.jpg'
+      }
+    },
+    computed: {
+      canConfirm () {
+        return cardRange[this.discard.card] === 2
       }
     },
     mounted () {
@@ -237,7 +265,7 @@
 
   span.selection {
     display: inline-block;
-    border: 1px solid #aaa;
+    border: 2px solid #aaa;
     padding: 8px 5px;
     line-height: 20px;
   }
