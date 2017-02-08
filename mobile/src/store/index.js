@@ -17,7 +17,10 @@ export default new Vuex.Store({
     connect: false,
     rooms: [],
     players: 0,
-    messages: []
+    messages: [],
+    settings: {
+      isOnlyIdle: false
+    }
   },
   mutations: {
     SOCKET_CONNECT: (state) => {
@@ -54,6 +57,9 @@ export default new Vuex.Store({
     },
     push: (state, msg) => {
       state.messages.unshift({body: datePrefix(msg), type: 'SYSTEM'})
+    },
+    toggleSetting: (state, setting) => {
+      state.settings[setting.key] = setting.value
     }
   },
   getters: {
@@ -65,6 +71,12 @@ export default new Vuex.Store({
     },
     getMessages: (state) => {
       return state.messages
+    },
+    getSettings: (state) => {
+      return state.settings
+    },
+    isOnlyIdle: (state) => {
+      return state.settings.isOnlyIdle
     }
   },
   actions: {

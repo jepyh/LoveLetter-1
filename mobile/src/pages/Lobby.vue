@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="header">
-      <img class="icon" src="../assets/setting.png">
+      <img @click="setting" class="icon" src="../assets/setting.png">
       <p>游戏大厅</p>
       <img @click="help" class="icon" src="../assets/help.png">
     </div>
@@ -13,6 +13,7 @@
       </p>
       <div class="rooms">
         <lh-room v-for="room in getRooms"
+                 v-show="!isOnlyIdle || room.currentState === 'IDLE'"
                  :room="room"></lh-room>
       </div>
     </div>
@@ -49,6 +50,9 @@
           this.$router.push({name: 'room', params: {roomId: 'room_' + this.$socket.id}})
         }
       },
+      setting () {
+        this.$router.push({name: 'setting'})
+      },
       help () {
         this.$router.push({name: 'help'})
       }
@@ -56,7 +60,8 @@
     computed: {
       ...mapGetters([
         'getRooms',
-        'getPlayers'
+        'getPlayers',
+        'isOnlyIdle'
       ])
     }
   }
