@@ -17,7 +17,12 @@ export default {
   }
 
   .header {
+    display: flex;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
+    width: 100%;
     height: 44px;
     font-size: 18px;
     line-height: 44px;

@@ -1,7 +1,9 @@
 <template>
   <div id="lobby">
     <div class="header">
-      游戏大厅
+      <img class="icon" src="../assets/setting.png">
+      <p>游戏大厅</p>
+      <img class="icon" src="../assets/help.png">
     </div>
     <p style="padding: 10px;">在线人数：{{getPlayers}}</p>
     <div class="rooms">
@@ -34,7 +36,13 @@
         this.$router.push({name: 'Room', params: {roomId: 'room_' + this.$socket.id}})
       },
       quickStart () {
-        alert('匹配系统暂未上线')
+        let index = this.getRooms.findIndex(item => item.players.length < 4)
+        if (index >= 0) {
+          this.$router.push({name: 'Room', params: {roomId: this.getRooms[index].id}})
+        } else {
+          this.$socket.emit('create')
+          this.$router.push({name: 'Room', params: {roomId: 'room_' + this.$socket.id}})
+        }
       }
     },
     computed: {
@@ -49,5 +57,8 @@
 <style scoped>
   #lobby {
     height: 100%;
+  }
+  .icon {
+    height: 30px;
   }
 </style>

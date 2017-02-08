@@ -67,6 +67,9 @@ export default {
         break
     }
   },
+  handmaid (player) {
+    return '由于玩家 ' + player + ' 上一回合打出侍女牌，所以不受任何卡牌效果影响。'
+  },
   myTurn (player) {
     return '轮到玩家 ' + player + ' 回合'
   },

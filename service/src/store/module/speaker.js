@@ -82,6 +82,9 @@ export default {
     _io.to(player1).emit('message', statements.baron(card2, result))
     _io.to(player2).emit('message', statements.baron(card1, -result))
   },
+  handmaid (roomId, player) {
+    _io.to(roomId).emit('message', statements.handmaid(player))
+  },
   myTurn (roomId, player) {
     _io.to(roomId).emit('message', statements.myTurn(player))
     _io.to(player).emit('turn')

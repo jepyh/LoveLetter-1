@@ -73,6 +73,8 @@ export const dispatcher = (card, player1, player2, extra) => {
   if (_isEffective(card)) {
     if (player2 && _converter(player2.stack[0]) !== 'handmaid') {
       rules[card](player1, player2, extra)
+    } else {
+      speaker.handmaid(player2.currentRoom, player2)
     }
   } else {
     rules[card](player1)
