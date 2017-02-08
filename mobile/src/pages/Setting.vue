@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div>
     <div class="header" style="justify-content: center;">
       <p>设置</p>
     </div>

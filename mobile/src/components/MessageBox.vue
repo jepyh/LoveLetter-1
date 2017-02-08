@@ -42,7 +42,7 @@
     width: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     color: #1fb922;
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 74px;
     font-size: 13px;
@@ -63,7 +63,7 @@
   .messages-switch {
     height: 30px;
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 44px;
     background: green;
     font-size: 13px;

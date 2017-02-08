@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view class="child-view"></router-view>
     <lh-message-box></lh-message-box>
   </div>
 </template>
@@ -16,12 +16,16 @@ export default {
 
 <style>
   #app {
-    position: relative;
     height: 100%;
   }
 
-  .wrapper {
-    height: 100%;
+  .child-view {
+    width: 100%;
+    min-height: 100%;
+    background: white;
+    overflow: hidden;
+    padding-top: 44px;
+    padding-bottom: 73px;
   }
 
   .header {
@@ -30,6 +34,10 @@ export default {
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    position: fixed;
+    background: white;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 44px;
     font-size: 18px;
@@ -44,7 +52,7 @@ export default {
     display: flex;
     height: 44px;
     width: 100%;
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
   }

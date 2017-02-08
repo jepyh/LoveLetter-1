@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div>
     <div class="header" style="justify-content: center;">
       <p>帮助</p>
     </div>
@@ -19,6 +19,10 @@
       <ol>
         <li>当牌库被抽完或仅有一名玩家未出局时游戏结束。</li>
         <li>尚未出局的人现在亮出手牌，手牌上亲近度最大的人赢得该局胜利。</li>
+      </ol>
+      <h3>卡牌列表</h3>
+      <ol>
+        <li v-for="i in 8"><img :src="'../../static/' + i + '.jpg'"></li>
       </ol>
     </div>
     <div class="footer">
@@ -42,5 +46,9 @@
 <style scoped>
   ol {
     padding: 5px 0 5px 15px;
+  }
+
+  img {
+    width: 160px;
   }
 </style>

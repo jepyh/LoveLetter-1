@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div>
     <div class="header">
       <img @click="setting" class="icon" src="../assets/setting.png">
       <p>游戏大厅</p>

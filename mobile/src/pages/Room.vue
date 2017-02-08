@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div>
     <div class="header" style="justify-content: center;">
       <p>{{isPlaying ? '游戏中' : '等待中'}}</p>
     </div>
