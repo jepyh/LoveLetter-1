@@ -1,9 +1,9 @@
 <template>
-  <div id="room">
+  <div class="wrapper">
     <div class="header" style="justify-content: center;">
       <p>{{isPlaying ? '游戏中' : '等待中'}}</p>
     </div>
-    <div class="wrapper">
+    <div class="room-wrapper main">
       <div class="block"
            v-if="stage === 1">
         <p>手牌：</p>
@@ -226,7 +226,7 @@
     height: 100%;
   }
 
-  .wrapper {
+  .room-wrapper {
     padding: 10px;
   }
 

@@ -271,7 +271,7 @@ export default {
     }
     room.outPlayers = []
     room.readyPlayers = []
-    speaker.updateRoom(roomId)
+    speaker.updateRoom(room)
     speaker.roundEnd(roomId)
   },
   /**
