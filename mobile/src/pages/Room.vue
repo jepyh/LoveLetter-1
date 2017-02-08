@@ -46,7 +46,6 @@
               v-for="(item, index) in guess">{{item}}</span>
       </div>
     </div>
-    <lh-message-box></lh-message-box>
     <div class="footer">
       <p class="button"
          v-show="isPlaying && stage === 1"

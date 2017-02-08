@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <lh-message-box></lh-message-box>
   </div>
 </template>
 
@@ -16,6 +17,10 @@ export default {
     height: 100%;
   }
 
+  .wrapper {
+    height: 100%;
+  }
+
   .header {
     display: flex;
     padding: 0 20px;
@@ -27,6 +32,9 @@ export default {
     font-size: 18px;
     line-height: 44px;
     box-shadow: 0 0 3px #aaa;
+  }
+
+  .main {
   }
 
   .footer {
