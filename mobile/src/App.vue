@@ -7,7 +7,10 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  mounted () {
+    this.$store.dispatch('pushMessage', '欢迎进入《情书》的游戏大厅，请创建房间或快速加入进行游戏。')
+  }
 }
 </script>
 

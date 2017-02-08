@@ -19,7 +19,7 @@
         if (this.isBusy) {
           return alert('该房间已在游戏中……')
         }
-        this.$router.push({name: 'Room', params: {roomId: this.room.id}})
+        this.$router.push({name: 'room', params: {roomId: this.room.id}})
       }
     },
     computed: {
