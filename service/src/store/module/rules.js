@@ -74,7 +74,7 @@ export const dispatcher = (card, player1, player2, extra) => {
     if (player2 && _converter(player2.stack[0]) !== 'handmaid') {
       rules[card](player1, player2, extra)
     } else {
-      speaker.handmaid(player2.currentRoom, player2)
+      speaker.handmaid(player2.currentRoom, player2.id)
     }
   } else {
     rules[card](player1)
@@ -142,10 +142,10 @@ const rules = {
       speaker.baron(player1.id, player2.id, card1, card2, 1)
       rooms.out(player2)
     } else if (level1 < level2) {
-      speaker.baron(player1.id, player2.id, card1, card2, 0)
+      speaker.baron(player1.id, player2.id, card1, card2, -1)
       rooms.out(player1)
     } else {
-      speaker.baron(player1.id, player2.id, card1, card2, -1)
+      speaker.baron(player1.id, player2.id, card1, card2, 0)
     }
   },
   /**

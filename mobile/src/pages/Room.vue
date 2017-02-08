@@ -1,17 +1,18 @@
 <template>
   <div id="room">
-    <div class="header">
-      {{isPlaying ? '游戏中' : '等待中'}}
+    <div class="header" style="justify-content: center;">
+      <p>{{isPlaying ? '游戏中' : '等待中'}}</p>
     </div>
     <div class="wrapper">
       <div class="block"
            v-if="stage === 1">
         <p>手牌：</p>
         <span class="selection" v-show="hand.length === 0">空</span>
-        <span class="selection"
-              :class="{active: index === selected}"
-              @click="selected = index"
-              v-for="(item, index) in hand">{{item}}</span>
+        <img class="selection"
+             :class="{active: index === selected}"
+             @click="selected = index"
+             :src="'../../static/' + _converter(item)"
+             v-for="(item, index) in hand">
       </div>
       <div class="block"
            v-if="room && stage === 1">
@@ -73,24 +74,24 @@
 
 <script>
   let vm
-  //  const cardWrapper = {
-  //    '侍卫-1': 'bodyguard',
-  //    '侍卫-2': 'bodyguard',
-  //    '侍卫-3': 'bodyguard',
-  //    '侍卫-4': 'bodyguard',
-  //    '侍卫-5': 'bodyguard',
-  //    '牧师-1': 'priest',
-  //    '牧师-2': 'priest',
-  //    '男爵-1': 'baron',
-  //    '男爵-2': 'baron',
-  //    '侍女-1': 'handmaid',
-  //    '侍女-2': 'handmaid',
-  //    '王子-1': 'prince',
-  //    '王子-2': 'prince',
-  //    '国王': 'king',
-  //    '女伯爵': 'countess',
-  //    '公主': 'princess'
-  //  }
+  const cardWrapper = {
+    '侍卫-1': '1',
+    '侍卫-2': '1',
+    '侍卫-3': '1',
+    '侍卫-4': '1',
+    '侍卫-5': '1',
+    '牧师-1': '2',
+    '牧师-2': '2',
+    '男爵-1': '3',
+    '男爵-2': '3',
+    '侍女-1': '4',
+    '侍女-2': '4',
+    '王子-1': '5',
+    '王子-2': '5',
+    '国王': '6',
+    '女伯爵': '7',
+    '公主': '8'
+  }
   const cardStage = {
     '侍卫-1': 3,
     '侍卫-2': 3,
@@ -208,6 +209,9 @@
         this.$socket.emit('discard', this.discard)
         this.myTurn = false
         this.stage = 1
+      },
+      _converter (card) {
+        return cardWrapper[card] + '.jpg'
       }
     },
     mounted () {
@@ -228,15 +232,20 @@
   }
 
   .selection {
-    border: 1px solid #aaa;
+    margin-left: 8px;
+    margin-top: 8px;
   }
 
   span.selection {
     display: inline-block;
+    border: 1px solid #aaa;
     padding: 8px 5px;
     line-height: 20px;
-    margin-left: 8px;
-    margin-top: 8px;
+  }
+
+  img.selection {
+    width: 120px;
+    border: 3px solid #aaa;
   }
 
   .selection.active {
