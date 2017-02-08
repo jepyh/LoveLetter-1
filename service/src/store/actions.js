@@ -9,7 +9,7 @@ import {findWinner} from './module/rules'
  */
 const _isGameOver = (clientId) => {
   let room = rooms.getContext(players.getContext(clientId).currentRoom)
-  return (room.players.length - room.outPlayers.length) < 2 || room.deck.length === 0
+  return room.players.length < 2 || room.deck.length === 0
 }
 
 /**
