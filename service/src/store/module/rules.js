@@ -85,10 +85,11 @@ export const dispatcher = (card, player1, player2, extra) => {
  */
 export const findWinner = (players) => {
   let winner
+  let _players = []
   if (players.length === 1) {
     winner = players[0]
+    _players.push(_getContext(winner))
   } else {
-    let _players = []
     for (let i of players) {
       _players.push(_getContext(i))
     }
@@ -96,7 +97,7 @@ export const findWinner = (players) => {
     winner = _players[0].id
   }
   let roomId = _getContext(winner).currentRoom
-  speaker.result(rooms.getContext(roomId))
+  speaker.result(rooms.getContext(roomId), _players)
   speaker.winner(roomId, winner)
   return winner
 }

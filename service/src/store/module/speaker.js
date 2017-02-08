@@ -46,7 +46,7 @@ export default {
     _io.to(roomId).emit('message', statements.ready(player))
   },
   result (room) {
-    _io.to(room.id).emit('message', statements.result(room))
+    _io.to(room.id).emit('message', statements.result(room), players)
   },
   cancel (roomId, player) {
     _io.to(roomId).emit('cancel', player)
