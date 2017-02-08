@@ -133,6 +133,7 @@ export default {
     room.currentState = 'IDLE'
     rooms[roomId] = room
     speaker.createRoom(room, clientId)
+    speaker._updateRoom(room)
   },
   /**
    * 加入房间

@@ -12,12 +12,12 @@ io.on('connection', (client) => {
   // console.log(store.getters.getData())
   io.to(clientId).emit('data', store.getters.getData())
   client.on('create', () => {
-    store.actions.createRoom(clientId)
     client.join('room_' + clientId)
+    store.actions.createRoom(clientId)
   })
   client.on('join', (roomId) => {
-    store.actions.joinRoom(clientId, roomId)
     client.join(roomId)
+    store.actions.joinRoom(clientId, roomId)
   })
   client.on('exit', () => {
     client.leave(store.actions.exitRoom(clientId))

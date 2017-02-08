@@ -31,7 +31,7 @@
     methods: {
       createRoom () {
         this.$socket.emit('create')
-        this.$router.push({name: 'Room', params: {roomId: this.$socket.id}})
+        this.$router.push({name: 'Room', params: {roomId: 'room_' + this.$socket.id}})
       },
       quickStart () {
         alert('匹配系统暂未上线')
