@@ -57,7 +57,7 @@
   .messages.active {
     overflow: scroll;
     padding: 10px;
-    height: 30%;
+    height: 45%;
   }
 
   .messages-switch {
