@@ -293,7 +293,7 @@ export default {
     if (index < 0) {
       return console.log('ERROR.INVALID_DATA === rooms.js | out')
     } else {
-      speaker.out(player.id, room.id)
+      speaker.out(room.id, player.id)
       room.outPlayers.unshift(player.id)
       room.players.splice(index, 1)
     }
