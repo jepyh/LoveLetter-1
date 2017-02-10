@@ -3,7 +3,7 @@
     <div class="header" style="justify-content: center;">
       <p>设置</p>
     </div>
-    <div class="main" style="padding: 10px;">
+    <div class="main">
       <div class="setting">
         <p>仅显示空闲房间</p>
         <div class="switch" :class="{active: settings.isOnlyIdle}" @click="toggleOnlyIdle"></div>

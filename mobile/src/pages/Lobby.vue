@@ -6,9 +6,9 @@
       <img @click="help" class="icon" src="../assets/help.png">
     </div>
     <div class="main">
-      <p style="padding: 10px;">在线人数：{{getPlayers}}</p>
+      <p>在线人数：{{getPlayers}}</p>
       <p v-show="getRooms.length === 0"
-         style="font-weight: bold; line-height: 40px; text-align: center;">
+         class="words">
         暂无房间
       </p>
       <div class="rooms">

@@ -256,14 +256,6 @@
 </script>
 
 <style scoped>
-  #room {
-    height: 100%;
-  }
-
-  .room-wrapper {
-    padding: 10px;
-  }
-
   .selection {
     margin-left: 8px;
     margin-top: 8px;

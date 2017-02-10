@@ -14,6 +14,8 @@ import MessageBox from './components/MessageBox.vue'
 Vue.component('lh-room', Room)
 Vue.component('lh-message-box', MessageBox)
 
+router.replace({name: 'login'})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -6,12 +6,12 @@
 </template>
 
 <script>
-export default {
-  name: 'app',
-  mounted () {
-    this.$store.dispatch('pushMessage', '欢迎进入《情书》的游戏大厅，请创建房间或快速加入进行游戏。')
+  export default {
+    name: 'app',
+    mounted () {
+      this.$store.dispatch('pushMessage', '欢迎来到《情书》的世界，请先登录；如未注册账号，会自动进行注册并登录。')
+    }
   }
-}
 </script>
 
 <style>
@@ -46,6 +46,7 @@ export default {
   }
 
   .main {
+    padding: 10px;
   }
 
   .footer {
@@ -64,5 +65,11 @@ export default {
     color: white;
     font-weight: bold;
     min-width: 50%;
+  }
+
+  p.words {
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
   }
 </style>

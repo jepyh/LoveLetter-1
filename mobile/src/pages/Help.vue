@@ -3,7 +3,7 @@
     <div class="header" style="justify-content: center;">
       <p>帮助</p>
     </div>
-    <div class="main" style="padding: 10px;">
+    <div class="main">
       <h3>游戏规则</h3>
       <ol>
         <li>系统会自动根据游戏人数抽取底牌，并在开始时给每个玩家发一张牌。</li>
