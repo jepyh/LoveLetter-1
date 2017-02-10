@@ -85,7 +85,15 @@ export default new Vuex.Store({
       commit('push', '系统提示：' + msg)
     },
     validToken: () => {
-      return window.localStorage.token
+      return new Promise(
+        (resolve, reject) => {
+          if (window.localStorage.token) {
+            resolve()
+          } else {
+            reject()
+          }
+        }
+      )
     }
   },
   mounted () {
