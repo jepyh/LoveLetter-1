@@ -24,13 +24,13 @@ export default new Router({
       path: '/',
       name: 'lobby',
       component: Lobby,
-      beforeEnter: requireAuth
+      // beforeEnter: requireAuth
     },
     {
       path: '/room/:roomId',
       name: 'room',
       component: Room,
-      beforeEnter: requireAuth
+      // beforeEnter: requireAuth
     },
     {
       path: '/setting',
