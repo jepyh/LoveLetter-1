@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6f8dabf-25c3-493c-a82c-fddf46fc4c79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/love-letter.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/pages/Login.vue" afterPath="$PROJECT_DIR$/mobile/src/pages/Login.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/src/router/index.js" afterPath="$PROJECT_DIR$/mobile/src/router/index.js" />
     </list>
@@ -19,14 +15,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mobile/src/router/index.js">
+      <file leaf-file-name="Login.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mobile/src/pages/Login.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+            <state relative-caret-position="144">
+              <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
               <folding>
-                <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#101#139#0" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#p#1;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,9 +47,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mobile/src/pages/Login.vue" />
         <option value="$PROJECT_DIR$/service/.gitignore" />
         <option value="$PROJECT_DIR$/mobile/src/router/index.js" />
+        <option value="$PROJECT_DIR$/mobile/src/pages/Login.vue" />
       </list>
     </option>
   </component>
@@ -305,12 +302,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1501496495778</updated>
-      <workItem from="1501496496988" duration="619000" />
+      <workItem from="1501496496988" duration="796000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="619000" />
+    <option name="totallyTimeSpent" value="796000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
@@ -588,52 +585,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/pages/Login.vue">
+    <entry file="file://$PROJECT_DIR$/mobile/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="2" column="31" lean-forward="true" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
-            <marker date="1501497024000" expanded="true" signature="9:898" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="17:886" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="50:74" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="75:108" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="131:742" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="216:494" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="252:316" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="332:397" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="413:481" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="518:731" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="541:561" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="767:877" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="792:866" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="809:829" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="908:1506" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="927:1497" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="940:1011" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="955:1005" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1026:1119" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1042:1113" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1135:1288" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1150:1282" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1179:1274" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1198:1222" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="1240:1264" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="1304:1493" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1439:1479" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1522:1766" ph="..." />
-            <marker date="1501497024000" expanded="true" signature="1532:1691" ph="{...}" />
-            <marker date="1501497024000" expanded="true" signature="1701:1758" ph="{...}" />
+            <marker date="1501497353000" expanded="true" signature="7:53" ph="..." />
+            <marker date="1501497353000" expanded="true" signature="111:298" ph="..." />
+            <marker date="1501497353000" expanded="true" signature="300:436" ph="//..." />
+            <marker date="1501497353000" expanded="true" signature="464:948" ph="{...}" />
+            <marker date="1501497353000" expanded="true" signature="476:946" ph="[...]" />
+            <marker date="1501497353000" expanded="true" signature="482:584" ph="{&quot;name&quot;: 'lobby'...}" />
+            <marker date="1501497353000" expanded="true" signature="590:702" ph="{&quot;name&quot;: 'room'...}" />
+            <marker date="1501497353000" expanded="true" signature="708:787" ph="{&quot;name&quot;: 'setting'...}" />
+            <marker date="1501497353000" expanded="true" signature="793:863" ph="{&quot;name&quot;: 'help'...}" />
+            <marker date="1501497353000" expanded="true" signature="869:942" ph="{&quot;name&quot;: 'login'...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile/src/router/index.js">
+    <entry file="file://$PROJECT_DIR$/mobile/src/pages/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="6" lean-forward="true" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+        <state relative-caret-position="144">
+          <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#101#139#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#p#1;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

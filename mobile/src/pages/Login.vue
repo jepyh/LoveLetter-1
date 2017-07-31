@@ -32,20 +32,20 @@
 
 <script>
   export default {
-    data() {
+    data () {
       return {
         auth: 0,
         isFailed: false
       }
     },
     methods: {
-      login() {
+      login () {
         this.$socket.emit('exit')
         this.$router.go(-1)
       }
     },
     computed: {
-      mode() {
+      mode () {
         switch (this.auth) {
           case 0:
             return '登录'
@@ -54,10 +54,10 @@
         }
       }
     },
-    created() {
+    created () {
       let vm = this
       this.$store.dispatch('validToken').then(
-        () => vm.$router.replace({ name: 'home' }),
+        () => vm.$router.replace({name: 'home'}),
         () => {
           vm.isFailed = true
         }
