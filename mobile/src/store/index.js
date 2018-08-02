@@ -28,29 +28,29 @@ export default new Vuex.Store({
       console.log('连接成功')
       state.connect = true
     },
-    SOCKET_data: (state, data) => {
+    SOCKET_DATA: (state, data) => {
       state.rooms = data.rooms
       state.players = data.players
     },
-    SOCKET_enter: (state) => {
+    SOCKET_ENTER: (state) => {
       state.players += 1
     },
-    SOCKET_leave: (state) => {
+    SOCKET_LEAVE: (state) => {
       state.players -= 1
     },
-    SOCKET_message: (state, msg) => {
+    SOCKET_MESSAGE: (state, msg) => {
       state.messages.unshift({body: datePrefix(msg), type: 'SERVER'})
     },
-    SOCKET_create: (state, room) => {
+    SOCKET_CREATE: (state, room) => {
       state.rooms.push(room)
     },
-    SOCKET_update: (state, room) => {
+    SOCKET_UPDATE: (state, room) => {
       let index = state.rooms.findIndex(item => item.id === room.id)
       if (index >= 0) {
         state.rooms.splice(index, 1, room)
       }
     },
-    SOCKET_destroy: (state, roomId) => {
+    SOCKET_DESTROY: (state, roomId) => {
       let index = state.rooms.findIndex(item => item.id === roomId)
       if (index >= 0) {
         state.rooms.splice(index, 1)
